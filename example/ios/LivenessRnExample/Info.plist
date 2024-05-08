@@ -48,5 +48,23 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Use to scan QR code and take photos of user's certificate and uses the camera to read passports</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>The application does not use this feature</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>The application does not use this feature</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The application does not use this feature</string>
+	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+	<array>
+		<string>A0000002471001</string>
+		<string>A0000002472001</string>
+		<string>00000000000000</string>
+	</array>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>iPhoneOS</string>
+	</array>
 </dict>
 </plist>

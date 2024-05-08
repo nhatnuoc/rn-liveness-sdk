@@ -11,13 +11,18 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :ios => min_ios_version_supported }
+  s.platforms    = { :ios => "11.0" }
   s.source       = { :git => "https://github.com/NamNg102/liveness-rn.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
-
+  
+  s.xcconfig = { 'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES' }
+  s.dependency "LivenessCloud"
+  s.dependency 'KeychainSwift', '~> 19.0'
+  
   # Use install_modules_dependencies helper to install the dependencies if React Native version >=0.71.0.
   # See https://github.com/facebook/react-native/blob/febf6b7f33fdb4904669f99d795eba4c0f95d7bf/scripts/cocoapods/new_architecture.rb#L79.
+  
   if respond_to?(:install_modules_dependencies, true)
     install_modules_dependencies(s)
   else
@@ -29,7 +34,8 @@ Pod::Spec.new do |s|
     s.pod_target_xcconfig    = {
         "HEADER_SEARCH_PATHS" => "\"$(PODS_ROOT)/boost\"",
         "OTHER_CPLUSPLUSFLAGS" => "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1",
-        "CLANG_CXX_LANGUAGE_STANDARD" => "c++17"
+        "CLANG_CXX_LANGUAGE_STANDARD" => "c++17",
+        "BUILD_LIBRARY_FOR_DISTRIBUTION" => "YES",
     }
     s.dependency "React-Codegen"
     s.dependency "RCT-Folly"

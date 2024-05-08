@@ -1,18 +1,53 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'liveness-rn';
-
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import {
+  configure,
+  getDeviceId,
+  startLiveNess,
+  registerFace,
+} from 'liveness-rn';
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+  useEffect(() => {
+    let appId = 'com.qts.test';
+    configure(appId, '', '', '');
   }, []);
+
+  const onStartLiveNess = () => {
+    startLiveNess((data) => {
+      console.log('startLiveNess', data);
+    });
+  };
+
+  const onGetDeviceID = () => {
+    getDeviceId((data) => {
+      console.log('onGetDeviceID', data);
+    });
+  };
+
+  const onRegisterFace = () => {
+    registerFace(require('../assets/image.png'), (data) => {
+      console.log('startLiveNess', data);
+    });
+  };
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <TouchableOpacity onPress={onStartLiveNess} style={styles.btn_liveness}>
+        <Text>Start LiveNess</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={onGetDeviceID}
+        style={styles.btn_register_face}
+      >
+        <Text>get Device ID</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={onRegisterFace}
+        style={styles.btn_register_face}
+      >
+        <Text>Start Register Face</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -23,9 +58,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  btn_liveness: {
+    padding: 10,
+    backgroundColor: '#c0c0c0',
+    width: '90%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+  },
+  btn_register_face: {
+    padding: 10,
+    marginTop: 24,
+    backgroundColor: '#c0c0c0',
+    width: '90%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
   },
 });

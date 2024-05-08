@@ -5,6 +5,9 @@ buildscript {
   repositories {
     google()
     mavenCentral()
+    jcenter()
+    gradlePluginPortal()
+    maven { url 'https://jitpack.io' }
   }
 
   dependencies {
@@ -80,6 +83,9 @@ android {
 repositories {
   mavenCentral()
   google()
+  jcenter()
+  gradlePluginPortal()
+  maven { url 'https://jitpack.io' }
 }
 
 def kotlin_version = getExtOrDefault("kotlinVersion")
@@ -90,5 +96,6 @@ dependencies {
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation 'com.github.ThuyTruongVan:liveness_sdk_android:v1.0.7'
 }
 

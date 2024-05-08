@@ -17,6 +17,41 @@ const LivenessRn = NativeModules.LivenessRn
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return LivenessRn.multiply(a, b);
+type ActionCallback = (status: any) => void;
+
+export function configure(
+  appId: String,
+  secret: String = '',
+  baseURL: String = '',
+  clientTransactionId: String = ''
+) {
+  LivenessRn.configure(appId, secret, baseURL, clientTransactionId);
 }
+
+export function getDeviceId(
+  callback: ActionCallback | undefined | null = null
+) {
+  return LivenessRn.getDeviceId(callback);
+}
+
+export function registerFace(
+  image: String = '',
+  callback: ActionCallback | undefined | null = null
+) {
+  LivenessRn.registerFace(image, callback);
+}
+
+export function startLiveNess(
+  callback: ActionCallback | undefined | null = null
+) {
+  LivenessRn.startLiveNess(callback);
+}
+
+const LivenessSdk = {
+  configure,
+  getDeviceId,
+  registerFace,
+  startLiveNess,
+};
+
+export default LivenessSdk;
