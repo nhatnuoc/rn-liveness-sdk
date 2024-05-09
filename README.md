@@ -49,21 +49,6 @@ allprojects {
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     ...
     </style>
-```
-
-2. Or edit `AndroidManifest.xml`
-
-```xml
-<manifest ... xmlns:tools="http://schemas.android.com/tools">
-    ...
-    <application
-        ...
-        tools:replace="android:theme">
-        ...
-    </application>   
-```
-
-## Usage
 
 ```ts
 import PVcomBankPayment from 'liveness-rn';
