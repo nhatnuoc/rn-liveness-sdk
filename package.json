@@ -26,7 +26,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace liveness-rn-example",
+    "example": "yarn --cwd example",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -39,10 +39,7 @@
     "ios",
     "android"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/NamNg102/liveness-rn.git"
-  },
+  "repository": "https://github.com/NamNg102/liveness-rn",
   "author": "NamNg102 <ngonamhk102@gmail.com> (https://github.com/NamNg102)",
   "license": "MIT",
   "bugs": {
