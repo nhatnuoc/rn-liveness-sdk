@@ -22,7 +22,7 @@ package.json
 or
 ```json
 "dependencies": {
-    "liveness-r": "file://{path_to_folder_clone}/liveness-rn",
+    "liveness-rn": "file://{path_to_folder_clone}/liveness-rn",
 }
 ```
 
