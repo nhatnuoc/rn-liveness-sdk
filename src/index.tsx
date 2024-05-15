@@ -19,6 +19,8 @@ const LivenessRn = NativeModules.LivenessRn
 
 type ActionCallback = (status: any) => void;
 
+export { default as LivenessView } from './LivenessView';
+
 export function configure(
   appId: String,
   secret: String = '',
@@ -31,14 +33,18 @@ export function configure(
 export function getDeviceId(
   callback: ActionCallback | undefined | null = null
 ) {
-  return LivenessRn.getDeviceId(callback);
+  LivenessRn.getDeviceId(callback);
 }
 
 export function registerFace(
   image: String = '',
   callback: ActionCallback | undefined | null = null
 ) {
-  LivenessRn.registerFace(image, callback);
+  if (Platform.OS === 'ios') {
+    LivenessRn.registerFace(image, callback);
+  } else {
+    LivenessRn.registerFace(callback);
+  }
 }
 
 export function startLiveNess(

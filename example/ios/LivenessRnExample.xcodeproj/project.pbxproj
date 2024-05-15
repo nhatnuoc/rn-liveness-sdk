@@ -15,6 +15,8 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		92A80DE3A1DE57A740AA3DA6 /* Pods_LivenessRnExample_LivenessRnExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E23770E01CE87A8C9BC8F4F /* Pods_LivenessRnExample_LivenessRnExampleTests.framework */; };
 		C2DBA32307864D3137028402 /* Pods_LivenessRnExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0D6A5324998F6F7E454802 /* Pods_LivenessRnExample.framework */; };
+		DBE707262BF5073A00C27D20 /* com.qts.test.txt in Resources */ = {isa = PBXBuildFile; fileRef = DBE707242BF5073A00C27D20 /* com.qts.test.txt */; };
+		DBE707272BF5073A00C27D20 /* eid.txt in Resources */ = {isa = PBXBuildFile; fileRef = DBE707252BF5073A00C27D20 /* eid.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		DB30AC5E2BE927E300204ECF /* CoreModules.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreModules.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB30AC632BE928E600204ECF /* CoreModules.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreModules.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB30AC652BE92C5800204ECF /* CoreModules.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreModules.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBE707242BF5073A00C27D20 /* com.qts.test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = com.qts.test.txt; path = ../../ios/com.qts.test.txt; sourceTree = "<group>"; };
+		DBE707252BF5073A00C27D20 /* eid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = eid.txt; path = ../../ios/eid.txt; sourceTree = "<group>"; };
 		DBF48FD42BE8B0E800CED3BC /* CoreModules.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreModules.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF48FDA2BE8B10C00CED3BC /* LivenessUtility.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LivenessUtility.xcframework; path = Pods/LivenessCloud/LivenessUtility/LivenessUtility.xcframework; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -108,6 +112,8 @@
 		13B07FAE1A68108700A75B9A /* LivenessRnExample */ = {
 			isa = PBXGroup;
 			children = (
+				DBE707242BF5073A00C27D20 /* com.qts.test.txt */,
+				DBE707252BF5073A00C27D20 /* eid.txt */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -279,7 +285,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				DBE707262BF5073A00C27D20 /* com.qts.test.txt in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				DBE707272BF5073A00C27D20 /* eid.txt in Resources */,
 				3B7CEF21B6B3B2B880147F12 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,9 +475,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 089CDC728CA9C13D3E5BAF77 /* Pods-LivenessRnExample.debug.xcconfig */;
 			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZFZ64J27N5;
@@ -561,9 +570,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BA555DB8B8454ED9ECDBAA38 /* Pods-LivenessRnExample.release.xcconfig */;
 			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZFZ64J27N5;
@@ -655,7 +665,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -684,7 +694,7 @@
 				CXX = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -692,6 +702,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -725,6 +736,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -750,7 +762,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -779,9 +791,13 @@
 				CXX = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION,
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -812,6 +828,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",

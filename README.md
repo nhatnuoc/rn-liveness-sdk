@@ -9,6 +9,7 @@ Liveness - React Native
   * Android minSdkVersion: 24
   * Android compileSdkVersion: 33
   * Android targetSdkVersion: 33
+  * React Native version < 0.73
 
 ## Installation
 
@@ -30,27 +31,25 @@ or
 
 #### Android
 
-2. React Native version < 0.71
+1. In root android's project -> add to `build.gradle`
 
-allprojects {
-    repositories {
-        jcenter()
-    }
+```java
+repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    
 }
 ```
 
-## Common Issue
+#### IOS
+```
+After pod installation is complete, copy the file "LivenessUtility.xcframework" to /Pods/LivenessCloud/LivenessUtility.
 
-#### App crash on start in Android
+The file is placed in the ios_fameworks path.
 
-1. In `res` -> `values` -> `styles.xml` change AppTheme to MaterialTheme
+```
 
-```xml
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-    ...
-    </style>
-
-```ts
 import PVcomBankPayment from 'liveness-rn';
 
 
