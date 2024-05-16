@@ -49,7 +49,16 @@ After pod installation is complete, copy the file "LivenessUtility.xcframework" 
 The file is placed in the ios_fameworks path.
 
 ```
-
+```
+add Podfile:
+    use_frameworks!
+    ***
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+      end
+    end
+```
 import PVcomBankPayment from 'liveness-rn';
 
 
