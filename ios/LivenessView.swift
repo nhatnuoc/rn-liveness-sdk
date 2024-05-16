@@ -72,4 +72,9 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
         }
         print(action.rawValue)
     }
+    
+    
+    func stopLiveness() {
+        livenessDetector?.stopLiveness()
+    }
 }
