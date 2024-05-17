@@ -64,6 +64,9 @@ export default function App() {
             onEvent={(data: any) => {
               console.log('===sendEvent===', data.nativeEvent?.data);
             }}
+            onDidFinish={(data: any) => {
+              console.log('===onDidFinish===', data.nativeEvent?.data);
+            }}
           />
         </View>
       )}

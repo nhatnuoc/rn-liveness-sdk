@@ -51,13 +51,15 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   }
   
   @objc var onEvent: RCTBubblingEventBlock?
+    @objc var onDidFinish: RCTBubblingEventBlock?
   
   func liveness(liveness: LivenessUtilityDetector, didFail withError: LivenessError) {
     pushEvent(data: withError)
   }
   
   func liveness(liveness: LivenessUtilityDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?) {
-    pushEvent(data: message)
+      let event = ["data": [["message": message, "verificationImage": verificationImage, "result": result, "livenesScore": livenesScore]]]
+      self.onDidFinish!(event)
   }
     func liveness(liveness: LivenessUtilityDetector, startLivenessAction action: LivenessAction) {
         if action == .smile{
