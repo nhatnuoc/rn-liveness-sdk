@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
   
-  s.xcconfig = { 'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES' }
+  # s.xcconfig = { 'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES' }
   s.dependency "LivenessCloud"
   s.dependency 'KeychainSwift', '~> 19.0'
   
@@ -35,7 +35,7 @@ Pod::Spec.new do |s|
         "HEADER_SEARCH_PATHS" => "\"$(PODS_ROOT)/boost\"",
         "OTHER_CPLUSPLUSFLAGS" => "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1",
         "CLANG_CXX_LANGUAGE_STANDARD" => "c++17",
-        "BUILD_LIBRARY_FOR_DISTRIBUTION" => "YES",
+        # "BUILD_LIBRARY_FOR_DISTRIBUTION" => "YES",
     }
     s.dependency "React-Codegen"
     s.dependency "RCT-Folly"

@@ -2,7 +2,6 @@ package com.livenessrn
 
 import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.Callback
-import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -70,7 +69,20 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
         getLivenessRequest(),
         object : CallbackLivenessListener {
           override fun onCallbackLiveness(data: LivenessModel?) {
-            callback?.invoke(data)
+            val resultData: WritableMap = WritableNativeMap()
+            if (data?.success == true) {
+              resultData.putInt("status", data?.status ?: 401)
+              resultData.putString("data", "${data?.data ?: "empty"}")
+              resultData.putString("message", "${data?.message ?: "empty"}")
+              resultData.putString("code", "${data?.code ?: "empty"}")
+              resultData.putString("pathVideo", "${data?.pathVideo ?: "empty"}")
+              resultData.putString("signature", "${data?.signature ?: "empty"}")
+            } else {
+              resultData.putInt("status", data?.status ?: 401)
+              resultData.putString("message", "${data?.message ?: "empty"}")
+              resultData.putString("code", "${data?.code ?: "empty"}")
+            }
+            callback?.invoke(resultData)
           }
         })
     }
@@ -84,7 +96,20 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
         getLivenessRequest(),
         object : CallbackLivenessListener {
           override fun onCallbackLiveness(data: LivenessModel?) {
-            callback?.invoke(data)
+            val resultData: WritableMap = WritableNativeMap()
+            if (data?.success == true) {
+              resultData.putInt("status", data?.status ?: 401)
+              resultData.putString("data", "${data?.data ?: "empty"}")
+              resultData.putString("message", "${data?.message ?: "empty"}")
+              resultData.putString("code", "${data?.code ?: "empty"}")
+              resultData.putString("pathVideo", "${data?.pathVideo ?: "empty"}")
+              resultData.putString("signature", "${data?.signature ?: "empty"}")
+            } else {
+              resultData.putInt("status", data?.status ?: 401)
+              resultData.putString("message", "${data?.message ?: "empty"}")
+              resultData.putString("code", "${data?.code ?: "empty"}")
+            }
+            callback?.invoke(resultData)
           }
         })
     }
