@@ -64,15 +64,13 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
     func liveness(liveness: LivenessUtilityDetector, startLivenessAction action: LivenessAction) {
         if action == .smile{
             pushEvent(data: [["message": "check smile", "action": action.rawValue]])
-        }else if action == .fetchConfig{
+        } else if action == .fetchConfig{
             pushEvent(data: [["message": "start check smile", "action": action.rawValue]])
-        }else if action == .detectingFace{
+        } else if action == .detectingFace{
             pushEvent(data: [["message": "detect face", "action": action.rawValue]])
-        }
-        else{
+        } else{
             pushEvent(data: [["message": "done smile", "action": action.rawValue]])
         }
-        print(action.rawValue)
     }
     
     

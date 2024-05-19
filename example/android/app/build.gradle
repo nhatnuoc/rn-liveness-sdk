@@ -102,11 +102,20 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    compileOptions {
+      sourceCompatibility JavaVersion.VERSION_1_8
+      targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+      jvmTarget="11"
+    }
 }
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    // implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.22"
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

@@ -51,7 +51,11 @@ export default function App() {
 
   const onRegisterFace = () => {
     registerFace(imageData, (data) => {
-      console.log('startLiveNess', data);
+      if (Platform.OS === 'ios') {
+        console.log('onRegisterFace', data);
+      } else {
+        console.log('onRegisterFace', data);
+      }
     });
   };
 

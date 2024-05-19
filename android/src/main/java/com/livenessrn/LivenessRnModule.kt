@@ -1,5 +1,6 @@
 package com.livenessrn
 
+import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactApplicationContext
@@ -66,22 +67,17 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
     currentActivity!!.runOnUiThread {
       LiveNessSDK.registerFace(
         reactApplicationContext.currentActivity as FragmentActivity,
-        getLivenessRequest(),
+        getLivenessRequest(image),
         object : CallbackLivenessListener {
           override fun onCallbackLiveness(data: LivenessModel?) {
             val resultData: WritableMap = WritableNativeMap()
-            if (data?.success == true) {
-              resultData.putInt("status", data?.status ?: 401)
-              resultData.putString("data", "${data?.data ?: "empty"}")
-              resultData.putString("message", "${data?.message ?: "empty"}")
-              resultData.putString("code", "${data?.code ?: "empty"}")
-              resultData.putString("pathVideo", "${data?.pathVideo ?: "empty"}")
-              resultData.putString("signature", "${data?.signature ?: "empty"}")
-            } else {
-              resultData.putInt("status", data?.status ?: 401)
-              resultData.putString("message", "${data?.message ?: "empty"}")
-              resultData.putString("code", "${data?.code ?: "empty"}")
-            }
+            resultData.putInt("status", data?.status ?: -1)
+            resultData.putString("data", "${data?.data ?: ""}")
+            resultData.putString("message", "${data?.message ?: ""}")
+            resultData.putString("code", "${data?.code ?: ""}")
+            resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
+            resultData.putString("faceImage", "${data?.faceImage ?: ""}")
+            resultData.putString("livenessImage", "${data?.livenessImage ?: ""}")
             callback?.invoke(resultData)
           }
         })
@@ -99,15 +95,15 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
             val resultData: WritableMap = WritableNativeMap()
             if (data?.success == true) {
               resultData.putInt("status", data?.status ?: 401)
-              resultData.putString("data", "${data?.data ?: "empty"}")
-              resultData.putString("message", "${data?.message ?: "empty"}")
-              resultData.putString("code", "${data?.code ?: "empty"}")
-              resultData.putString("pathVideo", "${data?.pathVideo ?: "empty"}")
-              resultData.putString("signature", "${data?.signature ?: "empty"}")
+              resultData.putString("data", "${data?.data ?: ""}")
+              resultData.putString("message", "${data?.message ?: ""}")
+              resultData.putString("code", "${data?.code ?: ""}")
+              resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
+              resultData.putString("signature", "${data?.signature ?: ""}")
             } else {
               resultData.putInt("status", data?.status ?: 401)
-              resultData.putString("message", "${data?.message ?: "empty"}")
-              resultData.putString("code", "${data?.code ?: "empty"}")
+              resultData.putString("message", "${data?.message ?: ""}")
+              resultData.putString("code", "${data?.code ?: ""}")
             }
             callback?.invoke(resultData)
           }
@@ -115,7 +111,7 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
     }
   }
 
-  private fun getLivenessRequest(): LivenessRequest {
+  private fun getLivenessRequest(image: String? = null): LivenessRequest {
     val privateKey = "-----BEGIN PRIVATE KEY-----\n" +
       "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDChqQeJapdPhq6\n" +
       "oxRo2okcLdTLvAXXUCxUUaUeMjOHnzCBkpEuidqAYw/BbktH+aAhBE4ZlvptuP0M\n" +
@@ -167,7 +163,9 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
       deviceId = UUID.randomUUID().toString()
     }
     return LivenessRequest(
-      duration = 600, privateKey = privateKey, appId = appId,
+      duration = 600, privateKey = privateKey,
+      appId = appId,
+      imageFace = image,
       deviceId = deviceId, clientTransactionId = clientTransactionId, secret = secret,
       baseURL = baseURL, publicKey = public_key
     )

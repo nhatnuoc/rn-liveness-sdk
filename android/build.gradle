@@ -61,7 +61,6 @@ android {
   defaultConfig {
     minSdkVersion getExtOrIntegerDefault("minSdkVersion")
     targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
-
   }
 
   buildTypes {
@@ -75,13 +74,13 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_11
-    targetCompatibility JavaVersion.VERSION_11
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 
-  kotlinOptions {
-    jvmTarget = '11'
-  }
+//  kotlinOptions {
+//    jvmTarget = '1.8'
+//  }
 }
 
 repositories {
@@ -100,6 +99,6 @@ dependencies {
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'com.github.ThuyTruongVan:liveness_sdk_android:v1.0.7'
+  implementation 'com.github.ThuyTruongVan:liveness_sdk_android:1.1.8'
 }
 
