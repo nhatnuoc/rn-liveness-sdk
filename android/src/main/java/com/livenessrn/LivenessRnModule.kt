@@ -92,19 +92,16 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
         getLivenessRequest(),
         object : CallbackLivenessListener {
           override fun onCallbackLiveness(data: LivenessModel?) {
+            Log.d("CALLBACK DATA", "$data")
             val resultData: WritableMap = WritableNativeMap()
-            if (data?.success == true) {
-              resultData.putInt("status", data?.status ?: 401)
-              resultData.putString("data", "${data?.data ?: ""}")
-              resultData.putString("message", "${data?.message ?: ""}")
-              resultData.putString("code", "${data?.code ?: ""}")
-              resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
-              resultData.putString("signature", "${data?.signature ?: ""}")
-            } else {
-              resultData.putInt("status", data?.status ?: 401)
-              resultData.putString("message", "${data?.message ?: ""}")
-              resultData.putString("code", "${data?.code ?: ""}")
-            }
+            resultData.putInt("status", data?.status ?: -1)
+            resultData.putString("data", "${data?.data ?: ""}")
+            resultData.putString("message", "${data?.message ?: ""}")
+            resultData.putString("code", "${data?.code ?: ""}")
+            resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
+            resultData.putString("faceImage", "${data?.faceImage ?: ""}")
+            resultData.putString("livenessImage", "${data?.livenessImage ?: ""}")
+            callback?.invoke(resultData)
             callback?.invoke(resultData)
           }
         })
