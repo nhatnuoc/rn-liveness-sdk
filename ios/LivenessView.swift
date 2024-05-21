@@ -14,6 +14,7 @@ import UIKit
 class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   var transactionId = ""
   var livenessDetector: LivenessUtilityDetector?
+  var requestid = ""
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -29,7 +30,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
     // in here you can configure your view
     Task {
       do {
-        let response = try await Networking.shared.initTransaction()
+          let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": requestid])
         if response.status == 200 {
           self.transactionId = response.data
           self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, threshold: .low,delay: 0, smallFaceThreshold: 0.25, debugging: true, delegate: self, livenessMode: .twoDimension)
@@ -59,6 +60,9 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   
   @objc var onEvent: RCTBubblingEventBlock?
   @objc var onDidFinish: RCTBubblingEventBlock?
+  @objc func setRequestid(_ val: NSString) {
+    requestid = val as String
+  }
   
   func liveness(liveness: LivenessUtilityDetector, didFail withError: LivenessError) {
     pushEvent(data: withError)

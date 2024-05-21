@@ -71,6 +71,7 @@ export default function App() {
             onDidFinish={(data: any) => {
               console.log('===onDidFinish===', data.nativeEvent?.data);
             }}
+            requestid={'requestid'}
           />
         </View>
       )}
