@@ -40,11 +40,7 @@ export function registerFace(
   image: String = '',
   callback: ActionCallback | undefined | null = null
 ) {
-  if (Platform.OS === 'ios') {
-    LivenessRn.registerFace(image, callback);
-  } else {
-    LivenessRn.registerFace(callback);
-  }
+  LivenessRn.registerFace(image, callback);
 }
 
 export function startLiveNess(

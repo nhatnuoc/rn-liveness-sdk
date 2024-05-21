@@ -1,8 +1,8 @@
 package com.livenessrn
 
+import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.Callback
-import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -67,10 +67,18 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
     currentActivity!!.runOnUiThread {
       LiveNessSDK.registerFace(
         reactApplicationContext.currentActivity as FragmentActivity,
-        getLivenessRequest(),
+        getLivenessRequest(image),
         object : CallbackLivenessListener {
           override fun onCallbackLiveness(data: LivenessModel?) {
-            callback?.invoke(data)
+            val resultData: WritableMap = WritableNativeMap()
+            resultData.putInt("status", data?.status ?: -1)
+            resultData.putString("data", "${data?.data ?: ""}")
+            resultData.putString("message", "${data?.message ?: ""}")
+            resultData.putString("code", "${data?.code ?: ""}")
+            resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
+            resultData.putString("faceImage", "${data?.faceImage ?: ""}")
+            resultData.putString("livenessImage", "${data?.livenessImage ?: ""}")
+            callback?.invoke(resultData)
           }
         })
     }
@@ -84,13 +92,23 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
         getLivenessRequest(),
         object : CallbackLivenessListener {
           override fun onCallbackLiveness(data: LivenessModel?) {
-            callback?.invoke(data)
+            Log.d("CALLBACK DATA", "$data")
+            val resultData: WritableMap = WritableNativeMap()
+            resultData.putInt("status", data?.status ?: -1)
+            resultData.putString("data", "${data?.data ?: ""}")
+            resultData.putString("message", "${data?.message ?: ""}")
+            resultData.putString("code", "${data?.code ?: ""}")
+            resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
+            resultData.putString("faceImage", "${data?.faceImage ?: ""}")
+            resultData.putString("livenessImage", "${data?.livenessImage ?: ""}")
+            callback?.invoke(resultData)
+            callback?.invoke(resultData)
           }
         })
     }
   }
 
-  private fun getLivenessRequest(): LivenessRequest {
+  private fun getLivenessRequest(image: String? = null): LivenessRequest {
     val privateKey = "-----BEGIN PRIVATE KEY-----\n" +
       "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDChqQeJapdPhq6\n" +
       "oxRo2okcLdTLvAXXUCxUUaUeMjOHnzCBkpEuidqAYw/BbktH+aAhBE4ZlvptuP0M\n" +
@@ -142,7 +160,9 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
       deviceId = UUID.randomUUID().toString()
     }
     return LivenessRequest(
-      duration = 600, privateKey = privateKey, appId = appId,
+      duration = 600, privateKey = privateKey,
+      appId = appId,
+      imageFace = image,
       deviceId = deviceId, clientTransactionId = clientTransactionId, secret = secret,
       baseURL = baseURL, publicKey = public_key
     )

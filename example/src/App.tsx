@@ -51,7 +51,11 @@ export default function App() {
 
   const onRegisterFace = () => {
     registerFace(imageData, (data) => {
-      console.log('startLiveNess', data);
+      if (Platform.OS === 'ios') {
+        console.log('onRegisterFace', data);
+      } else {
+        console.log('onRegisterFace', data);
+      }
     });
   };
 
@@ -63,6 +67,9 @@ export default function App() {
             style={styles.view_liveness}
             onEvent={(data: any) => {
               console.log('===sendEvent===', data.nativeEvent?.data);
+            }}
+            onDidFinish={(data: any) => {
+              console.log('===onDidFinish===', data.nativeEvent?.data);
             }}
           />
         </View>

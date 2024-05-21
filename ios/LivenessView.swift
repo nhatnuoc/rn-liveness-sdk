@@ -49,27 +49,38 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
       self.onEvent!(event)
     }
   }
+
+  private func finishEvent(data: Any) -> Void {
+    if (self.onDidFinish != nil) {
+      let event = ["data": data]
+      self.onDidFinish!(event)
+    }
+  }
   
   @objc var onEvent: RCTBubblingEventBlock?
+  @objc var onDidFinish: RCTBubblingEventBlock?
   
   func liveness(liveness: LivenessUtilityDetector, didFail withError: LivenessError) {
     pushEvent(data: withError)
   }
   
   func liveness(liveness: LivenessUtilityDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?) {
-    pushEvent(data: message)
+      finishEvent(data: [["message": message, "verificationImage": verificationImage, "result": result, "livenesScore": livenesScore]])
   }
     func liveness(liveness: LivenessUtilityDetector, startLivenessAction action: LivenessAction) {
         if action == .smile{
             pushEvent(data: [["message": "check smile", "action": action.rawValue]])
-        }else if action == .fetchConfig{
+        } else if action == .fetchConfig{
             pushEvent(data: [["message": "start check smile", "action": action.rawValue]])
-        }else if action == .detectingFace{
+        } else if action == .detectingFace{
             pushEvent(data: [["message": "detect face", "action": action.rawValue]])
-        }
-        else{
+        } else{
             pushEvent(data: [["message": "done smile", "action": action.rawValue]])
         }
-        print(action.rawValue)
+    }
+    
+    
+    func stopLiveness() {
+        livenessDetector?.stopLiveness()
     }
 }

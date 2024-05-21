@@ -71,6 +71,17 @@ add Podfile:
 
 import PVcomBankPayment from 'liveness-rn';
 
+```
+getDeviceId:
+  getDeviceId((data) => {
+    // todo deviceId
+  });
+
+registerFace:
+  registerFace(imageBase64, (data) => {
+   // todo data registerFace
+  });
+```
 
 ## Contributing
 
