@@ -69,7 +69,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   }
   
   func liveness(liveness: LivenessUtilityDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?) {
-      finishEvent(data: [["message": message, "verificationImage": verificationImage, "result": result, "livenesScore": livenesScore]])
+      finishEvent(data: [["message": message, "verificationImage": verificationImage, "result": result, "livenesScore": livenesScore, "videoURL": videoURL ?? ""]])
   }
     func liveness(liveness: LivenessUtilityDetector, startLivenessAction action: LivenessAction) {
         if action == .smile{
