@@ -10,13 +10,35 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
     }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url "https://maven.google.com" }
+        maven { url "https://jitpack.io" }
+        maven { url "$rootDir/repository"}
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
 }
 
 //apply plugin: "com.facebook.react.rootproject"

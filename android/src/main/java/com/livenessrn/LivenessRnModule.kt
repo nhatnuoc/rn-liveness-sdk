@@ -86,26 +86,26 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun startLiveNess(callback: Callback? = null) {
-    currentActivity!!.runOnUiThread {
-      LiveNessSDK.startLiveNess(
-        reactApplicationContext.currentActivity as FragmentActivity,
-        getLivenessRequest(),
-        object : CallbackLivenessListener {
-          override fun onCallbackLiveness(data: LivenessModel?) {
-            Log.d("CALLBACK DATA", "$data")
-            val resultData: WritableMap = WritableNativeMap()
-            resultData.putInt("status", data?.status ?: -1)
-            resultData.putString("data", "${data?.data ?: ""}")
-            resultData.putString("message", "${data?.message ?: ""}")
-            resultData.putString("code", "${data?.code ?: ""}")
-            resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
-            resultData.putString("faceImage", "${data?.faceImage ?: ""}")
-            resultData.putString("livenessImage", "${data?.livenessImage ?: ""}")
-            callback?.invoke(resultData)
-            callback?.invoke(resultData)
-          }
-        })
-    }
+//    currentActivity!!.runOnUiThread {
+//      LiveNessSDK.startLiveNess(
+//        reactApplicationContext.currentActivity as FragmentActivity,
+//        getLivenessRequest(),
+//        object : CallbackLivenessListener {
+//          override fun onCallbackLiveness(data: LivenessModel?) {
+//            Log.d("CALLBACK DATA", "$data")
+//            val resultData: WritableMap = WritableNativeMap()
+//            resultData.putInt("status", data?.status ?: -1)
+//            resultData.putString("data", "${data?.data ?: ""}")
+//            resultData.putString("message", "${data?.message ?: ""}")
+//            resultData.putString("code", "${data?.code ?: ""}")
+//            resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
+//            resultData.putString("faceImage", "${data?.faceImage ?: ""}")
+//            resultData.putString("livenessImage", "${data?.livenessImage ?: ""}")
+//            callback?.invoke(resultData)
+//            callback?.invoke(resultData)
+//          }
+//        })
+//    }
   }
 
   private fun getLivenessRequest(image: String? = null): LivenessRequest {

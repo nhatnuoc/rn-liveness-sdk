@@ -49,13 +49,26 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
       let event = ["data": data]
       self.onEvent!(event)
     }
+    // Task {
+    //   let event = ["data": data]
+    //   DispatchQueue.main.async {
+    //     EventEmitter.shared.dispatch(event: .onEvent, body: event)
+    //   }
+    // }
   }
 
   private func finishEvent(data: Any) -> Void {
-    if (self.onDidFinish != nil) {
-      let event = ["data": data]
-      self.onDidFinish!(event)
-    }
+   if (self.onDidFinish != nil) {
+     let event = ["data": data]
+     self.onDidFinish!(event)
+   }
+      
+      // Task {
+      //   let event = ["data": data]
+      //   DispatchQueue.main.async {
+      //     EventEmitter.shared.dispatch(event: .onDidFinish, body: event)
+      //   }
+      // }
   }
   
   @objc var onEvent: RCTBubblingEventBlock?
