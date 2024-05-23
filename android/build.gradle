@@ -86,19 +86,25 @@ android {
 repositories {
   mavenCentral()
   google()
-  jcenter()
   gradlePluginPortal()
-  maven { url 'https://jitpack.io' }
+  maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+  maven { url 'https://www.jitpack.io'}
+  maven {
+    setUrl("$rootDir/repository")
+  }
 }
 
-def kotlin_version = getExtOrDefault("kotlinVersion")
+//def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
   // For < 0.71, this will be from the local maven repo
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'com.github.ThuyTruongVan:liveness_sdk_android:1.1.8'
+//  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+//  implementation 'com.github.ThuyTruongVan:liveness_sdk_android:1.1.8'
+  implementation ("io.liveness.flash:sdk-android:v1.1.9@aar") {
+    transitive = true
+  }
 }
 

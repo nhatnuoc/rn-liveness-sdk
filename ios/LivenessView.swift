@@ -14,6 +14,8 @@ import UIKit
 class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   var transactionId = ""
   var livenessDetector: LivenessUtilityDetector?
+  var requestid = ""
+  var appId = ""
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -29,7 +31,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
     // in here you can configure your view
     Task {
       do {
-        let response = try await Networking.shared.initTransaction()
+        let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": requestid])
         if response.status == 200 {
           self.transactionId = response.data
           self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, threshold: .low,delay: 0, smallFaceThreshold: 0.25, debugging: true, delegate: self, livenessMode: .twoDimension)
@@ -49,23 +51,23 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
       self.onEvent!(event)
     }
   }
-
-  private func finishEvent(data: Any) -> Void {
-    if (self.onDidFinish != nil) {
-      let event = ["data": data]
-      self.onDidFinish!(event)
-    }
-  }
   
   @objc var onEvent: RCTBubblingEventBlock?
-  @objc var onDidFinish: RCTBubblingEventBlock?
+  
+  @objc func setRequestid(_ val: NSString) {
+      self.requestid = val as String
+  }
+
+  @objc func setAppId(_ val: NSString) {
+      self.appId = val as String
+  }
   
   func liveness(liveness: LivenessUtilityDetector, didFail withError: LivenessError) {
     pushEvent(data: withError)
   }
   
   func liveness(liveness: LivenessUtilityDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?) {
-      finishEvent(data: [["message": message, "verificationImage": verificationImage, "result": result, "livenesScore": livenesScore]])
+      pushEvent(data: [["message": message, "verificationImage": verificationImage, "result": result, "livenesScore": livenesScore, "videoURL": videoURL ?? ""]])
   }
     func liveness(liveness: LivenessUtilityDetector, startLivenessAction action: LivenessAction) {
         if action == .smile{
