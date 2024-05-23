@@ -21,6 +21,7 @@ import com.liveness.sdk.core.LiveNessSDK
 import com.liveness.sdk.core.MainLiveNessActivity
 import com.liveness.sdk.core.model.DataModel
 import com.liveness.sdk.core.model.LivenessModel
+import com.liveness.sdk.core.model.LivenessRequest
 import com.liveness.sdk.core.utils.CallbackLivenessListener
 
 
@@ -36,24 +37,31 @@ class LivenessViewManager(
 
   private val callBack = object : CallbackLivenessListener{
     override fun onCallbackLiveness(livenessModel: LivenessModel?) {
-      if (livenessModel != null) {
+      if (livenessModel != null && livenessModel.status != null && livenessModel.status == 200) {
         val map = Arguments.createMap()
-        map.putInt("status", livenessModel.status!!)
-        map.putString("message", livenessModel.message!!)
-        map.putString("request_id", livenessModel.requestId!!)
-        map.putString("code", livenessModel.code!!)
-        map.putBoolean("success", livenessModel.success!!)
-        map.putString("pathVideo", livenessModel.pathVideo!!)
-        map.putString("faceImage", livenessModel.faceImage!!)
-        map.putString("livenessImage", livenessModel.livenessImage!!)
-        map.putString("transactionID", livenessModel.transactionID!!)
+        map.putInt("status", livenessModel.status ?: -1)
+        map.putString("message", livenessModel.message ?: "")
+        map.putString("request_id", livenessModel.requestId ?: "")
+        map.putString("code", livenessModel.code ?: "")
+        map.putBoolean("success", livenessModel.success ?: false)
+        map.putString("pathVideo", livenessModel.pathVideo ?: "")
+        map.putString("faceImage", livenessModel.faceImage ?: "")
+        map.putString("livenessImage", livenessModel.livenessImage ?: "")
+        map.putString("transactionID", livenessModel.transactionID ?: "")
 
         if (livenessModel.data != null) {
           val mapData = Arguments.createMap()
-          map.putString("faceMatchingScore", livenessModel.data!!.faceMatchingScore!!)
-          map.putString("livenessType", livenessModel.data!!.livenessType!!)
-          map.putDouble("livenesScore", livenessModel.data!!.livenesScore!!.toDouble())
+          map.putString("faceMatchingScore", livenessModel.data?.faceMatchingScore ?: "")
+          map.putString("livenessType", livenessModel.data?.livenessType ?: "")
+          map.putDouble("livenesScore", (livenessModel.data?.livenesScore ?: 0).toDouble())
+          map.putMap("data", mapData)
         }
+        LivenessRnPackage.sendEvent(reactContext,"onEvent", map)
+      } else {
+        val map = Arguments.createMap()
+        map.putInt("status", livenessModel?.status ?: -1)
+        map.putString("message", livenessModel?.message ?: "")
+        map.putString("code", livenessModel?.code ?: "")
         LivenessRnPackage.sendEvent(reactContext,"onEvent", map)
       }
     }
@@ -116,12 +124,11 @@ class LivenessViewManager(
 
     val bundle = Bundle()
     bundle.putString("KEY_BUNDLE_SCREEN", "")
-    bundle.putString("REQUEST_ID", this.requestId)
-    bundle.putString("APP_ID", this.appId)
     val myFragment = MainLiveNessActivity()
     myFragment.arguments = bundle
 
     LiveNessSDK.setCallbackListener(callBack)
+    LiveNessSDK.setLivenessRequest(LivenessRequest(clientTransactionId = this.requestId))
 
     val activity = reactContext?.currentActivity as FragmentActivity
     activity.supportFragmentManager

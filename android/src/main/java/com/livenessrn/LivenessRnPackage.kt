@@ -5,6 +5,7 @@ import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.WritableMap
+import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter
 import com.facebook.react.uimanager.ViewManager
 
@@ -24,8 +25,11 @@ class LivenessRnPackage : ReactPackage {
       eventName: String?,
       @Nullable params: WritableMap?
     ) {
+//      context
+//        ?.getJSModule(RCTDeviceEventEmitter::class.java)
+//        ?.emit(eventName!!, params)
       context
-        ?.getJSModule(RCTDeviceEventEmitter::class.java)
+        ?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
         ?.emit(eventName!!, params)
     }
   }

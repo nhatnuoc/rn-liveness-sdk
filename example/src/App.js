@@ -9,8 +9,8 @@ import {
   PixelRatio,
   UIManager,
   findNodeHandle,
-  DeviceEventEmitter,
-  NativeEventEmitter, 
+  // DeviceEventEmitter,
+  NativeEventEmitter,
   NativeModules,
 } from 'react-native';
 
@@ -34,8 +34,6 @@ const imageData =
       [viewId],
     );
 
-const EVENT_ON_TEXT_CHANGED = 'onTextChanged';
-
 export default function App() {
   const [status, setStatus] = useState(false);
   const [layout, setLayout] = useState({ width: 0, height: 0 });
@@ -43,17 +41,32 @@ export default function App() {
 
   useEffect(() => {
     if (Platform.OS != 'ios') {
-      const viewId = findNodeHandle(ref.current);
-      createFragment(viewId);
+      const viewId = findNodeHandle(ref?.current);
+      if (viewId) {
+        createFragment(viewId);
+      }
     }
+  }, [ref.current]);
+
+  useEffect(() => {
+    const nativeModuleEventEmitter = new NativeEventEmitter(
+      NativeModules.ReactNativeEventEmitter
+    );
+
+    let eventListenerEvent = nativeModuleEventEmitter.addListener("onEvent", data => {
+      // todo check liveness android
+      console.log('onEvent ==========', data);
+    });
+
+    // Removes the listener once unmounted
+    return () => {
+      eventListenerEvent.remove();
+    };
   }, []);
 
   useEffect(() => {
     let appId = 'com.qts.test';
     configure(appId);
-    DeviceEventEmitter.addListener('onEvent', data => {
-      console.log('onEvent ==========', data);
-    });
   }, []);
 
   const onStartLiveNess = () => {
@@ -68,11 +81,7 @@ export default function App() {
 
   const onRegisterFace = () => {
     registerFace(imageData, (data) => {
-      if (Platform.OS === 'ios') {
-        console.log('onRegisterFace', data);
-      } else {
-        console.log('onRegisterFace', data);
-      }
+      console.log('onRegisterFace', data);
     });
   };
 
@@ -87,32 +96,8 @@ export default function App() {
     setLayout({width, height})
   }
 
-  console.log("layout", layout);
-
   return (
     <View style={styles.container}>
-      {/* <View style={styles.view_camera} onLayout={handleLayout}>
-          <LivenessView
-            ref={ref}
-            style={
-              Platform.OS === 'ios' ? styles.view_liveness :
-              {
-                // converts dpi to px, provide desired height
-                height: PixelRatio.getPixelSizeForLayoutSize(layout.height),
-                // converts dpi to px, provide desired width
-                width: PixelRatio.getPixelSizeForLayoutSize(layout.width),
-              }
-            }
-            // onEvent={(data) => {
-            //   console.log('===sendEvent===', data.nativeEvent?.data);
-            // }}
-            // onDidFinish={(data) => {
-            //   console.log('===onDidFinish===', data.nativeEvent?.data);
-            // }}
-            requestId={'requestid'}
-            appId={'com.qts.test'}
-          />
-        </View> */}
         {status && (
         <View style={styles.view_camera} onLayout={handleLayout}>
           <LivenessView

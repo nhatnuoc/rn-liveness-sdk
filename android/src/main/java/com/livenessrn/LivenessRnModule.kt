@@ -109,6 +109,7 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
   }
 
   private fun getLivenessRequest(image: String? = null): LivenessRequest {
+    Log.d("checkLiveNessFlash", "checkLiveNessFlash==== 3= $image")
     val privateKey = "-----BEGIN PRIVATE KEY-----\n" +
       "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDChqQeJapdPhq6\n" +
       "oxRo2okcLdTLvAXXUCxUUaUeMjOHnzCBkpEuidqAYw/BbktH+aAhBE4ZlvptuP0M\n" +
