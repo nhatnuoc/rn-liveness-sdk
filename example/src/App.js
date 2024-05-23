@@ -95,9 +95,6 @@ export default function App() {
             onEvent={(data) => {
               console.log('===sendEvent===', data.nativeEvent?.data);
             }}
-            onDidFinish={(data) => {
-              console.log('===onDidFinish===', data.nativeEvent?.data);
-            }}
             requestid={'requestid'}
             appId={'com.qts.test'}
           />
