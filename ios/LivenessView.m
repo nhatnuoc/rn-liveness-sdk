@@ -13,6 +13,6 @@
  
 @interface RCT_EXTERN_MODULE(RCTLivenessViewManager, RCTViewManager)
   RCT_EXPORT_VIEW_PROPERTY(onEvent, RCTBubblingEventBlock)
-  RCT_EXPORT_VIEW_PROPERTY(onDidFinish, RCTBubblingEventBlock)
   RCT_EXPORT_VIEW_PROPERTY(requestid, NSString)
+  RCT_EXPORT_VIEW_PROPERTY(appId, NSString)
 @end

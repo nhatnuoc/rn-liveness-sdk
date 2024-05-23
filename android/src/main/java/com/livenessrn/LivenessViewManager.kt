@@ -19,7 +19,6 @@ import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.annotations.ReactPropGroup
 import com.liveness.sdk.core.LiveNessSDK
 import com.liveness.sdk.core.MainLiveNessActivity
-import com.liveness.sdk.core.model.DataModel
 import com.liveness.sdk.core.model.LivenessModel
 import com.liveness.sdk.core.model.LivenessRequest
 import com.liveness.sdk.core.utils.CallbackLivenessListener
@@ -27,45 +26,12 @@ import com.liveness.sdk.core.utils.CallbackLivenessListener
 
 class LivenessViewManager(
   private val reactContext: ReactApplicationContext
-) : ViewGroupManager<FrameLayout>() {
+) : ViewGroupManager<LivenessView>() {
   private var requestId: String = ""
   private var appId: String = "com.qts.test"
-  private var callback: Callback? = null
 
   private var propWidth: Int? = null
   private var propHeight: Int? = null
-
-  private val callBack = object : CallbackLivenessListener{
-    override fun onCallbackLiveness(livenessModel: LivenessModel?) {
-      if (livenessModel != null && livenessModel.status != null && livenessModel.status == 200) {
-        val map = Arguments.createMap()
-        map.putInt("status", livenessModel.status ?: -1)
-        map.putString("message", livenessModel.message ?: "")
-        map.putString("request_id", livenessModel.requestId ?: "")
-        map.putString("code", livenessModel.code ?: "")
-        map.putBoolean("success", livenessModel.success ?: false)
-        map.putString("pathVideo", livenessModel.pathVideo ?: "")
-        map.putString("faceImage", livenessModel.faceImage ?: "")
-        map.putString("livenessImage", livenessModel.livenessImage ?: "")
-        map.putString("transactionID", livenessModel.transactionID ?: "")
-
-        if (livenessModel.data != null) {
-          val mapData = Arguments.createMap()
-          map.putString("faceMatchingScore", livenessModel.data?.faceMatchingScore ?: "")
-          map.putString("livenessType", livenessModel.data?.livenessType ?: "")
-          map.putDouble("livenesScore", (livenessModel.data?.livenesScore ?: 0).toDouble())
-          map.putMap("data", mapData)
-        }
-        LivenessRnPackage.sendEvent(reactContext,"onEvent", map)
-      } else {
-        val map = Arguments.createMap()
-        map.putInt("status", livenessModel?.status ?: -1)
-        map.putString("message", livenessModel?.message ?: "")
-        map.putString("code", livenessModel?.code ?: "")
-        LivenessRnPackage.sendEvent(reactContext,"onEvent", map)
-      }
-    }
-  }
 
   override fun getName() = REACT_CLASS
 
@@ -74,20 +40,20 @@ class LivenessViewManager(
 
   override fun getCommandsMap() = mapOf("create" to COMMAND_CREATE)
 
-  override fun getExportedCustomBubblingEventTypeConstants(): Map<String?, Any?>? {
-    return createExportedCustomDirectEventTypeConstants()
-  }
-
-  fun createExportedCustomDirectEventTypeConstants(): Map<String?, Any?>? {
-    return MapBuilder.builder<String?, Any?>()
-      .put(EVENT_NAME, MapBuilder.of("registrationName", EVENT_NAME)).build()
+  override fun getExportedCustomDirectEventTypeConstants(): Map<String, Any>? {
+    return MapBuilder.builder<String, Any>()
+      .put(
+        "nativeClick",  //Same as name registered with receiveEvent
+        MapBuilder.of("registrationName", "onEvent")
+      )
+      .build()
   }
 
   /**
    * Handle "create" command (called from JS) and call createFragment method
    */
   override fun receiveCommand(
-    root: FrameLayout,
+    root: LivenessView,
     commandId: String,
     args: ReadableArray?
   ) {
@@ -127,7 +93,6 @@ class LivenessViewManager(
     val myFragment = MainLiveNessActivity()
     myFragment.arguments = bundle
 
-    LiveNessSDK.setCallbackListener(callBack)
     LiveNessSDK.setLivenessRequest(LivenessRequest(clientTransactionId = this.requestId))
 
     val activity = reactContext?.currentActivity as FragmentActivity
@@ -169,7 +134,6 @@ class LivenessViewManager(
   companion object {
     private const val REACT_CLASS = "LivenessViewManager"
     private const val COMMAND_CREATE = 1
-    const val EVENT_NAME = "onTextChanged"
 
   }
 

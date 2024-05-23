@@ -15,6 +15,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   var transactionId = ""
   var livenessDetector: LivenessUtilityDetector?
   var requestid = ""
+  var appId = ""
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -49,32 +50,16 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
       let event = ["data": data]
       self.onEvent!(event)
     }
-    // Task {
-    //   let event = ["data": data]
-    //   DispatchQueue.main.async {
-    //     EventEmitter.shared.dispatch(event: .onEvent, body: event)
-    //   }
-    // }
-  }
-
-  private func finishEvent(data: Any) -> Void {
-   if (self.onDidFinish != nil) {
-     let event = ["data": data]
-     self.onDidFinish!(event)
-   }
-      
-      // Task {
-      //   let event = ["data": data]
-      //   DispatchQueue.main.async {
-      //     EventEmitter.shared.dispatch(event: .onDidFinish, body: event)
-      //   }
-      // }
   }
   
   @objc var onEvent: RCTBubblingEventBlock?
-  @objc var onDidFinish: RCTBubblingEventBlock?
+  
   @objc func setRequestid(_ val: NSString) {
-    requestid = val as String
+      self.requestid = val as String
+  }
+
+  @objc func setAppId(_ val: NSString) {
+      self.appId = val as String
   }
   
   func liveness(liveness: LivenessUtilityDetector, didFail withError: LivenessError) {
@@ -82,7 +67,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   }
   
   func liveness(liveness: LivenessUtilityDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?) {
-      finishEvent(data: [["message": message, "verificationImage": verificationImage, "result": result, "livenesScore": livenesScore, "videoURL": videoURL ?? ""]])
+      pushEvent(data: [["message": message, "verificationImage": verificationImage, "result": result, "livenesScore": livenesScore, "videoURL": videoURL ?? ""]])
   }
     func liveness(liveness: LivenessUtilityDetector, startLivenessAction action: LivenessAction) {
         if action == .smile{

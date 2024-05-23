@@ -9,9 +9,6 @@ import {
   PixelRatio,
   UIManager,
   findNodeHandle,
-  // DeviceEventEmitter,
-  NativeEventEmitter,
-  NativeModules,
 } from 'react-native';
 
 
@@ -47,22 +44,6 @@ export default function App() {
       }
     }
   }, [ref.current]);
-
-  useEffect(() => {
-    const nativeModuleEventEmitter = new NativeEventEmitter(
-      NativeModules.ReactNativeEventEmitter
-    );
-
-    let eventListenerEvent = nativeModuleEventEmitter.addListener("onEvent", data => {
-      // todo check liveness android
-      console.log('onEvent ==========', data);
-    });
-
-    // Removes the listener once unmounted
-    return () => {
-      eventListenerEvent.remove();
-    };
-  }, []);
 
   useEffect(() => {
     let appId = 'com.qts.test';
