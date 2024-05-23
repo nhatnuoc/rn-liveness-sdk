@@ -43,7 +43,7 @@ export default function App() {
         createFragment(viewId);
       }
     }
-  }, [ref.current]);
+  }, [ref.current, status]);
 
   useEffect(() => {
     let appId = 'com.qts.test';

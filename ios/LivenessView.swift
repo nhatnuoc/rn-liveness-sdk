@@ -31,7 +31,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
     // in here you can configure your view
     Task {
       do {
-        let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": requestid])
+          let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": self.requestid], clientTransactionId: self.requestid)
         if response.status == 200 {
           self.transactionId = response.data
           self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, threshold: .low,delay: 0, smallFaceThreshold: 0.25, debugging: true, delegate: self, livenessMode: .twoDimension)
