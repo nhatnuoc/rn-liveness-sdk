@@ -72,9 +72,9 @@ class LivenessViewManager(
     if (index == 1) propHeight = value
   }
 
-  @ReactProp(name = "requestId")
-  fun setRequestId(view: FrameLayout, requestId: String) {
-    this.requestId = requestId
+  @ReactProp(name = "requestid")
+  fun setRequestid(view: FrameLayout, requestid: String) {
+    this.requestId = requestid
   }
 
   @ReactProp(name = "appId")

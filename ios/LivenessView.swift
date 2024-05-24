@@ -37,7 +37,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
           self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, threshold: .low,delay: 0, smallFaceThreshold: 0.25, debugging: true, delegate: self, livenessMode: .twoDimension)
           try self.livenessDetector?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
         } else {
-          pushEvent(data: [["status" : response.status, "data": response.data, "signature": response.signature]])
+          pushEvent(data: ["status" : response.status, "data": response.data, "signature": response.signature])
         }
       } catch {
         pushEvent(data: error)
@@ -66,18 +66,19 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
     pushEvent(data: withError)
   }
   
-  func liveness(liveness: LivenessUtilityDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?) {
-      pushEvent(data: [["message": message, "verificationImage": verificationImage, "result": result, "livenesScore": livenesScore, "videoURL": videoURL ?? ""]])
+  func liveness(liveness: LivenessUtilityDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: LivenessResult?) {
+      pushEvent(data: ["message": message, "verificationImage": verificationImage, "result": result, "livenesScore": livenesScore, "videoURL": videoURL ?? "", "request_id": response?.request_id ?? "", "status": response?.status ?? "", "success": response?.succes ?? "", "code": response?.code ?? "", "data": response?.data ?? ""])
+//      Request id, message, status, success
   }
     func liveness(liveness: LivenessUtilityDetector, startLivenessAction action: LivenessAction) {
         if action == .smile{
-            pushEvent(data: [["message": "check smile", "action": action.rawValue]])
+            pushEvent(data: ["message": "check smile", "action": action.rawValue])
         } else if action == .fetchConfig{
-            pushEvent(data: [["message": "start check smile", "action": action.rawValue]])
+            pushEvent(data: ["message": "start check smile", "action": action.rawValue])
         } else if action == .detectingFace{
-            pushEvent(data: [["message": "detect face", "action": action.rawValue]])
+            pushEvent(data: ["message": "detect face", "action": action.rawValue])
         } else{
-            pushEvent(data: [["message": "done smile", "action": action.rawValue]])
+            pushEvent(data: ["message": "done smile", "action": action.rawValue])
         }
     }
     
