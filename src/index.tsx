@@ -23,11 +23,20 @@ export { default as LivenessView } from './LivenessView';
 
 export function configure(
   appId: String,
+  publicKey: String,
+  privateKey: String,
   secret: String = '',
   baseURL: String = '',
   clientTransactionId: String = ''
 ) {
-  LivenessRn.configure(appId, secret, baseURL, clientTransactionId);
+  LivenessRn.configure(
+    appId,
+    publicKey,
+    privateKey,
+    secret,
+    baseURL,
+    clientTransactionId
+  );
 }
 
 export function getDeviceId(

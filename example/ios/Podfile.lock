@@ -17,12 +17,12 @@ PODS:
   - hermes-engine/Pre-built (0.72.10)
   - KeychainSwift (19.0.0)
   - libevent (2.1.12)
-  - liveness-rn (1.0.34):
+  - liveness-rn (1.0.35):
     - KeychainSwift (~> 19.0)
     - LivenessCloud
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
-  - LivenessCloud (1.1.5):
+  - LivenessCloud (1.1.8):
     - CryptoSwift (~> 1.8.2)
     - KeychainSwift (~> 19.0)
     - ObjectMapper (~> 4.2)
@@ -590,8 +590,8 @@ SPEC CHECKSUMS:
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  liveness-rn: 321a2f91cb43e67da571f9e3d29c8ee8287eb422
-  LivenessCloud: e996a4e75949ea60e0835fb684108ca678599590
+  liveness-rn: 011b68d1288d209580d42478059d303298a43dcf
+  LivenessCloud: 373ec8ae21a17c863455d3cf1683366eaacb7672
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: b4d3068afa6f52ec5260a8417053b1f1b421483d

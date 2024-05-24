@@ -16,22 +16,31 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   var livenessDetector: LivenessUtilityDetector?
   var requestid = ""
   var appId = ""
+  var baseUrl = ""
+  var privateKey = ""
+  var publicKey = ""
+  var secret = "ABCDEFGHIJKLMNOP"
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    setupView()
+//    setupView()
   }
  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    setupView()
+//    setupView()
   }
+    
+    private func setupConfig() {
+        Networking.shared.setup(appId: appId, logLevel: .debug, url: self.baseUrl, publicKey: self.publicKey, privateKey: self.privateKey)
+        setupView()
+    }
  
   private func setupView() {
     // in here you can configure your view
     Task {
       do {
-          let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": self.requestid], clientTransactionId: self.requestid)
+        let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": self.requestid], clientTransactionId: self.requestid)
         if response.status == 200 {
           self.transactionId = response.data
           self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, threshold: .low,delay: 0, smallFaceThreshold: 0.25, debugging: true, delegate: self, livenessMode: .twoDimension)
@@ -57,10 +66,23 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   @objc func setRequestid(_ val: NSString) {
       self.requestid = val as String
   }
-
+    
   @objc func setAppId(_ val: NSString) {
-      self.appId = val as String
+    self.appId = val as String
   }
+    
+  @objc func setBaseUrl(_ val: NSString) {
+    self.baseUrl = val as String
+      self.setupConfig()
+  }
+    
+    @objc func setPrivateKey(_ val: NSString) {
+      self.privateKey = val as String
+    }
+    
+    @objc func setPublicKey(_ val: NSString) {
+      self.publicKey = val as String
+    }
   
   func liveness(liveness: LivenessUtilityDetector, didFail withError: LivenessError) {
     pushEvent(data: withError)

@@ -12,8 +12,8 @@ class LivenessRn: NSObject {
   var baseURL = "https://face-matching.vietplus.eu"
   var clientTransactionId = "TEST"
   
-  @objc(configure:secret:baseURL:clientTransactionId:)
-  func configure(appId: String, secret: String? = nil, baseURL: String? = nil, clientTransactionId: String? = "") {
+    @objc(configure:publicKey:privateKey:secret:baseURL:clientTransactionId:)
+    func configure(appId: String, publicKey: String, privateKey: String, secret: String? = nil, baseURL: String? = nil, clientTransactionId: String? = "") {
     self.appId = appId
     if (secret != nil && secret != "") {
       self.secret = secret!
@@ -24,11 +24,7 @@ class LivenessRn: NSObject {
     if (clientTransactionId != nil && clientTransactionId != "") {
       self.clientTransactionId = clientTransactionId!
     }
-      let urlPrivate = Bundle.main.url(forResource: "com.qts.test", withExtension: "txt")
-      let urlPublic = Bundle.main.url(forResource: "eid", withExtension: "txt")
-      let privateKey = try! String(contentsOf: urlPrivate!, encoding: .utf8)
-      let publicKey = try! String(contentsOf: urlPublic!, encoding: .utf8)
-      print(privateKey)
+    print(privateKey)
     Networking.shared.setup(appId: appId, logLevel: .debug, url: self.baseURL, publicKey: publicKey, privateKey: privateKey)
     print("setup SS")
   }
