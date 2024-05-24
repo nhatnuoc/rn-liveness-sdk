@@ -119,11 +119,9 @@ class LivenessViewManager(
 
     val activity = reactContext?.currentActivity as FragmentActivity
 
-
-    if (LiveNessSDK.getDeviceId(activity) == null) {
+    if (LiveNessSDK.getDeviceId(activity).isNullOrEmpty()) {
       LiveNessSDK.registerDevice(activity, LivenessRequest(
-        duration = 600, privateKey = privateKey,
-        appId = this.appId, clientTransactionId = this.requestId, secret = secret,
+        duration = 60, privateKey = privateKey, appId = appId,
         baseURL = baseURL, publicKey = publicKey
       ), object: CallbackAPIListener {
         override fun onCallbackResponse(data: String?) {
