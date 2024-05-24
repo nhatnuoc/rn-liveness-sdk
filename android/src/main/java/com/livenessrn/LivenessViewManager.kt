@@ -21,7 +21,9 @@ import com.liveness.sdk.core.LiveNessSDK
 import com.liveness.sdk.core.MainLiveNessActivity
 import com.liveness.sdk.core.model.LivenessModel
 import com.liveness.sdk.core.model.LivenessRequest
+import com.liveness.sdk.core.utils.CallbackAPIListener
 import com.liveness.sdk.core.utils.CallbackLivenessListener
+import org.json.JSONObject
 import java.util.UUID
 
 
@@ -117,12 +119,40 @@ class LivenessViewManager(
 
     val activity = reactContext?.currentActivity as FragmentActivity
 
-    LiveNessSDK.setLivenessRequest(activity, getLivenessRequest())
 
-    activity.supportFragmentManager
-      .beginTransaction()
-      .replace(reactNativeViewId, myFragment, reactNativeViewId.toString())
-      .commit()
+    if (LiveNessSDK.getDeviceId(activity) == null) {
+      LiveNessSDK.registerDevice(activity, LivenessRequest(
+        duration = 600, privateKey = privateKey,
+        appId = this.appId, clientTransactionId = this.requestId, secret = secret,
+        baseURL = baseURL, publicKey = publicKey
+      ), object: CallbackAPIListener {
+        override fun onCallbackResponse(data: String?) {
+          var result: JSONObject? = null
+          if (data != null && data.length > 0) {
+            result = JSONObject(data)
+          }
+          var statusDevice = -1
+          if (result?.has("status") == true) {
+            statusDevice = result.getInt("status")
+          }
+          if (statusDevice == 200) {
+            LiveNessSDK.setConfigSDK(activity, getLivenessRequest())
+
+            activity.supportFragmentManager
+              .beginTransaction()
+              .replace(reactNativeViewId, myFragment, reactNativeViewId.toString())
+              .commit()
+          }
+        }
+      })
+    } else {
+      LiveNessSDK.setConfigSDK(activity, getLivenessRequest())
+
+      activity.supportFragmentManager
+        .beginTransaction()
+        .replace(reactNativeViewId, myFragment, reactNativeViewId.toString())
+        .commit()
+    }
   }
 
   fun setupLayout(view: View) {
@@ -161,10 +191,9 @@ class LivenessViewManager(
   }
 
   private fun getLivenessRequest(): LivenessRequest {
-    if (deviceId.isNullOrEmpty()) {
-      val activity = reactContext?.currentActivity as FragmentActivity
-      deviceId = LiveNessSDK.getDeviceId(activity)!!
-    }
+    val activity = reactContext?.currentActivity as FragmentActivity
+
+    deviceId = LiveNessSDK.getDeviceId(activity).toString()
 
     val optionRequest: HashMap<String, String> = HashMap()
     optionRequest["requestId"] = this.requestId
