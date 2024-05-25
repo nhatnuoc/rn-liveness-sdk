@@ -111,33 +111,33 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
   private fun getLivenessRequest(image: String? = null): LivenessRequest {
     Log.d("checkLiveNessFlash", "checkLiveNessFlash==== 3= $image")
     val privateKey = "-----BEGIN PRIVATE KEY-----\n" +
-      "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDChqQeJapdPhq6\n" +
-      "oxRo2okcLdTLvAXXUCxUUaUeMjOHnzCBkpEuidqAYw/BbktH+aAhBE4ZlvptuP0M\n" +
-      "iRRRFrd16ckjCFisWIwQsm0LwMPcreegsnzr8a00nsegqq3dFeNS4wxfXLEv7puu\n" +
-      "UIz7h/8tPBtrTEl1r0adV4AwWfw+yIOX58wAVv3gNWMoSPVt3g27N+iSnHAXWQg3\n" +
-      "EkZa9y13yiDPFbBVWsqWo3nIpy+5OkNaNNJ2tlKaxViCSYKo/bxBsEcdgu9l3LWL\n" +
-      "Nw2y8OyDaVUk2j//L0re3Ic+tTqrFmpYCPvntfFlejLjk/TmV2Gh1Gq5K/ACyGWf\n" +
-      "z36Wn1dbAgMBAAECggEAPOg7atUQSrGvXNDDCzGhzJjtD/2HNqt7tcr6kEHXsJc/\n" +
-      "cNKbcp7nM1vRCxelqpuWb8ARVCHZt5E8ajhhjCI4v0q8F6P9X7k54eB8FDn/GZG5\n" +
-      "/K7mPloliVxN1Rib56V6z/EXZqR3NjLXu/Ssr/UdCOTREP+J4LdIvOswz/Lc8Cr7\n" +
-      "rq6EQ+GvQp1/mHuZjwe/8U4uj5pgKRtHwL1bV9Nj/tvGXqBzReEGlXPO6wXlQiDm\n" +
-      "cfhlYQIp7HIujQqQ2bJHezKa4FwDgSUfFwvc0b/4UDqmKRcQcKlcI5f8C2z45rMt\n" +
-      "SeWU3Wo4X0CwepH5K7Np4DInlJBLWmKf+W63KkZ/wQKBgQD5SxIV3pfKqeoQQfr8\n" +
-      "Az5edTlxvIvBfWBe6JqotolCQ0zfvdnL6Sfc9m8Sb2m0ulmUuAgESUF5UxxG0zPp\n" +
-      "A3ao4z9um+0TeqkOaokapYqVCt2g2fe5Ahn9mpXhaGW7NX1RGsyMG0ZKcMwzQnvT\n" +
-      "/RUOsQIzbBtEPsABWuJL7E1JrwKBgQDHwmC0AYkRBm2hEnp2PWVPvy5Fwn3fKb9c\n" +
-      "zkD4sx3T0pVXflXq7kqGvuoxqwUv15PTOeSniRVMeOm0k1MbPX3g/7Mj6/3Ox6nR\n" +
-      "sUKcWf2FR2eYTOpkjyzlTs3J0wEY0F6psZKvCaDIq+iWZOGWnECOx1oNssSe24Mf\n" +
-      "WmanOat0FQKBgQCzhOXfLc4tOTK+xmTQ+hz9tHjLeLVDft/ZOLO27svlFcXUEUk3\n" +
-      "2AzGyAewRN7gMJm1yNitDXvCvKDON+VX1RCsCglxw4Nz1Y7MPNfCgpdLQOncnVoQ\n" +
-      "tny07Y8lJSKtL5WwxBWshy+VB6lk+GlnfQae78Tf9ueju3RVBXeUqPP3LQKBgDRM\n" +
-      "WZEHDeGdMzqGYfVu4YVdYjn1T4sLnQQpI615B4gbi+naM5hMRsq8VQgn5DXAVP1q\n" +
-      "HMkYBLF+voD+STXKhZhQmZAACvUGJRm3NN9GWC96oE6pZHxrV6+5T/tU+OaMNxxq\n" +
-      "VyLofGXNTBmD0+PgiK5Y1uTbNsr4YX3l5xZE7PR5AoGAY02BlFRX8+x+B8H2EEqu\n" +
-      "pDEyFytnXQ25ZeBdkywuj95yX5jlkzFZCsvqVUVmRPglwkR5fR2dWtNprhRgezwL\n" +
-      "9pOFz3bQ1DN3EBY3nO/85aro/mE/nsnnQw4Vj38dtgPRuX60slCxHcQAv9PUJYBz\n" +
-      "Hci6AX3smA2ulUvchtH6uPQ=\n" +
-      "-----END PRIVATE KEY-----\n"
+      "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDAxJOlDUyio4nz\n" +
+      "JzykUPihuBnpume0Y5Fzo0bj6Xi6DD/Jjp5r8RxcgdqLUuNUe0vHqmMqgP1t6ZK0\n" +
+      "0+lDRrjaSk8b7xjv9L7dm986SyZEs8Bgtqel4Tw3DkHj2i1c13zeUj6OgKPrYBqd\n" +
+      "28EDSLQw+Cf8gYxiY2VMoEUDZ7cV0jrT6U/VDI4aDl9b8XrVUwtbAuN8t86gZVrY\n" +
+      "gpIG9HLnEQZXJKFG2jXFktrDgm1wlfN5ve/qBRhMHimIDwCgsYT7ll/I7eaMEhLF\n" +
+      "/+nylvVWbpPvLMXA8E9EBbCTkLmh5XMXK6N0uxidJ8GHeAF0lP1YMT4ctDd1sfxI\n" +
+      "C0a56m/tAgMBAAECggEAIHv/9Xx8QZwVjyg5i+cpPvdrRnvnJfrxc+877wRVF+Ug\n" +
+      "irLB96a2BNDNJ1VcgcwVRRxtgagjDPajhl1/nZq5Y+/JzQdJyIYR8/5ka8pmNIWm\n" +
+      "EaY2Mjn2j8CTUfZeVprpq/1oFVOQTAXx9lAmAoup8eaftmmOYrYlR/hqKNy9eauc\n" +
+      "2DiHOpO0Eh1TkU8pydte3xbUzyurJz1o+pvg9mRMeaGLrEnocu2mW9oy488TdNIO\n" +
+      "oGeOOW4AV/XYzv4TtXWqUM6HcSVA3IcZAFBdi6IeQYKuObrfd9iphONcpklb+PFV\n" +
+      "5XRmEKEQyhjd19AucVbGERhe+3l2NyiL13T6RLJxcQKBgQDnIAzvppgFRNNnROYV\n" +
+      "jY8WfU7g7lQ0syh6e3ANIc5vSqRspwJiPK6u+PaoUtjqvVoIjig9owDVK+yy7nR4\n" +
+      "fPoUxZjCX0x+N5KE+UEmH/WaKl+twpYkVIjD43FFEX0448qqkKJ5uwhkHEXu9uwH\n" +
+      "q1dUOh4YlL85BIErkmdMv+e6RwKBgQDVg7UTPpz95WyJCwU0TO5QC6cfzzB1a5ol\n" +
+      "z3gOt5f+SACNINg9Er6M+gewTq5ZWXIr8+EET9HfxvIeICqOXMzcotMM9l0Gv1AL\n" +
+      "uitjw82KMJRsDWi01OWcrhLC/2MY18H8A2Bgl4Eo4vEHrW2yWz8obNSPDNCECY7z\n" +
+      "BBAMS92qKwKBgHJCbwK+2iKortY7wn9fNyDIHAmo6OoQs+8xPOjREKwGO5kXS19j\n" +
+      "XnxTyiTWqDQMHglitdQa1FuOVnry1ZOHPV6tfOKCmF9Be+bPDn0ZiaKIVjqhmvYk\n" +
+      "8GPe+e1KQxyvyE5gKGKDqxdKvuvvGCqGcyrJfH1sc8htSKpQu06/BIEbAoGBAIyD\n" +
+      "oxVJLZRB+k2uPPyQbH2tTY03k1KTP90GTqKQ3KxxwjselHCM925b1deH0GHo5aRb\n" +
+      "WYi25w34JbsBvD/4frHtTivHrq0UFp/BI3ECmTAKjIMXyALJ4VpdjOdbn2HoDDfI\n" +
+      "GRM4Yb4ArFM7JWgteMEn7jM+YbOjfrobwFv3SagFAoGBAImAsluYshbRa/IfVIJy\n" +
+      "FgtmWmX/tWXRIRcLB/Y8GhreHg/U/dJPk4tXJChNixNYAL9c9EIrsUw3n20nrutv\n" +
+      "qJXxXrtZdIF5Rl7HiuKtnMheYwmbYEz6hAfbO04px13RbjjS3kcGofOPa3u0q8s2\n" +
+      "6DNOTXIFuW/9FIrD32skm7hY\n" +
+      "-----END PRIVATE KEY-----"
     val public_key = "-----BEGIN CERTIFICATE-----\n" +
       "MIIDjzCCAnegAwIBAgIEPhgWFTANBgkqhkiG9w0BAQsFADBbMScwJQYDVQQDDB5SZWdlcnkgU2Vs\n" +
       "Zi1TaWduZWQgQ2VydGlmaWNhdGUxIzAhBgNVBAoMGlJlZ2VyeSwgaHR0cHM6Ly9yZWdlcnkuY29t\n" +

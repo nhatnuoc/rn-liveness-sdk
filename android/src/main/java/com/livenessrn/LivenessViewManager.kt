@@ -1,15 +1,12 @@
 package com.livenessrn
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Choreographer
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.FrameLayout.LayoutParams
 import androidx.fragment.app.FragmentActivity
-import com.facebook.react.bridge.Arguments
-import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
@@ -19,10 +16,7 @@ import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.annotations.ReactPropGroup
 import com.liveness.sdk.core.LiveNessSDK
 import com.liveness.sdk.core.MainLiveNessActivity
-import com.liveness.sdk.core.model.LivenessModel
 import com.liveness.sdk.core.model.LivenessRequest
-import com.liveness.sdk.core.utils.CallbackLivenessListener
-import java.util.UUID
 
 
 class LivenessViewManager(
@@ -116,9 +110,7 @@ class LivenessViewManager(
     myFragment.arguments = bundle
 
     val activity = reactContext?.currentActivity as FragmentActivity
-
-    LiveNessSDK.setLivenessRequest(activity, getLivenessRequest())
-
+    LiveNessSDK.setConfigSDK(activity, getLivenessRequest())
     activity.supportFragmentManager
       .beginTransaction()
       .replace(reactNativeViewId, myFragment, reactNativeViewId.toString())
@@ -161,8 +153,9 @@ class LivenessViewManager(
   }
 
   private fun getLivenessRequest(): LivenessRequest {
-    if (deviceId.isNullOrEmpty()) {
-      val activity = reactContext?.currentActivity as FragmentActivity
+    val activity = reactContext?.currentActivity as FragmentActivity
+
+    if (LiveNessSDK.getDeviceId(activity)?.isNotEmpty() == true) {
       deviceId = LiveNessSDK.getDeviceId(activity)!!
     }
 
