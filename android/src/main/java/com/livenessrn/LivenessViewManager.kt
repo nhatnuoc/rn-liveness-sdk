@@ -1,15 +1,12 @@
 package com.livenessrn
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Choreographer
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.FrameLayout.LayoutParams
 import androidx.fragment.app.FragmentActivity
-import com.facebook.react.bridge.Arguments
-import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
@@ -19,12 +16,7 @@ import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.annotations.ReactPropGroup
 import com.liveness.sdk.core.LiveNessSDK
 import com.liveness.sdk.core.MainLiveNessActivity
-import com.liveness.sdk.core.model.LivenessModel
 import com.liveness.sdk.core.model.LivenessRequest
-import com.liveness.sdk.core.utils.CallbackAPIListener
-import com.liveness.sdk.core.utils.CallbackLivenessListener
-import org.json.JSONObject
-import java.util.UUID
 
 
 class LivenessViewManager(
@@ -118,39 +110,11 @@ class LivenessViewManager(
     myFragment.arguments = bundle
 
     val activity = reactContext?.currentActivity as FragmentActivity
-
-    if (LiveNessSDK.getDeviceId(activity).isNullOrEmpty()) {
-      LiveNessSDK.registerDevice(activity, LivenessRequest(
-        duration = 60, privateKey = privateKey, appId = appId,
-        baseURL = baseURL, publicKey = publicKey
-      ), object: CallbackAPIListener {
-        override fun onCallbackResponse(data: String?) {
-          var result: JSONObject? = null
-          if (data != null && data.length > 0) {
-            result = JSONObject(data)
-          }
-          var statusDevice = -1
-          if (result?.has("status") == true) {
-            statusDevice = result.getInt("status")
-          }
-          if (statusDevice == 200) {
-            LiveNessSDK.setConfigSDK(activity, getLivenessRequest())
-
-            activity.supportFragmentManager
-              .beginTransaction()
-              .replace(reactNativeViewId, myFragment, reactNativeViewId.toString())
-              .commit()
-          }
-        }
-      })
-    } else {
-      LiveNessSDK.setConfigSDK(activity, getLivenessRequest())
-
-      activity.supportFragmentManager
-        .beginTransaction()
-        .replace(reactNativeViewId, myFragment, reactNativeViewId.toString())
-        .commit()
-    }
+    LiveNessSDK.setConfigSDK(activity, getLivenessRequest())
+    activity.supportFragmentManager
+      .beginTransaction()
+      .replace(reactNativeViewId, myFragment, reactNativeViewId.toString())
+      .commit()
   }
 
   fun setupLayout(view: View) {
@@ -191,7 +155,9 @@ class LivenessViewManager(
   private fun getLivenessRequest(): LivenessRequest {
     val activity = reactContext?.currentActivity as FragmentActivity
 
-    deviceId = LiveNessSDK.getDeviceId(activity).toString()
+    if (LiveNessSDK.getDeviceId(activity)?.isNotEmpty() == true) {
+      deviceId = LiveNessSDK.getDeviceId(activity)!!
+    }
 
     val optionRequest: HashMap<String, String> = HashMap()
     optionRequest["requestId"] = this.requestId
