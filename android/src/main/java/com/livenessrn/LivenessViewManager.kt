@@ -30,6 +30,7 @@ class LivenessViewManager(
   private var baseURL = ""
   private var privateKey = ""
   private var publicKey = ""
+  private var debugging = false
 
   private var propWidth: Int? = null
   private var propHeight: Int? = null
@@ -95,6 +96,11 @@ class LivenessViewManager(
   @ReactProp(name = "publicKey")
   fun setPublicKey(view: FrameLayout, publicKey: String) {
     this.publicKey = publicKey
+  }
+
+  @ReactProp(name = "debugging")
+  fun setDebugging(view: FrameLayout, debugging: Boolean) {
+    this.debugging = debugging
   }
 
   /**
@@ -166,7 +172,7 @@ class LivenessViewManager(
       duration = 600, privateKey = privateKey,
       appId = this.appId,
       deviceId = deviceId, clientTransactionId = this.requestId, secret = secret,
-      baseURL = baseURL, publicKey = publicKey
+      baseURL = baseURL, publicKey = publicKey, isDebug = debugging
     )
   }
 }

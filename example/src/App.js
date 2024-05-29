@@ -79,6 +79,7 @@ export default function App() {
             baseUrl={'baseUrl'}
             privateKey={privateKey}
             publicKey={publicKey}
+            debugging={true}
           />
         </View>
       )}
