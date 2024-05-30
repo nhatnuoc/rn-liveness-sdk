@@ -33,7 +33,7 @@ export default function App() {
   const ref = useRef(null);
 
   useEffect(() => {
-    if (Platform.OS != 'ios') {
+    if (Platform.OS != 'ios' && status) {
       const viewId = findNodeHandle(ref?.current);
       if (viewId) {
         createFragment(viewId);
@@ -42,7 +42,7 @@ export default function App() {
   }, [ref.current, status]);
 
   const onStartLiveNess = () => {
-    setStatus(true);
+    setStatus(!status);
   };
 
   const handleLayout = e => {

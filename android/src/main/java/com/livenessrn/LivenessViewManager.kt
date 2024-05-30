@@ -30,7 +30,7 @@ class LivenessViewManager(
   private var baseURL = ""
   private var privateKey = ""
   private var publicKey = ""
-  private var debugging = false
+  private var debugging: Boolean = false
 
   private var propWidth: Int? = null
   private var propHeight: Int? = null
