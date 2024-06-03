@@ -8,6 +8,7 @@
 import Foundation
 import React
 import UIKit
+import LocalAuthentication
 @_implementationOnly import LivenessUtility
 
 @available(iOS 13.0, *)
@@ -44,7 +45,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
         let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": self.requestid], clientTransactionId: self.requestid)
         if response.status == 200 {
           self.transactionId = response.data
-          self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, threshold: .low,delay: 0, smallFaceThreshold: 0.25, debugging: self.debugging, delegate: self, livenessMode: .twoDimension)
+            self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, threshold: .low,delay: 0, smallFaceThreshold: 0.25, debugging: self.debugging, delegate: self, livenessMode: faceIDAvailable ? .threeDimension : .twoDimension)
           try self.livenessDetector?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
         } else {
           pushEvent(data: ["status" : response.status, "data": response.data, "signature": response.signature])
@@ -118,5 +119,25 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
     
   func stopLiveness() {
     livenessDetector?.stopLiveness()
+  }
+
+//   var hasTopNotch: Bool {
+// //    if #available(iOS 11.0, tvOS 11.0, *) {
+// //        return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
+// //    }
+// //    return false
+//     if #available(iOS 13.0,  *) {
+//       return UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0 > 20
+//     } else {
+//       return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
+//     }
+//   }
+    
+  var faceIDAvailable: Bool {
+    if #available(iOS 11.0, *) {
+      let context = LAContext()
+      return (context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthentication, error: nil) && context.biometryType == .faceID)
+    }
+    return false
   }
 }
