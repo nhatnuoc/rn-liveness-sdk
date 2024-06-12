@@ -22,6 +22,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   var publicKey = ""
   var secret = "ABCDEFGHIJKLMNOP"
   var debugging = false
+    var isDoneSmile = false
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -98,40 +99,37 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
       let imageData = verificationImage.pngData()!
       let livenessImage = imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
       let data = response?.data
-      let dataRes: [String: Any] = ["message": message, "livenessImage": livenessImage, "result": result, "livenesScore": livenesScore, "request_id": response?.request_id ?? "", "status": response?.status ?? "", "success": response?.succes ?? "", "code": response?.code ?? "", "livenessType": data!["livenessType"] as? String ?? "", "faceMatchingScore": data!["faceMatchingScore"] as? String ?? "", "data": response?.data ?? ""]
-      
-      pushEvent(data: dataRes)
+      if(response?.status == 200) {
+          let dataRes: [String: Any] = ["message": message, "livenessImage": livenessImage, "result": true, "code": 200, "livenesScore": livenesScore, "request_id": response?.request_id ?? "", "status": "200", "success": true, "livenessType": data!["livenessType"] as? String ?? "", "faceMatchingScore": data!["faceMatchingScore"] as? String ?? "", "data": response?.data as Any]
+        pushEvent(data: dataRes)
+        livenessDetector?.stopLiveness()
+      }  else {
+          let dataRes: [String: Any] = ["message": message, "livenessImage": livenessImage, "result": false, "code": 101, "livenesScore": livenesScore, "status": response?.status as Any, "success": false, "livenessType": data!["livenessType"] as? String ?? "", "faceMatchingScore": data!["faceMatchingScore"] as? String ?? "", "data": response?.data as Any]
+          pushEvent(data: dataRes)
+      }
 //      Request id, message, status, success
   }
 
   func liveness(liveness: LivenessUtilityDetector, startLivenessAction action: LivenessAction) {
-    // if action == .smile{
-    //   pushEvent(data: ["message": "check smile", "action": action.rawValue])
-    // } else if action == .fetchConfig{
-    //   pushEvent(data: ["message": "start check smile", "action": action.rawValue])
-    // } else if action == .detectingFace{
-    //   pushEvent(data: ["message": "detect face", "action": action.rawValue])
-    // } else{
-    //   pushEvent(data: ["message": "done smile", "action": action.rawValue])
-    // }
+     if action == .smile{
+         isDoneSmile = false
+       pushEvent(data: ["message": "check smile", "action": action.rawValue])
+     } else if action == .fetchConfig{
+         isDoneSmile = false
+       pushEvent(data: ["message": "start check smile", "action": action.rawValue])
+     } else if action == .detectingFace{
+         isDoneSmile = false
+       pushEvent(data: ["message": "detect face", "action": action.rawValue])
+     } else if isDoneSmile == false{
+         isDoneSmile = true
+       pushEvent(data: ["message": "done smile", "action": action.rawValue])
+     }
   }
     
     
   func stopLiveness() {
     livenessDetector?.stopLiveness()
   }
-
-//   var hasTopNotch: Bool {
-// //    if #available(iOS 11.0, tvOS 11.0, *) {
-// //        return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
-// //    }
-// //    return false
-//     if #available(iOS 13.0,  *) {
-//       return UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.safeAreaInsets.top ?? 0 > 20
-//     } else {
-//       return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
-//     }
-//   }
     
   var faceIDAvailable: Bool {
     if #available(iOS 11.0, *) {
