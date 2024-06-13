@@ -46,7 +46,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
         let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": self.requestid], clientTransactionId: self.requestid)
         if response.status == 200 {
           self.transactionId = response.data
-            self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, threshold: .low,delay: 0, smallFaceThreshold: 0.25, debugging: self.debugging, delegate: self, livenessMode: faceIDAvailable ? .threeDimension : .twoDimension)
+            self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, threshold: .low,delay: 0, smallFaceThreshold: 0.4, debugging: self.debugging, delegate: self, livenessMode: faceIDAvailable ? .threeDimension : .twoDimension)
           try self.livenessDetector?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
         } else {
           pushEvent(data: ["status" : response.status, "data": response.data, "signature": response.signature])
