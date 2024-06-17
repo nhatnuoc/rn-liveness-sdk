@@ -111,19 +111,19 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   }
 
   func liveness(liveness: LivenessUtilityDetector, startLivenessAction action: LivenessAction) {
-//     if action == .smile{
-//         isDoneSmile = false
-//       pushEvent(data: ["message": "check smile", "action": action.rawValue])
-//     } else if action == .fetchConfig{
-//         isDoneSmile = false
-//       pushEvent(data: ["message": "start check smile", "action": action.rawValue])
-//     } else if action == .detectingFace{
-//         isDoneSmile = false
-//       pushEvent(data: ["message": "detect face", "action": action.rawValue])
-//     } else if isDoneSmile == false{
-//         isDoneSmile = true
-//         pushEvent(data: ["message": "done smile", "action": action.rawValue])
-//     }
+     if action == .smile{
+         isDoneSmile = false
+       pushEvent(data: ["message": "check smile", "action": action.rawValue])
+     } else if action == .fetchConfig{
+         isDoneSmile = false
+       pushEvent(data: ["message": "start check smile", "action": action.rawValue])
+     } else if action == .detectingFace{
+         isDoneSmile = false
+       pushEvent(data: ["message": "detect face", "action": action.rawValue])
+     } else if isDoneSmile == false{
+         isDoneSmile = true
+         pushEvent(data: ["message": "done smile", "action": action.rawValue])
+     }
   }
     
     
