@@ -2,6 +2,7 @@ package com.livenessrn
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.widget.FrameLayout
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactContext
@@ -20,7 +21,7 @@ class LivenessView @JvmOverloads constructor(
     override fun onCallbackLiveness(livenessModel: LivenessModel?) {
       if (livenessModel != null && livenessModel.status != null && livenessModel.status == 200) {
         val map = Arguments.createMap()
-        map.putBoolean("status", true)
+        map.putInt("status", livenessModel.status ?: -1)
         map.putString("message", livenessModel.message ?: "")
         map.putString("request_id", livenessModel.requestId ?: "")
         map.putInt("code", 200)
@@ -32,13 +33,11 @@ class LivenessView @JvmOverloads constructor(
         map.putString("livenesScore", "${livenessModel.data?.livenesScore}")
         map.putString("faceMatchingScore", "${livenessModel.data?.faceMatchingScore}")
 
-        if (livenessModel.data != null) {
-          val mapData = Arguments.createMap()
-          map.putString("faceMatchingScore", livenessModel.data?.faceMatchingScore ?: "")
-          map.putString("livenessType", livenessModel.data?.livenessType ?: "")
-          map.putDouble("livenesScore", (livenessModel.data?.livenesScore ?: 0).toDouble())
-          map.putMap("data", mapData)
-        }
+        val mapData = Arguments.createMap()
+        map.putString("faceMatchingScore", livenessModel.data?.faceMatchingScore ?: "")
+        map.putString("livenessType", livenessModel.data?.livenessType ?: "")
+        map.putDouble("livenesScore", (livenessModel.data?.livenesScore ?: 0).toDouble())
+        map.putMap("data", mapData)
         callNativeEvent(map)
       }
 //      else {
