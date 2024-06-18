@@ -41,14 +41,17 @@ class LivenessView @JvmOverloads constructor(
         callNativeEvent(map)
       } else {
         val map = Arguments.createMap()
-        if (livenessModel?.action != null) {
-          map.putInt("action", livenessModel?.action ?: -1)
-          map.putString("message", livenessModel?.message ?: "")
-        } else {
-          map.putBoolean("status", false)
-          map.putString("message", livenessModel?.message ?: "")
-          map.putInt("code", 101)
-        }
+//        if (livenessModel?.action != null) {
+//          map.putInt("action", livenessModel?.action ?: -1)
+//          map.putString("message", livenessModel?.message ?: "")
+//        } else {
+//          map.putBoolean("status", false)
+//          map.putString("message", livenessModel?.message ?: "")
+//          map.putInt("code", 101)
+//        }
+        map.putBoolean("status", false)
+        map.putString("message", livenessModel?.message ?: "")
+        map.putInt("code", 101)
         callNativeEvent(map)
       }
     }

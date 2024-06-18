@@ -35,8 +35,10 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   }
     
   private func setupConfig() {
-    Networking.shared.setup(appId: appId, logLevel: .debug, url: self.baseUrl, publicKey: self.publicKey, privateKey: self.privateKey)
-    setupView()
+    if !appId.isEmpty && !baseUrl.isEmpty && !publicKey.isEmpty && !privateKey.isEmpty && !requestid.isEmpty {
+      Networking.shared.setup(appId: appId, logLevel: .debug, url: self.baseUrl, publicKey: self.publicKey, privateKey: self.privateKey)
+      setupView()
+    }
   }
  
   private func setupView() {
@@ -67,24 +69,28 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   @objc var onEvent: RCTBubblingEventBlock?
   
   @objc func setRequestid(_ val: NSString) {
-      self.requestid = val as String
+    self.requestid = val as String
+    self.setupConfig()
   }
     
   @objc func setAppId(_ val: NSString) {
     self.appId = val as String
+    self.setupConfig()
   }
     
   @objc func setBaseUrl(_ val: NSString) {
     self.baseUrl = val as String
-      self.setupConfig()
+    self.setupConfig()
   }
     
   @objc func setPrivateKey(_ val: NSString) {
     self.privateKey = val as String
+    self.setupConfig()
   }
     
   @objc func setPublicKey(_ val: NSString) {
     self.publicKey = val as String
+    self.setupConfig()
   }
   
   @objc func setDebugging(_ val: Bool) {
@@ -111,19 +117,19 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   }
 
   func liveness(liveness: LivenessUtilityDetector, startLivenessAction action: LivenessAction) {
-     if action == .smile{
-         isDoneSmile = false
-       pushEvent(data: ["message": "check smile", "action": action.rawValue])
-     } else if action == .fetchConfig{
-         isDoneSmile = false
-       pushEvent(data: ["message": "start check smile", "action": action.rawValue])
-     } else if action == .detectingFace{
-         isDoneSmile = false
-       pushEvent(data: ["message": "detect face", "action": action.rawValue])
-     } else if isDoneSmile == false{
-         isDoneSmile = true
-         pushEvent(data: ["message": "done smile", "action": action.rawValue])
-     }
+//     if action == .smile{
+//         isDoneSmile = false
+//       pushEvent(data: ["message": "check smile", "action": action.rawValue])
+//     } else if action == .fetchConfig{
+//         isDoneSmile = false
+//       pushEvent(data: ["message": "start check smile", "action": action.rawValue])
+//     } else if action == .detectingFace{
+//         isDoneSmile = false
+//       pushEvent(data: ["message": "detect face", "action": action.rawValue])
+//     } else if isDoneSmile == false{
+//         isDoneSmile = true
+//         pushEvent(data: ["message": "done smile", "action": action.rawValue])
+//     }
   }
     
     
