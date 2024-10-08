@@ -10,7 +10,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEm
 import com.facebook.react.uimanager.ViewManager
 
 
-class LivenessRnPackage : ReactPackage {
+abstract class LivenessRnPackage : ReactPackage {
   override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
     return listOf(LivenessRnModule(reactContext))
   }

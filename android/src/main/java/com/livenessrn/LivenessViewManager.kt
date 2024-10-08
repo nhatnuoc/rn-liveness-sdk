@@ -14,10 +14,8 @@ import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.annotations.ReactPropGroup
-import com.liveness.sdk.core.LiveNessSDK
-import com.liveness.sdk.core.MainLiveNessActivity
-import com.liveness.sdk.core.model.LivenessRequest
-
+import com.liveness.sdk.corev4.LiveNessSDK
+import com.liveness.sdk.corev4.model.LivenessRequest
 
 class LivenessViewManager(
   private val reactContext: ReactApplicationContext
@@ -34,11 +32,17 @@ class LivenessViewManager(
 
   private var propWidth: Int? = null
   private var propHeight: Int? = null
+  private lateinit var activity: FragmentActivity
 
   override fun getName() = REACT_CLASS
 
-  override fun createViewInstance(reactContext: ThemedReactContext) =
-    LivenessView(reactContext)
+  override fun createViewInstance(reactContext: ThemedReactContext): LivenessView {
+    val currentActivityField = ReactApplicationContext::class.java.getDeclaredField("currentActivity")
+    currentActivityField.isAccessible = true
+    activity = (currentActivityField.get(reactContext) as? FragmentActivity)!!
+
+    return LivenessView(reactContext)
+  }
 
   override fun getCommandsMap() = mapOf("create" to COMMAND_CREATE)
 
@@ -54,16 +58,12 @@ class LivenessViewManager(
   /**
    * Handle "create" command (called from JS) and call createFragment method
    */
-  override fun receiveCommand(
-    root: LivenessView,
-    commandId: String,
-    args: ReadableArray?
-  ) {
+  override fun receiveCommand(root: LivenessView?, commandId: Int, args: ReadableArray?) {
     super.receiveCommand(root, commandId, args)
     val reactNativeViewId = requireNotNull(args).getInt(0)
 
     when (commandId.toInt()) {
-      COMMAND_CREATE -> createFragment(root, reactNativeViewId)
+      COMMAND_CREATE -> root?.let { createFragment(it, reactNativeViewId) }
     }
   }
 
@@ -106,7 +106,7 @@ class LivenessViewManager(
   /**
    * Replace your React Native view with a custom fragment
    */
-  fun createFragment(root: FrameLayout, reactNativeViewId: Int) {
+  private fun createFragment(root: FrameLayout, reactNativeViewId: Int) {
     val parentView = root.findViewById<ViewGroup>(reactNativeViewId)
     setupLayout(parentView)
 
@@ -114,8 +114,6 @@ class LivenessViewManager(
     bundle.putString("KEY_BUNDLE_SCREEN", "")
     val myFragment = MainLiveNessActivity()
     myFragment.arguments = bundle
-
-    val activity = reactContext?.currentActivity as FragmentActivity
     LiveNessSDK.setConfigSDK(activity, getLivenessRequest())
     activity.supportFragmentManager
       .beginTransaction()
@@ -123,7 +121,7 @@ class LivenessViewManager(
       .commit()
   }
 
-  fun setupLayout(view: View) {
+  private fun setupLayout(view: View) {
     Choreographer.getInstance().postFrameCallback(object: Choreographer.FrameCallback {
       override fun doFrame(frameTimeNanos: Long) {
         manuallyLayoutChildren(view)
@@ -159,8 +157,6 @@ class LivenessViewManager(
   }
 
   private fun getLivenessRequest(): LivenessRequest {
-    val activity = reactContext?.currentActivity as FragmentActivity
-
     if (LiveNessSDK.getDeviceId(activity)?.isNotEmpty() == true) {
       deviceId = LiveNessSDK.getDeviceId(activity)!!
     }

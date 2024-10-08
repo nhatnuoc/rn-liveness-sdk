@@ -8,10 +8,10 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeMap
-import com.liveness.sdk.core.LiveNessSDK
-import com.liveness.sdk.core.model.LivenessModel
-import com.liveness.sdk.core.model.LivenessRequest
-import com.liveness.sdk.core.utils.CallbackLivenessListener
+import com.liveness.sdk.corev4.LiveNessSDK
+import com.liveness.sdk.corev4.model.LivenessModel
+import com.liveness.sdk.corev4.model.LivenessRequest
+import com.liveness.sdk.corev4.utils.CallbackLivenessListener
 import java.util.UUID
 
 
@@ -49,7 +49,7 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
   @ReactMethod
   fun getDeviceId(callback: Callback? = null) {
     currentActivity!!.runOnUiThread {
-      val mDeviceId = LiveNessSDK.getDeviceId(reactApplicationContext.currentActivity as FragmentActivity)
+      val mDeviceId = LiveNessSDK.getDeviceId(currentActivity as FragmentActivity)
       val resultData: WritableMap = WritableNativeMap()
       if (mDeviceId?.isNotEmpty() == true) {
         deviceId = mDeviceId
@@ -66,7 +66,7 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
   fun registerFace(image: String? = null, callback: Callback? = null) {
     currentActivity!!.runOnUiThread {
       LiveNessSDK.registerFace(
-        reactApplicationContext.currentActivity as FragmentActivity,
+        currentActivity as FragmentActivity,
         getLivenessRequest(image),
         object : CallbackLivenessListener {
           override fun onCallbackLiveness(data: LivenessModel?) {
@@ -86,26 +86,26 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun startLiveNess(callback: Callback? = null) {
-//    currentActivity!!.runOnUiThread {
-//      LiveNessSDK.startLiveNess(
-//        reactApplicationContext.currentActivity as FragmentActivity,
-//        getLivenessRequest(),
-//        object : CallbackLivenessListener {
-//          override fun onCallbackLiveness(data: LivenessModel?) {
-//            Log.d("CALLBACK DATA", "$data")
-//            val resultData: WritableMap = WritableNativeMap()
-//            resultData.putInt("status", data?.status ?: -1)
-//            resultData.putString("data", "${data?.data ?: ""}")
-//            resultData.putString("message", "${data?.message ?: ""}")
-//            resultData.putString("code", "${data?.code ?: ""}")
-//            resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
-//            resultData.putString("faceImage", "${data?.faceImage ?: ""}")
-//            resultData.putString("livenessImage", "${data?.livenessImage ?: ""}")
-//            callback?.invoke(resultData)
-//            callback?.invoke(resultData)
-//          }
-//        })
-//    }
+    currentActivity!!.runOnUiThread {
+      LiveNessSDK.startLiveNess(
+        currentActivity as FragmentActivity,
+        getLivenessRequest(),
+        object : CallbackLivenessListener {
+          override fun onCallbackLiveness(data: LivenessModel?) {
+            Log.d("CALLBACK DATA", "$data")
+            val resultData: WritableMap = WritableNativeMap()
+            resultData.putInt("status", data?.status ?: -1)
+            resultData.putString("data", "${data?.data ?: ""}")
+            resultData.putString("message", "${data?.message ?: ""}")
+            resultData.putString("code", "${data?.code ?: ""}")
+            resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
+            resultData.putString("faceImage", "${data?.faceImage ?: ""}")
+            resultData.putString("livenessImage", "${data?.livenessImage ?: ""}")
+            callback?.invoke(resultData)
+            callback?.invoke(resultData)
+          }
+        })
+    }
   }
 
   private fun getLivenessRequest(image: String? = null): LivenessRequest {

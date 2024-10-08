@@ -2,15 +2,14 @@ package com.livenessrn
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.widget.FrameLayout
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.uimanager.events.RCTEventEmitter
-import com.liveness.sdk.core.LiveNessSDK
-import com.liveness.sdk.core.model.LivenessModel
-import com.liveness.sdk.core.utils.CallbackLivenessListener
+import com.liveness.sdk.corev4.LiveNessSDK
+import com.liveness.sdk.corev4.model.LivenessModel
+import com.liveness.sdk.corev4.utils.CallbackLivenessListener
 
 
 class LivenessView @JvmOverloads constructor(
@@ -18,25 +17,25 @@ class LivenessView @JvmOverloads constructor(
   attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
   private val callBack = object : CallbackLivenessListener {
-    override fun onCallbackLiveness(livenessModel: LivenessModel?) {
-      if (livenessModel != null && livenessModel.status != null && livenessModel.status == 200) {
+    override fun onCallbackLiveness(data: LivenessModel?) {
+      if (data?.status != null && data.status == 200) {
         val map = Arguments.createMap()
-        map.putInt("status", livenessModel.status ?: -1)
-        map.putString("message", livenessModel.message ?: "")
-        map.putString("request_id", livenessModel.requestId ?: "")
+        map.putInt("status", data.status ?: -1)
+        map.putString("message", data.message ?: "")
+        map.putString("request_id", data.requestId ?: "")
         map.putInt("code", 200)
-        map.putBoolean("success", livenessModel.success ?: false)
-        map.putString("pathVideo", livenessModel.pathVideo ?: "")
-        map.putString("faceImage", livenessModel.faceImage ?: "")
-        map.putString("livenessImage", livenessModel.livenessImage ?: "")
-        map.putString("transactionID", livenessModel.transactionID ?: "")
-        map.putString("livenesScore", "${livenessModel.data?.livenesScore}")
-        map.putString("faceMatchingScore", "${livenessModel.data?.faceMatchingScore}")
+        map.putBoolean("success", data.success ?: false)
+        map.putString("pathVideo", data.pathVideo ?: "")
+        map.putString("faceImage", data.faceImage ?: "")
+        map.putString("livenessImage", data.livenessImage ?: "")
+        map.putString("transactionID", data.transactionID ?: "")
+        map.putString("livenesScore", "${data.data?.livenesScore}")
+        map.putString("faceMatchingScore", "${data.data?.faceMatchingScore}")
 
         val mapData = Arguments.createMap()
-        map.putString("faceMatchingScore", livenessModel.data?.faceMatchingScore ?: "")
-        map.putString("livenessType", livenessModel.data?.livenessType ?: "")
-        map.putDouble("livenesScore", (livenessModel.data?.livenesScore ?: 0).toDouble())
+        map.putString("faceMatchingScore", data.data?.faceMatchingScore ?: "")
+        map.putString("livenessType", data.data?.livenessType ?: "")
+        map.putDouble("livenesScore", (data.data?.livenesScore ?: 0).toDouble())
         map.putMap("data", mapData)
         callNativeEvent(map)
       } else {
@@ -50,7 +49,7 @@ class LivenessView @JvmOverloads constructor(
 //          map.putInt("code", 101)
 //        }
         map.putBoolean("status", false)
-        map.putString("message", livenessModel?.message ?: "")
+        map.putString("message", data?.message ?: "")
         map.putInt("code", 101)
         callNativeEvent(map)
       }
