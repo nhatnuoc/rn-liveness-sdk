@@ -17,16 +17,16 @@ PODS:
   - hermes-engine/Pre-built (0.72.10)
   - KeychainSwift (19.0.0)
   - libevent (2.1.12)
-  - liveness-rn (1.1.31):
+  - liveness-rn (1.1.32):
     - KeychainSwift (~> 19.0)
     - LivenessCloud
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
-  - LivenessCloud (1.1.8):
+  - LivenessCloud (1.5.6):
     - CryptoSwift (~> 1.8.2)
     - KeychainSwift (~> 19.0)
     - ObjectMapper (~> 4.2)
-    - SignManager (~> 1.0.5)
+    - SignManager (~> 1.0.6)
   - ObjectMapper (4.2.0)
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -438,7 +438,7 @@ PODS:
     - React-jsi (= 0.72.10)
     - React-logger (= 0.72.10)
     - React-perflogger (= 0.72.10)
-  - SignManager (1.0.5)
+  - SignManager (1.0.6)
   - SocketRocket (0.6.1)
   - Yoga (1.14.0)
 
@@ -590,8 +590,8 @@ SPEC CHECKSUMS:
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  liveness-rn: 484cddfe3f2824d4294a820a5fb2303ce750fd0c
-  LivenessCloud: 373ec8ae21a17c863455d3cf1683366eaacb7672
+  liveness-rn: d2b87543c4077a8fe3b659727d84fac59d6bf8cc
+  LivenessCloud: 23cd8ffc29229eeb56631eda450e472929aa11a7
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: b4d3068afa6f52ec5260a8417053b1f1b421483d
@@ -625,10 +625,10 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 68353a05c25b32d442610ef19af377f2b198f3fe
   React-utils: a715392dfaaa383668566e400f40493093c08d7e
   ReactCommon: a655a8b61cc80c7cabd8db83f69e6f498d4d0894
-  SignManager: e90b7e5bce3603c790b16a14a5057c8925a3eb1c
+  SignManager: 67d0f04ff3695c1dde7c056bc9ba09de0db2f806
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3
 
 PODFILE CHECKSUM: 0eaacbce66de0a1bc641dd47cfa4ba167265b82c
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.15.2
