@@ -9,12 +9,12 @@ import Foundation
 import React
 import UIKit
 import LocalAuthentication
-@_implementationOnly import LivenessUtility
+@_implementationOnly import QTSLiveness
 
-@available(iOS 13.0, *)
+@available(iOS 15.0, *)
 class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   var transactionId = ""
-  var livenessDetector: LivenessUtilityDetector?
+  var livenessDetector: QTSLivenessDetector?
   var requestid = ""
   var appId = ""
   var baseUrl = ""
@@ -48,7 +48,13 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
         let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": self.requestid], clientTransactionId: self.requestid)
         if response.status == 200 {
           self.transactionId = response.data
-            self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, threshold: .low,delay: 0, smallFaceThreshold: 0.4, debugging: self.debugging, delegate: self, livenessMode: faceIDAvailable ? .threeDimension : .twoDimension)
+            self.livenessDetector = QTSLivenessDetector.createLivenessDetector(previewView: self,
+                                                                               threshold: .low,
+                                                                               smallFaceThreshold: 0.25,
+                                                                               debugging: true,
+                                                                               delegate: self,
+                                                                               livenessMode: .local,
+                                                                               additionHeader: ["header":"header"])
           try self.livenessDetector?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
         } else {
           pushEvent(data: ["status" : response.status, "data": response.data, "signature": response.signature])
@@ -97,11 +103,11 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
     self.debugging = val as Bool
   }
   
-  func liveness(liveness: LivenessUtilityDetector, didFail withError: LivenessError) {
+  func liveness(liveness: QTSLivenessDetector, didFail withError: LivenessError) {
     pushEvent(data: withError)
   }
   
-  func liveness(liveness: LivenessUtilityDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: LivenessResult?) {
+  func liveness(liveness: QTSLivenessDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: LivenessResult?) {
       let imageData = verificationImage.pngData()!
       let livenessImage = imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
       let data = response?.data
@@ -116,7 +122,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
 //      Request id, message, status, success
   }
 
-  func liveness(liveness: LivenessUtilityDetector, startLivenessAction action: LivenessAction) {
+  func liveness(liveness: QTSLivenessDetector, startLivenessAction action: LivenessAction) {
 //     if action == .smile{
 //         isDoneSmile = false
 //       pushEvent(data: ["message": "check smile", "action": action.rawValue])

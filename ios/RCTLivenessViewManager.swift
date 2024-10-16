@@ -9,7 +9,7 @@ import Foundation
 import React
 
 
-@available(iOS 13.0, *)
+@available(iOS 15.0, *)
 @objc (RCTLivenessViewManager)
 class RCTLivenessViewManager: RCTViewManager {
  
