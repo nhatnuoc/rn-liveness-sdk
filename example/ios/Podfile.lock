@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (5.8.1)
   - boost (1.76.0)
-  - CryptoSwift (1.8.2)
+  - CryptoSwift (1.8.3)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.72.10)
   - FBReactNativeSpec (0.72.10):
@@ -22,24 +22,18 @@ PODS:
   - liveness-rn (1.1.32):
     - FlashLiveness
     - KeychainSwift (~> 19.0)
-    - LivenessCloud
-    - QTSLiveness
+    - QTSLiveness (~> 1.0.2)
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
-  - LivenessCloud (1.5.6):
-    - CryptoSwift (~> 1.8.2)
-    - KeychainSwift (~> 19.0)
-    - ObjectMapper (~> 4.2)
-    - SignManager (~> 1.0.6)
   - ObjectMapper (4.2.0)
-  - OpenSSL-Universal (1.1.2200)
+  - OpenSSL-Universal (1.1.2301)
   - QTSCardReader (1.2.0):
     - CryptoSwift (~> 1.8.2)
     - KeychainSwift (~> 19.0)
     - ObjectMapper (~> 4.2)
     - OpenSSL-Universal (~> 1.1.1100)
     - SignManager (~> 1.0.6)
-  - QTSLiveness (1.0.1):
+  - QTSLiveness (1.0.2):
     - CryptoSwift (~> 1.8.2)
     - KeychainSwift (~> 19.0)
     - ObjectMapper (~> 4.2)
@@ -473,7 +467,7 @@ DEPENDENCIES:
   - libevent (~> 2.1.12)
   - liveness-rn (from `../..`)
   - QTSCardReader (from `https://github.com/trungnguyen1791/QTSCardReader.git`)
-  - QTSLiveness
+  - QTSLiveness (= 1.0.2)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -517,7 +511,6 @@ SPEC REPOS:
     - fmt
     - KeychainSwift
     - libevent
-    - LivenessCloud
     - ObjectMapper
     - OpenSSL-Universal
     - QTSLiveness
@@ -622,7 +615,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
   boost: 7dcd2de282d72e344012f7d6564d024930a6a440
-  CryptoSwift: c63a805d8bb5e5538e88af4e44bb537776af11ea
+  CryptoSwift: 967f37cea5a3294d9cce358f78861652155be483
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f91d538f197fa71a7d5b77ec2069d49550c0eb96
   FBReactNativeSpec: b13d1c23d6ed82d6b66aad7a253edf8ba76c4a4c
@@ -632,12 +625,11 @@ SPEC CHECKSUMS:
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  liveness-rn: a9f72442df078df28e58edc60efb8ae8b6746c7b
-  LivenessCloud: 23cd8ffc29229eeb56631eda450e472929aa11a7
+  liveness-rn: a3cfbc3b86535bb9a7e5b2742fcc24bd961a11a6
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  OpenSSL-Universal: 6e1ae0555546e604dbc632a2b9a24a9c46c41ef6
+  OpenSSL-Universal: ca89c20240633a77c776082ba76b7d90f992bf77
   QTSCardReader: 3e3816cab5d2ea21aadc7951e18fd0147ac4effa
-  QTSLiveness: fbb1fc48d4f62e116d99052eddfae20bfc8e26c0
+  QTSLiveness: 6b0819e99690463167da1903362a18407e7b69c6
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: b4d3068afa6f52ec5260a8417053b1f1b421483d
   RCTTypeSafety: a4551b3d338c96435f63bf06d564055c1d3cc0ac
@@ -675,6 +667,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3
 
-PODFILE CHECKSUM: 3d4d3fcfb586263991fb538de7b519f9666e0b10
+PODFILE CHECKSUM: 40bd654fa0389061406922421e3076fa2b8870e8
 
 COCOAPODS: 1.15.2

@@ -19,12 +19,12 @@ target 'LivenessRnExample' do
   use_frameworks!
   config = use_native_modules!
 
-  # pod 'LivenessCloud' ,:git => 'https://github.com/trungnguyen1791/LivenessCloudPOD.git'
+  #  pod 'LivenessCloud' ,:git => 'https://github.com/trungnguyen1791/LivenessCloudPOD.git'
   pod 'QTSCardReader' ,:git => 'https://github.com/trungnguyen1791/QTSCardReader.git'
   pod 'SVProgressHUD'
   pod 'Alamofire', '5.8.1'
-  pod 'QTSLiveness'
-  pod 'FlashLiveness', :git => 'https://github.com/stevienguyen1988/FlashLivenessPod.git'
+  pod 'QTSLiveness', '1.0.2'
+   pod 'FlashLiveness', :git => 'https://github.com/stevienguyen1988/FlashLivenessPod.git'
   # Pods for LivenessCloudSample
 
   use_react_native!(
