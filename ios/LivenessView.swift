@@ -131,20 +131,28 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   }
 
   func liveness(liveness: QTSLivenessDetector, startLivenessAction action: LivenessAction) {
-//     if action == .smile{
-//         isDoneSmile = false
-//       pushEvent(data: ["message": "check smile", "action": action.rawValue])
-//     } else if action == .fetchConfig{
-//         isDoneSmile = false
-//       pushEvent(data: ["message": "start check smile", "action": action.rawValue])
-//     } else if action == .detectingFace{
-//         isDoneSmile = false
-//       pushEvent(data: ["message": "detect face", "action": action.rawValue])
-//     } else if isDoneSmile == false{
-//         isDoneSmile = true
-//         pushEvent(data: ["message": "done smile", "action": action.rawValue])
-//     }
+     if action == .smile{
+         isDoneSmile = false
+       pushEvent(data: ["message": "check smile", "action": action.rawValue])
+     } else if action == .fetchConfig{
+         isDoneSmile = false
+       pushEvent(data: ["message": "start check smile", "action": action.rawValue])
+     } else if action == .detectingFace{
+         isDoneSmile = false
+       pushEvent(data: ["message": "detect face", "action": action.rawValue])
+     } else if isDoneSmile == false{
+         isDoneSmile = true
+         pushEvent(data: ["message": "done smile", "action": action.rawValue])
+     }
   }
+    
+    func liveness(liveness: QTSLivenessDetector, didFinishLocalLiveness score: Float, image: UIImage, videoURL: URL?) {
+        let imageData = image.pngData()!
+        let livenessImage = imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
+        let dataRes: [String: Any] = ["livenessImage": livenessImage,"livenesScore": score]
+          pushEvent(data: dataRes)
+          livenessDetector?.stopLiveness()
+    }
     
     
   func stopLiveness() {
