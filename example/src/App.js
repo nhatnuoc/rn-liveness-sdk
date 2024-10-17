@@ -98,12 +98,13 @@ const styles = StyleSheet.create({
   },
   view_camera: {
     width: '100%',
-    height: 400,
-    backgroundColor: 'red',
+    height: 700,
+    backgroundColor: 'transparent',
     marginBottom: 24,
   },
   view_liveness: {
     flex: 1,
+    height: 700,
   },
   btn_liveness: {
     padding: 10,

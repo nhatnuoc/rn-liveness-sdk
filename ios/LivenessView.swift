@@ -26,12 +26,12 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-//    setupView()
+   setupView()
   }
  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-//    setupView()
+   setupView()
   }
     
   private func setupConfig() {
@@ -45,9 +45,20 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
     // in here you can configure your view
     Task {
       do {
-        let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": self.requestid], clientTransactionId: self.requestid)
-        if response.status == 200 {
-          self.transactionId = response.data
+//        let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": self.requestid], clientTransactionId: self.requestid)
+//        if response.status == 200 {
+//          self.transactionId = response.data
+//            self.livenessDetector = QTSLivenessDetector.createLivenessDetector(previewView: self,
+//                                                                               threshold: .low,
+//                                                                               smallFaceThreshold: 0.25,
+//                                                                               debugging: true,
+//                                                                               delegate: self,
+//                                                                               livenessMode: .local,
+//                                                                               additionHeader: ["header":"header"])
+//          try self.livenessDetector?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+//        } else {
+//          pushEvent(data: ["status" : response.status, "data": response.data, "signature": response.signature])
+//        }
             self.livenessDetector = QTSLivenessDetector.createLivenessDetector(previewView: self,
                                                                                threshold: .low,
                                                                                smallFaceThreshold: 0.25,
@@ -56,9 +67,6 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
                                                                                livenessMode: .local,
                                                                                additionHeader: ["header":"header"])
           try self.livenessDetector?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
-        } else {
-          pushEvent(data: ["status" : response.status, "data": response.data, "signature": response.signature])
-        }
       } catch {
         pushEvent(data: error)
       }
@@ -112,11 +120,11 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
       let livenessImage = imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
       let data = response?.data
       if(response?.status == 200) {
-          let dataRes: [String: Any] = ["message": message, "livenessImage": livenessImage, "result": result, "code": 200, "livenesScore": livenesScore != 0 ? livenesScore : data!["livenesScore"], "request_id": response?.request_id ?? "", "status": response?.status, "success": response?.succes ?? false, "livenessType": data!["livenessType"] as? String ?? "", "faceMatchingScore": data!["faceMatchingScore"] as? String ?? "", "data": response?.data as Any]
+          let dataRes: [String: Any] = ["message": message, "livenessImage": livenessImage, "result": result, "code": 200, "livenesScore": livenesScore != 0 ? livenesScore : data!["livenesScore"] ?? 0, "request_id": response?.request_id ?? "", "status": response?.status ?? false, "success": response?.succes ?? false, "livenessType": data!["livenessType"] as? String ?? "", "faceMatchingScore": data!["faceMatchingScore"] as? String ?? "", "data": response?.data as Any]
         pushEvent(data: dataRes)
         livenessDetector?.stopLiveness()
       }  else {
-          let dataRes: [String: Any] = ["message": message, "livenessImage": livenessImage, "result": result, "code": 101, "livenesScore": livenesScore, "status": response?.status, "success": response?.succes ?? false, "livenessType": data!["livenessType"] as? String ?? "", "faceMatchingScore": data!["faceMatchingScore"] as? String ?? "", "data": response?.data as Any]
+          let dataRes: [String: Any] = ["message": message, "livenessImage": livenessImage, "result": result, "code": 101, "livenesScore": livenesScore, "status": response?.status ?? false, "success": response?.succes ?? false, "livenessType": data!["livenessType"] as? String ?? "", "faceMatchingScore": data!["faceMatchingScore"] as? String ?? "", "data": response?.data as Any]
           pushEvent(data: dataRes)
       }
 //      Request id, message, status, success
