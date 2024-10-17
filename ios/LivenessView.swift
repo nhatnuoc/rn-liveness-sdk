@@ -147,12 +147,38 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   }
     
     func liveness(liveness: QTSLivenessDetector, didFinishLocalLiveness score: Float, image: UIImage, videoURL: URL?) {
-        let imageData = image.pngData()!
-        let livenessImage = imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
+        let livenessImage = saveImageToFile(image: image) ?? ""
         let dataRes: [String: Any] = ["livenessImage": livenessImage,"livenesScore": score]
           pushEvent(data: dataRes)
           livenessDetector?.stopLiveness()
     }
+    
+    func saveImageToFile(image: UIImage) -> String? {
+        // Chuyển đổi UIImage thành Data (PNG format)
+        guard let imageData = image.pngData() else {
+            print("Không thể chuyển đổi ảnh thành dữ liệu PNG")
+            return nil
+        }
+
+        // Lấy đường dẫn thư mục tạm thời (temporary directory)
+        let tempDirectory = FileManager.default.temporaryDirectory
+        // Tạo tên file với phần mở rộng .png
+        let fileName = "face_authentications" + ".png"
+        // Tạo đường dẫn đầy đủ cho file
+        let fileURL = tempDirectory.appendingPathComponent(fileName)
+        
+        do {
+            // Lưu dữ liệu PNG vào file
+            try imageData.write(to: fileURL)
+            print("Đã lưu file tại: \(fileURL.path)")
+            // Trả về đường dẫn của file
+            return fileURL.path
+        } catch {
+            print("Không thể lưu ảnh: \(error.localizedDescription)")
+            return nil
+        }
+    }
+
     
     
   func stopLiveness() {
