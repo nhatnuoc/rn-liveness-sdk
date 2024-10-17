@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
   },
   view_liveness: {
     flex: 1,
-    height: 700,
   },
   btn_liveness: {
     padding: 10,
