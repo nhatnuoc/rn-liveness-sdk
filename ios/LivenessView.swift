@@ -9,6 +9,7 @@ import Foundation
 import React
 import UIKit
 import LocalAuthentication
+import FlashLiveness
 @_implementationOnly import QTSLiveness
 
 @available(iOS 15.0, *)

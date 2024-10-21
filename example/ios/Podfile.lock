@@ -11,7 +11,7 @@ PODS:
     - React-Core (= 0.72.10)
     - React-jsi (= 0.72.10)
     - ReactCommon/turbomodule/core (= 0.72.10)
-  - FlashLiveness (1.0.0)
+  - FlashLiveness (1.1.0)
   - fmt (6.2.1)
   - glog (0.3.5)
   - hermes-engine (0.72.10):
@@ -606,7 +606,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   FlashLiveness:
-    :commit: b5c8e3225e752f286082e420d89f5f3a6d6659a9
+    :commit: 0445a9ea218b92eb533d260933ce2b7ee33b1dd5
     :git: https://github.com/stevienguyen1988/FlashLivenessPod.git
   QTSCardReader:
     :commit: 9bcfbdfc838befae38225554aeeacb71eb9e20be
@@ -619,13 +619,13 @@ SPEC CHECKSUMS:
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f91d538f197fa71a7d5b77ec2069d49550c0eb96
   FBReactNativeSpec: b13d1c23d6ed82d6b66aad7a253edf8ba76c4a4c
-  FlashLiveness: cefa59de43cf850e6b82b2f9315440391a16aea7
+  FlashLiveness: 6941cbbaba22d9ab248f7f17c334b60a4d427dc3
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  liveness-rn: a3cfbc3b86535bb9a7e5b2742fcc24bd961a11a6
+  liveness-rn: b6a634200a6d32a8a72bc5851739e57cc898ec59
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   OpenSSL-Universal: ca89c20240633a77c776082ba76b7d90f992bf77
   QTSCardReader: 3e3816cab5d2ea21aadc7951e18fd0147ac4effa
@@ -667,6 +667,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3
 
-PODFILE CHECKSUM: 40bd654fa0389061406922421e3076fa2b8870e8
+PODFILE CHECKSUM: 562d45b215ccbc2c0384784cbec201e01c7c0bf8
 
 COCOAPODS: 1.15.2
