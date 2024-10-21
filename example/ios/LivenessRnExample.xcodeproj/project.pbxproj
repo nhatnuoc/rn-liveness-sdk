@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* LivenessRnExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* LivenessRnExampleTests.m */; };
-		04FDD6F92CC658E40088F222 /* FlashLiveness.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0404E7D22CBFA5EA002B4B0F /* FlashLiveness.xcframework */; };
-		04FDD6FA2CC658E40088F222 /* FlashLiveness.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0404E7D22CBFA5EA002B4B0F /* FlashLiveness.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -30,20 +28,6 @@
 			remoteInfo = LivenessRnExample;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		04FDD6FB2CC658E40088F222 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				04FDD6FA2CC658E40088F222 /* FlashLiveness.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* LivenessRnExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LivenessRnExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,7 +75,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2DBA32307864D3137028402 /* Pods_LivenessRnExample.framework in Frameworks */,
-				04FDD6F92CC658E40088F222 /* FlashLiveness.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +216,6 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				23487B9703FA2D1C8E96AA74 /* [CP] Embed Pods Frameworks */,
-				04FDD6FB2CC658E40088F222 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
