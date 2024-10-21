@@ -19,6 +19,7 @@ class RCTLivenessViewManager: RCTViewManager {
  
   override func view() -> UIView! {
     return LivenessView()
+    // return Liveness3DView()
   }
  
 }
