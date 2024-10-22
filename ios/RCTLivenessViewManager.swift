@@ -85,6 +85,7 @@ class RCTLivenessViewManager: RCTViewManager {
         }
     }
 }
+
 extension UIDevice {
     var modelName: String {
         var systemInfo = utsname()
