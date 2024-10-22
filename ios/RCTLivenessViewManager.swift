@@ -1,6 +1,7 @@
 import UIKit
 import Foundation
 import React
+import AVFoundation
 
 @available(iOS 15.0, *)
 @objc (RCTLivenessViewManager)
@@ -67,22 +68,21 @@ class RCTLivenessViewManager: RCTViewManager {
 
     // Simulate checking for a 3D camera error
     private func is3DCameraError() -> Bool {
-//        // Attempt to get the TrueDepth front camera (camera with depth capabilities)
-//        guard let camera = AVCaptureDevice.default(.builtInTrueDepthCamera, for: .video, position: .front) else {
-//            print("3D camera (TrueDepth) not available on this device.")
-//            return true
-//        }
-//
-//        // Try to lock the device for configuration and check for errors
-//        do {
-//            try camera.lockForConfiguration()
-//            camera.unlockForConfiguration()
-//            return false // No error
-//        } catch {
-//            print("Error accessing 3D camera: \(error)")
-//            return true // Camera error
-//        }
-        return false
+        // Attempt to get the TrueDepth front camera (camera with depth capabilities)
+        guard let camera = AVCaptureDevice.default(.builtInTrueDepthCamera, for: .video, position: .front) else {
+            print("3D camera (TrueDepth) not available on this device.")
+            return true
+        }
+
+        // Try to lock the device for configuration and check for errors
+        do {
+            try camera.lockForConfiguration()
+            camera.unlockForConfiguration()
+            return false // No error
+        } catch {
+            print("Error accessing 3D camera: \(error)")
+            return true // Camera error
+        }
     }
 }
 extension UIDevice {
