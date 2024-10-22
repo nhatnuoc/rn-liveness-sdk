@@ -61,7 +61,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
 //        }
             self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self,
                                                                         mode: .offline,
-                                                                        filterColors: [.red, .yellow],
+                                                                        filterColors: [.red, .green, .blue],
                                                                         delegate: self)
           try self.livenessDetector?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
       } catch {
