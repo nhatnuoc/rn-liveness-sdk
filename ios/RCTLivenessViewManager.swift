@@ -57,7 +57,6 @@ class RCTLivenessViewManager: RCTViewManager {
         return supportedModels.contains(modelName)
     }
 
-    // Simulate checking for a 3D camera error
     private func is3DCameraError() -> Bool {
         // Attempt to get the TrueDepth front camera (camera with depth capabilities)
         guard let camera = AVCaptureDevice.default(.builtInTrueDepthCamera, for: .video, position: .front) else {
@@ -65,11 +64,17 @@ class RCTLivenessViewManager: RCTViewManager {
             return true
         }
 
+        // Check if the camera supports focus, torch, or is in a valid format
+        if !camera.isFocusModeSupported(.autoFocus) {
+            print("3D camera (TrueDepth) has unsupported configurations.")
+            return true
+        }
+
         // Try to lock the device for configuration and check for errors
         do {
             try camera.lockForConfiguration()
             camera.unlockForConfiguration()
-            print("3D camera (TrueDepth) available on this device.")
+            print("3D camera (TrueDepth) available and configured correctly.")
             return false // No error
         } catch {
             print("Error accessing 3D camera: \(error)")
