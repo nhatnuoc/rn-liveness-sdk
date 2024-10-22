@@ -59,11 +59,13 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
 //        } else {
 //          pushEvent(data: ["status" : response.status, "data": response.data, "signature": response.signature])
 //        }
-            self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self,
-                                                                        mode: .offline,
-                                                                        filterColors: [.red, .green, .blue],
-                                                                        delegate: self)
-          try self.livenessDetector?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+          let colors: [UIColor] = [.red, .green, .blue]
+
+          // Chọn một màu ngẫu nhiên
+          if let randomColor: UIColor = colors.randomElement(){
+              self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, mode: .offline(filterColors: [randomColor]), delegate: self)
+              try self.livenessDetector?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+          }
       } catch {
         pushEvent(data: error)
       }
@@ -112,22 +114,12 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
     pushEvent(data: withError)
   }
   
-  func liveness(liveness: LivenessUtilityDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: LivenessResult?) {
-      let imageData = verificationImage.pngData()!
-      let livenessImage = imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
-      let data = response?.data
-      if(response?.status == 200) {
-          let dataRes: [String: Any] = ["message": message, "livenessImage": livenessImage, "result": result, "code": 200, "livenesScore": livenesScore != 0 ? livenesScore : data!["livenesScore"] ?? 0, "request_id": response?.request_id ?? "", "status": response?.status ?? false, "success": response?.succes ?? false, "livenessType": data!["livenessType"] as? String ?? "", "faceMatchingScore": data!["faceMatchingScore"] as? String ?? "", "data": response?.data as Any]
+    func liveness(_ liveness: LivenessUtilityDetector, didFinishWithResult result: LivenessResult) {
+        let dataRes: [String: Any] = ["message": result.mess, "result": result, "code": result.code, "livenesScore": result.livenesScore, "status": result.status, "success": result.succes]
         pushEvent(data: dataRes)
-        livenessDetector?.stopLiveness()
-      }  else {
-          let dataRes: [String: Any] = ["message": message, "livenessImage": livenessImage, "result": result, "code": 101, "livenesScore": livenesScore, "status": response?.status ?? false, "success": response?.succes ?? false, "livenessType": data!["livenessType"] as? String ?? "", "faceMatchingScore": data!["faceMatchingScore"] as? String ?? "", "data": response?.data as Any]
-          pushEvent(data: dataRes)
-      }
-//      Request id, message, status, success
-  }
+    }
     
-    func liveness(liveness: LivenessUtilityDetector, didFinishWithFaceImages images: LivenessFaceImages) {
+    func liveness(_ liveness: LivenessUtilityDetector, didFinishWithFaceImages images: LivenessFaceImages) {
         images.images?.forEach { image in
             let livenessImage = saveImageToFile(image: image) ?? ""
             let dataRes: [String: Any] = ["livenessImage": livenessImage]

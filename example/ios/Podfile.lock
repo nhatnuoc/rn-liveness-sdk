@@ -11,7 +11,7 @@ PODS:
     - React-Core (= 0.72.10)
     - React-jsi (= 0.72.10)
     - ReactCommon/turbomodule/core (= 0.72.10)
-  - FlashLiveness (1.1.0)
+  - FlashLiveness (1.1.1)
   - fmt (6.2.1)
   - glog (0.3.5)
   - hermes-engine (0.72.10):
@@ -606,7 +606,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   FlashLiveness:
-    :commit: 0445a9ea218b92eb533d260933ce2b7ee33b1dd5
+    :commit: 7f3435ea9ff5689d2d93e62e81f3a2a8e438bc74
     :git: https://github.com/stevienguyen1988/FlashLivenessPod.git
   QTSCardReader:
     :commit: 9bcfbdfc838befae38225554aeeacb71eb9e20be
@@ -619,7 +619,7 @@ SPEC CHECKSUMS:
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f91d538f197fa71a7d5b77ec2069d49550c0eb96
   FBReactNativeSpec: b13d1c23d6ed82d6b66aad7a253edf8ba76c4a4c
-  FlashLiveness: 6941cbbaba22d9ab248f7f17c334b60a4d427dc3
+  FlashLiveness: 4a57703b95165f934d1d362a75beb42c5745ffc7
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
@@ -667,6 +667,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3
 
-PODFILE CHECKSUM: 562d45b215ccbc2c0384784cbec201e01c7c0bf8
+PODFILE CHECKSUM: ccfae94610c588373a887e97326eabdf2f0f4663
 
 COCOAPODS: 1.15.2

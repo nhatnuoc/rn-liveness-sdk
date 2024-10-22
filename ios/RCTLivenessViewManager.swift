@@ -12,25 +12,25 @@ class RCTLivenessViewManager: RCTViewManager {
     }
 
     override func view() -> UIView! {
-        if is3DCameraSupported() {
-            let liveness3DView = Liveness3DView()
+       if is3DCameraSupported() {
+           let liveness3DView = Liveness3DView()
 
-            // Simulate checking for camera error
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                if self.is3DCameraError() {
-                    // If there's an error with the 3D camera, switch to LivenessView
-                    liveness3DView.removeFromSuperview()
-                    let livenessViewFallback = LivenessView()
-                    liveness3DView.superview?.addSubview(livenessViewFallback)
-                    // Set layout constraints or frame for fallback view as necessary
-                }
-            }
+           // Simulate checking for camera error
+           DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+               if self.is3DCameraError() {
+                   // If there's an error with the 3D camera, switch to LivenessView
+                   liveness3DView.removeFromSuperview()
+                   let livenessViewFallback = LivenessView()
+                   liveness3DView.superview?.addSubview(livenessViewFallback)
+                   // Set layout constraints or frame for fallback view as necessary
+               }
+           }
 
-            return liveness3DView
-        } else {
-            // Return LivenessView for older devices
-            return LivenessView()
-        }
+           return liveness3DView
+       } else {
+           // Return LivenessView for older devices
+           return LivenessView()
+       }
     }
 
     // Check if the device supports 3D camera (e.g., iPhone X and later)
