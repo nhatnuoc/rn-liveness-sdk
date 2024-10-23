@@ -32,15 +32,10 @@ class LivenessViewManager(
 
   private var propWidth: Int? = null
   private var propHeight: Int? = null
-  private lateinit var activity: FragmentActivity
 
   override fun getName() = REACT_CLASS
 
   override fun createViewInstance(reactContext: ThemedReactContext): LivenessView {
-    val currentActivityField = ReactApplicationContext::class.java.getDeclaredField("currentActivity")
-    currentActivityField.isAccessible = true
-    activity = (currentActivityField.get(reactContext) as? FragmentActivity)!!
-
     return LivenessView(reactContext)
   }
 
@@ -58,12 +53,14 @@ class LivenessViewManager(
   /**
    * Handle "create" command (called from JS) and call createFragment method
    */
-  override fun receiveCommand(root: LivenessView?, commandId: Int, args: ReadableArray?) {
+  override fun receiveCommand(root: LivenessView, commandId: String?, args: ReadableArray?) {
     super.receiveCommand(root, commandId, args)
     val reactNativeViewId = requireNotNull(args).getInt(0)
 
-    when (commandId.toInt()) {
-      COMMAND_CREATE -> root?.let { createFragment(it, reactNativeViewId) }
+    if (commandId != null) {
+      when (commandId.toInt()) {
+        COMMAND_CREATE -> createFragment(root, reactNativeViewId)
+      }
     }
   }
 
@@ -109,16 +106,12 @@ class LivenessViewManager(
   private fun createFragment(root: FrameLayout, reactNativeViewId: Int) {
     val parentView = root.findViewById<ViewGroup>(reactNativeViewId)
     setupLayout(parentView)
-
-    val bundle = Bundle()
-    bundle.putString("KEY_BUNDLE_SCREEN", "")
-    val myFragment = MainLiveNessActivity()
-    myFragment.arguments = bundle
-    LiveNessSDK.setConfigSDK(activity, getLivenessRequest())
-    activity.supportFragmentManager
-      .beginTransaction()
-      .replace(reactNativeViewId, myFragment, reactNativeViewId.toString())
-      .commit()
+    val activity = reactContext.currentActivity as FragmentActivity;
+    LiveNessSDK.startLiveNess(
+      activity,
+      getLivenessRequest(),
+      activity.supportFragmentManager,
+      reactNativeViewId, null)
   }
 
   private fun setupLayout(view: View) {
@@ -157,6 +150,7 @@ class LivenessViewManager(
   }
 
   private fun getLivenessRequest(): LivenessRequest {
+    val activity = reactContext.currentActivity as FragmentActivity;
     if (LiveNessSDK.getDeviceId(activity)?.isNotEmpty() == true) {
       deviceId = LiveNessSDK.getDeviceId(activity)!!
     }

@@ -10,7 +10,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEm
 import com.facebook.react.uimanager.ViewManager
 
 
-abstract class LivenessRnPackage : ReactPackage {
+class LivenessRnPackage : ReactPackage {
   override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
     return listOf(LivenessRnModule(reactContext))
   }
@@ -23,13 +23,13 @@ abstract class LivenessRnPackage : ReactPackage {
     fun sendEvent(
       context: ReactApplicationContext,
       eventName: String?,
-      @Nullable params: WritableMap?
+      params: WritableMap?
     ) {
 //      context
 //        ?.getJSModule(RCTDeviceEventEmitter::class.java)
 //        ?.emit(eventName!!, params)
       context
-        ?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+          .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
         ?.emit(eventName!!, params)
     }
   }
