@@ -151,5 +151,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "react-native-modalbox": "^2.0.2"
   }
 }

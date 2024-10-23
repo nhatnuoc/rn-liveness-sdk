@@ -9,7 +9,10 @@ import {
   PixelRatio,
   UIManager,
   findNodeHandle,
+  TextInput,
 } from 'react-native';
+
+import SimpleModal from './SimpleModal';
 
 
 import {
@@ -85,10 +88,49 @@ Y/EdqKp20cAT9vgNap7Bfgv5XN9PrE+Yt0C1BkxXnfJHA7L9hcoYrknsae/Fa2IP
 -----END CERTIFICATE-----
 `
 
+const loginFaceId = ({ filePath, userId }) => {
+  console.log(filePath)
+  const data = new FormData();
+  //   data.append("image", filePath);
+  data.append("image", {
+    uri: `file://${filePath}`,
+    type: "image/png",
+    name: "image.png",
+  });
+  // data.append("user_id", "thuthuy");
+  data.append("user_id", userId);
+  // data.append("user_id", '68');
+  data.append("threshold", 0.8);
+  data.append("check_liveness", "True");
+  data.append("source", "test_search");
+  const url = "https://ekyc-pvcombank-dev.tunnel.techainer.com/api/v1/verify/verify_user_face_liveness_match/";
+  return new Promise(async function (resolve, reject) {
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: "Token 92fdcde95745b7efeee9345dcff9a02ee5a549fc",
+        Accept: "application/json",
+      },
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
 export default function App() {
   const [status, setStatus] = useState(false);
   const [layout, setLayout] = useState({ width: 0, height: 0 });
   const ref = useRef(null);
+
+  const [loginError, setLoginError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (Platform.OS != 'ios' && status) {
@@ -114,6 +156,22 @@ export default function App() {
     setLayout({width, height})
   }
 
+  const [text, setText] = useState('');
+
+  const onCheckFaceId = async (filePath) => {
+    try {
+      const res = await loginFaceId({
+        filePath: filePath,
+        userId: text,
+      });
+      console.log(res)
+      setErrorMessage(JSON.stringify(res));
+      setLoginError(true);
+    } catch (error) {
+      console.log("🚀 ~ handleLoginFaceId ~ error:", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
         {status && (
@@ -131,6 +189,9 @@ export default function App() {
             }
             onEvent={(data) => {
               console.log('===sendEvent===', data.nativeEvent?.data);
+              if (data.nativeEvent?.data?.livenessImage != null) {
+                onCheckFaceId(data.nativeEvent?.data?.livenessImage);
+              }
             }}
             requestid={'sdfsdfsdfsdf'}
             appId={'com.pvcb'}
@@ -141,9 +202,24 @@ export default function App() {
           />
         </View>
       )}
+      {!status && <TextInput
+        style={styles.input}
+        placeholder="User Id"
+        value={text}
+        onChangeText={(newText) => setText(newText)}
+      />}
       <TouchableOpacity onPress={onStartLiveNess} style={styles.btn_liveness}>
         <Text>Start LiveNess</Text>
       </TouchableOpacity>
+      <SimpleModal
+        isOpen={loginError}
+        setIsOpen={setLoginError}
+        onConfirm={() => {
+          setLoginError(false)
+          setStatus(false)
+        }}
+        errorMessage={errorMessage}
+      />
     </View>
   );
 }
@@ -180,5 +256,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 12,
     marginBottom: 24,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    marginBottom: 20,
   },
 });
