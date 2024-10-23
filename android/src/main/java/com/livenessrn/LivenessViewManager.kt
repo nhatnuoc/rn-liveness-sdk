@@ -41,7 +41,7 @@ class LivenessViewManager(
 
   override fun getCommandsMap() = mapOf("create" to COMMAND_CREATE)
 
-  override fun getExportedCustomDirectEventTypeConstants(): Map<String, Any>? {
+  override fun getExportedCustomDirectEventTypeConstants(): Map<String, Any> {
     return MapBuilder.builder<String, Any>()
       .put(
         "nativeClick",  //Same as name registered with receiveEvent

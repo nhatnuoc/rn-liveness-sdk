@@ -18,11 +18,10 @@ class MainApplication : Application(), ReactApplication {
     }
 
     override fun getPackages(): List<ReactPackage> {
-      val packages: MutableList<ReactPackage> = PackageList(this).packages
-      // Packages that cannot be autolinked yet can be added manually here, for example:
-      // packages.add(new MyReactNativePackage());
-//      packages.add(LivenessRnPackage())
-      return packages
+      return PackageList(this).packages.apply {
+              // Packages that cannot be autolinked yet can be added manually here, for example:
+              // add(LivenessRnPackage())
+            }
     }
 
     override fun getJSMainModuleName(): String {
