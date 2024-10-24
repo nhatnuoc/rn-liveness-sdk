@@ -126,6 +126,7 @@ const loginFaceId = ({ filePath, userId }) => {
 
 export default function App() {
   const [status, setStatus] = useState(false);
+  const [isFlashCamera, setIsFlashCamera] = useState(false);
   const [layout, setLayout] = useState({ width: 0, height: 0 });
   const ref = useRef(null);
 
@@ -189,7 +190,9 @@ export default function App() {
             }
             onEvent={(data) => {
               console.log('===sendEvent===', data.nativeEvent?.data);
-              if (data.nativeEvent?.data?.livenessImage != null) {
+              if (data.nativeEvent?.data?.is3DCameraSupported != null) {
+                setIsFlashCamera(!data.nativeEvent?.data?.is3DCameraSupported)
+              } else if (data.nativeEvent?.data?.livenessImage != null) {
                 onCheckFaceId(data.nativeEvent?.data?.livenessImage);
               }
             }}
@@ -199,6 +202,7 @@ export default function App() {
             privateKey={privateKey}
             publicKey={publicKey}
             debugging={true}
+            isFlashCamera={true}
           />
         </View>
       )}

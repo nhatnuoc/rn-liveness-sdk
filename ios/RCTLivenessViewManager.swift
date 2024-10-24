@@ -6,6 +6,12 @@ import AVFoundation
 @available(iOS 15.0, *)
 @objc (RCTLivenessViewManager)
 class RCTLivenessViewManager: RCTViewManager {
+    
+    var isFlashCamera: Bool = false
+    
+    @objc func setIsFlashCamera(_ isFlashCamera: Bool) {
+        self.isFlashCamera = isFlashCamera
+    }
 
     override static func requiresMainQueueSetup() -> Bool {
         return true
@@ -13,13 +19,12 @@ class RCTLivenessViewManager: RCTViewManager {
 
     override func view() -> UIView! {
        if is3DCameraSupported() {
-           if self.is3DCameraError() {
+           if isFlashCamera {
                return LivenessView()
            }
 
            return Liveness3DView()
        } else {
-           // Return LivenessView for older devices
            return LivenessView()
        }
     }
@@ -55,31 +60,6 @@ class RCTLivenessViewManager: RCTViewManager {
 
         
         return supportedModels.contains(modelName)
-    }
-
-    private func is3DCameraError() -> Bool {
-        // Attempt to get the TrueDepth front camera (camera with depth capabilities)
-        guard let camera = AVCaptureDevice.default(.builtInTrueDepthCamera, for: .video, position: .front) else {
-            print("3D camera (TrueDepth) not available on this device.")
-            return true
-        }
-
-        // Check if the camera supports focus, torch, or is in a valid format
-        if !camera.isFocusModeSupported(.autoFocus) {
-            print("3D camera (TrueDepth) has unsupported configurations.")
-            return true
-        }
-
-        // Try to lock the device for configuration and check for errors
-        do {
-            try camera.lockForConfiguration()
-            camera.unlockForConfiguration()
-            print("3D camera (TrueDepth) available and configured correctly.")
-            return false // No error
-        } catch {
-            print("Error accessing 3D camera: \(error)")
-            return true // Camera error
-        }
     }
 }
 
