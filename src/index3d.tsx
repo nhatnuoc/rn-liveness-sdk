@@ -19,7 +19,7 @@ const Liveness3DRn = NativeModules.Liveness3DRn
 
 type ActionCallback = (status: any) => void;
 
-export { default as LivenessView } from './LivenessView';
+export { default as Liveness3DView } from './Liveness3DView';
 
 export function configure(
   appId: String,
