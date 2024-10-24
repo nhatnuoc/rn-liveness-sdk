@@ -1,6 +1,7 @@
 package com.livenessrn
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Choreographer
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,9 @@ import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.annotations.ReactPropGroup
 import com.liveness.sdk.corev4.LiveNessSDK
+import com.liveness.sdk.corev4.model.DataConfig
 import com.liveness.sdk.corev4.model.LivenessRequest
+import java.util.Random
 
 class LivenessViewManager(
   private val reactContext: ReactApplicationContext
@@ -53,14 +56,15 @@ class LivenessViewManager(
   /**
    * Handle "create" command (called from JS) and call createFragment method
    */
-  override fun receiveCommand(root: LivenessView, commandId: String?, args: ReadableArray?) {
+  override fun receiveCommand(
+    root: LivenessView,
+    commandId: String,
+    args: ReadableArray?
+  ) {
     super.receiveCommand(root, commandId, args)
     val reactNativeViewId = requireNotNull(args).getInt(0)
-
-    if (commandId != null) {
-      when (commandId.toInt()) {
-        COMMAND_CREATE -> createFragment(root, reactNativeViewId)
-      }
+    when (commandId.toInt()) {
+      COMMAND_CREATE -> createFragment(root, reactNativeViewId)
     }
   }
 
@@ -106,12 +110,8 @@ class LivenessViewManager(
   private fun createFragment(root: FrameLayout, reactNativeViewId: Int) {
     val parentView = root.findViewById<ViewGroup>(reactNativeViewId)
     setupLayout(parentView)
-    val activity = reactContext.currentActivity as FragmentActivity;
-    LiveNessSDK.startLiveNess(
-      activity,
-      getLivenessRequest(),
-      activity.supportFragmentManager,
-      reactNativeViewId, null)
+    val activity = reactContext.currentActivity as FragmentActivity
+    LiveNessSDK.setConfigSDK(activity, getLivenessRequest())
   }
 
   private fun setupLayout(view: View) {
@@ -158,11 +158,17 @@ class LivenessViewManager(
     val optionRequest: HashMap<String, String> = HashMap()
     optionRequest["requestId"] = this.requestId
     optionRequest["clientTransactionId"] = this.requestId
-    return LivenessRequest(
+    val request = LivenessRequest(
       duration = 600, privateKey = privateKey,
       appId = this.appId,
       deviceId = deviceId, clientTransactionId = this.requestId, secret = secret,
       baseURL = baseURL, publicKey = publicKey, isDebug = debugging
     )
+    request.colorConfig = listOf(0xFFFFFF00L, 0xFF800080L, 0xFFFFA500L)
+    // if (isOffline) {
+    val random = Random()
+    request.dataConfig = DataConfig(random.nextInt(4), random.nextInt(4) + 1)
+    // }
+    return request
   }
 }

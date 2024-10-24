@@ -32,6 +32,10 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
   private var baseURL = "https://face-matching.vietplus.eu"
   private var clientTransactionId = "TEST"
 
+  override fun canOverrideExistingModule(): Boolean {
+    return true
+  }
+
   @ReactMethod
   fun configure(appId: String, secret: String? = null, baseURL: String? = null, clientTransactionId: String? = null) {
     this.appId = appId
@@ -49,7 +53,7 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
   @ReactMethod
   fun getDeviceId(callback: Callback? = null) {
     currentActivity!!.runOnUiThread {
-      val mDeviceId = LiveNessSDK.getDeviceId(currentActivity as FragmentActivity)
+      val mDeviceId = LiveNessSDK.getDeviceId(reactApplicationContext.currentActivity as FragmentActivity)
       val resultData: WritableMap = WritableNativeMap()
       if (mDeviceId?.isNotEmpty() == true) {
         deviceId = mDeviceId
@@ -66,18 +70,18 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
   fun registerFace(image: String? = null, callback: Callback? = null) {
     currentActivity!!.runOnUiThread {
       LiveNessSDK.registerFace(
-        currentActivity as FragmentActivity,
+        reactApplicationContext.currentActivity as FragmentActivity,
         getLivenessRequest(image),
         object : CallbackLivenessListener {
           override fun onCallbackLiveness(data: LivenessModel?) {
             val resultData: WritableMap = WritableNativeMap()
             resultData.putInt("status", data?.status ?: -1)
             resultData.putString("data", "${data?.data ?: ""}")
-            resultData.putString("message", "${data?.message ?: ""}")
-            resultData.putString("code", "${data?.code ?: ""}")
-            resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
-            resultData.putString("faceImage", "${data?.faceImage ?: ""}")
-            resultData.putString("livenessImage", "${data?.livenessImage ?: ""}")
+            resultData.putString("message", data?.message ?: "")
+            resultData.putString("code", data?.code ?: "")
+            resultData.putString("pathVideo", data?.pathVideo ?: "")
+            resultData.putString("faceImage", data?.faceImage ?: "")
+            resultData.putString("livenessImage", data?.livenessImage ?: "")
             callback?.invoke(resultData)
           }
         })
@@ -86,26 +90,26 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun startLiveNess(callback: Callback? = null) {
-    currentActivity!!.runOnUiThread {
-      LiveNessSDK.startLiveNess(
-        currentActivity as FragmentActivity,
-        getLivenessRequest(),
-        object : CallbackLivenessListener {
-          override fun onCallbackLiveness(data: LivenessModel?) {
-            Log.d("CALLBACK DATA", "$data")
-            val resultData: WritableMap = WritableNativeMap()
-            resultData.putInt("status", data?.status ?: -1)
-            resultData.putString("data", "${data?.data ?: ""}")
-            resultData.putString("message", "${data?.message ?: ""}")
-            resultData.putString("code", "${data?.code ?: ""}")
-            resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
-            resultData.putString("faceImage", "${data?.faceImage ?: ""}")
-            resultData.putString("livenessImage", "${data?.livenessImage ?: ""}")
-            callback?.invoke(resultData)
-            callback?.invoke(resultData)
-          }
-        })
-    }
+//    currentActivity!!.runOnUiThread {
+//      LiveNessSDK.startLiveNess(
+//        reactApplicationContext.currentActivity as FragmentActivity,
+//        getLivenessRequest(),
+//        object : CallbackLivenessListener {
+//          override fun onCallbackLiveness(data: LivenessModel?) {
+//            Log.d("CALLBACK DATA", "$data")
+//            val resultData: WritableMap = WritableNativeMap()
+//            resultData.putInt("status", data?.status ?: -1)
+//            resultData.putString("data", "${data?.data ?: ""}")
+//            resultData.putString("message", "${data?.message ?: ""}")
+//            resultData.putString("code", "${data?.code ?: ""}")
+//            resultData.putString("pathVideo", "${data?.pathVideo ?: ""}")
+//            resultData.putString("faceImage", "${data?.faceImage ?: ""}")
+//            resultData.putString("livenessImage", "${data?.livenessImage ?: ""}")
+//            callback?.invoke(resultData)
+//            callback?.invoke(resultData)
+//          }
+//        })
+//    }
   }
 
   private fun getLivenessRequest(image: String? = null): LivenessRequest {
@@ -167,7 +171,7 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
       "Y/EdqKp20cAT9vgNap7Bfgv5XN9PrE+Yt0C1BkxXnfJHA7L9hcoYrknsae/Fa2IP\n" +
       "99RyIXaHLJyzSTKLRUhEVqrycM0UXg==\n" +
       "-----END CERTIFICATE-----"
-    if (deviceId.isNullOrEmpty()) {
+    if (deviceId.isEmpty()) {
       deviceId = UUID.randomUUID().toString()
     }
     return LivenessRequest(
