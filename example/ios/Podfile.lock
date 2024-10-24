@@ -448,6 +448,8 @@ PODS:
     - React-jsi (= 0.72.10)
     - React-logger (= 0.72.10)
     - React-perflogger (= 0.72.10)
+  - RNDeviceInfo (13.1.0):
+    - React-Core
   - SignManager (1.0.6)
   - SocketRocket (0.6.1)
   - SVProgressHUD (2.3.1):
@@ -501,6 +503,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - SVProgressHUD
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -601,6 +604,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -662,6 +667,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 68353a05c25b32d442610ef19af377f2b198f3fe
   React-utils: a715392dfaaa383668566e400f40493093c08d7e
   ReactCommon: a655a8b61cc80c7cabd8db83f69e6f498d4d0894
+  RNDeviceInfo: e13b7d68878fba693c9fbb13ca4d56ad57d95917
   SignManager: 67d0f04ff3695c1dde7c056bc9ba09de0db2f806
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22

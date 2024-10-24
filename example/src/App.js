@@ -12,6 +12,8 @@ import {
   TextInput,
 } from 'react-native';
 
+import DeviceInfo from 'react-native-device-info';
+
 import SimpleModal from './SimpleModal';
 
 
@@ -124,6 +126,40 @@ const loginFaceId = ({ filePath, userId }) => {
   });
 };
 
+const isIphoneXOrLater = (model) => {
+  const iPhoneXModels = [
+    'iPhone X',
+    'iPhone XS',
+    'iPhone XS Max',
+    'iPhone XR',
+    'iPhone 11',
+    'iPhone 11 Pro',
+    'iPhone 11 Pro Max',
+    'iPhone 12',
+    'iPhone 12 Mini',
+    'iPhone 12 Pro',
+    'iPhone 12 Pro Max',
+    'iPhone 13',
+    'iPhone 13 Mini',
+    'iPhone 13 Pro',
+    'iPhone 13 Pro Max',
+    'iPhone 14',
+    'iPhone 14 Plus',
+    'iPhone 14 Pro',
+    'iPhone 14 Pro Max',
+    'iPhone 15',
+    'iPhone 15 Plus',
+    'iPhone 15 Pro',
+    'iPhone 15 Pro Max',
+    'iPhone 16',
+    'iPhone 16 Plus',
+    'iPhone 16 Pro',
+    'iPhone 16 Pro Max'
+  ];
+
+  return iPhoneXModels.includes(model);
+};
+
 export default function App() {
   const [status, setStatus] = useState(false);
   const [isFlashCamera, setIsFlashCamera] = useState(false);
@@ -134,7 +170,7 @@ export default function App() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (Platform.OS != 'ios' && status) {
+    if (Platform.OS !== 'ios' && status) {
       const viewId = findNodeHandle(ref?.current);
       if (viewId) {
         createFragment(viewId);
@@ -142,22 +178,45 @@ export default function App() {
     }
   }, [ref.current, status]);
 
+  const [isIphoneX, setIsIphoneX] = useState(false);
+
+  useEffect(() => {
+    const checkDevice = async () => {
+      const model = DeviceInfo.getModel();
+      setIsIphoneX(isIphoneXOrLater(model));
+      setIsFlashCamera(false);
+    };
+
+    checkDevice();
+  }, []);
+
+  const [text, setText] = useState('');
+  const [callbackTimeout, setCallbackTimeout] = useState(null); // State to store the timeout ID
+
   const onStartLiveNess = () => {
     setStatus(!status);
+    if (!status) {
+      // Set a timeout when starting live-ness
+      const timeoutId = setTimeout(() => {
+        setIsFlashCamera(true);
+      }, 10000);
+      setCallbackTimeout(timeoutId);
+    } else {
+      // Clear the timeout if stopping live-ness
+      if (callbackTimeout) {
+        clearTimeout(callbackTimeout);
+        setCallbackTimeout(null);
+      }
+    }
   };
 
   const handleLayout = e => {
     const { height, width } = e.nativeEvent.layout;
-    if (
-      layout.width === width &&
-      layout.height === height
-    ) {
+    if (layout.width === width && layout.height === height) {
       return;
     }
-    setLayout({width, height})
-  }
-
-  const [text, setText] = useState('');
+    setLayout({ width, height });
+  };
 
   const onCheckFaceId = async (filePath) => {
     try {
@@ -165,7 +224,7 @@ export default function App() {
         filePath: filePath,
         userId: text,
       });
-      console.log(res)
+      console.log(res);
       setErrorMessage(JSON.stringify(res));
       setLoginError(true);
     } catch (error) {
@@ -175,25 +234,29 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-        {status && (
+      {status && (
         <View style={styles.view_camera} onLayout={handleLayout}>
           <LivenessView
             ref={ref}
             style={
               Platform.OS === 'ios' ? styles.view_liveness :
               {
-                // converts dpi to px, provide desired height
                 height: PixelRatio.getPixelSizeForLayoutSize(layout.height),
-                // converts dpi to px, provide desired width
                 width: PixelRatio.getPixelSizeForLayoutSize(layout.width),
               }
             }
             onEvent={(data) => {
               console.log('===sendEvent===', data.nativeEvent?.data);
-              if (data.nativeEvent?.data?.is3DCameraSupported != null) {
-                setIsFlashCamera(!data.nativeEvent?.data?.is3DCameraSupported)
-              } else if (data.nativeEvent?.data?.livenessImage != null) {
+              if (data.nativeEvent?.data?.livenessImage != null) {
                 onCheckFaceId(data.nativeEvent?.data?.livenessImage);
+                if (isIphoneX) {
+                  setIsFlashCamera(false);
+                }
+                // Clear the timeout if the event is received
+                if (callbackTimeout) {
+                  clearTimeout(callbackTimeout);
+                  setCallbackTimeout(null);
+                }
               }
             }}
             requestid={'sdfsdfsdfsdf'}
@@ -202,7 +265,7 @@ export default function App() {
             privateKey={privateKey}
             publicKey={publicKey}
             debugging={true}
-            isFlashCamera={true}
+            isFlashCamera={isIphoneX && !isFlashCamera}
           />
         </View>
       )}
@@ -219,14 +282,15 @@ export default function App() {
         isOpen={loginError}
         setIsOpen={setLoginError}
         onConfirm={() => {
-          setLoginError(false)
-          setStatus(false)
+          setLoginError(false);
+          setStatus(false);
         }}
         errorMessage={errorMessage}
       />
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
