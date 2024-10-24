@@ -19,6 +19,7 @@ import SimpleModal from './SimpleModal';
 
 import {
   LivenessView,
+  Liveness3DView,
 } from 'liveness-rn';
 
 const createFragment = viewId =>
@@ -160,9 +161,16 @@ const isIphoneXOrLater = (model) => {
   return iPhoneXModels.includes(model);
 };
 
+var isFlashCamera = false
+var isIphoneX = false
+
+const checkDevice = async () => {
+  const model = DeviceInfo.getModel();
+  isIphoneX = isIphoneXOrLater(model);
+};
+
 export default function App() {
   const [status, setStatus] = useState(false);
-  const [isFlashCamera, setIsFlashCamera] = useState(false);
   const [layout, setLayout] = useState({ width: 0, height: 0 });
   const ref = useRef(null);
 
@@ -178,36 +186,21 @@ export default function App() {
     }
   }, [ref.current, status]);
 
-  const [isIphoneX, setIsIphoneX] = useState(false);
-
   useEffect(() => {
-    const checkDevice = async () => {
-      const model = DeviceInfo.getModel();
-      setIsIphoneX(isIphoneXOrLater(model));
-      setIsFlashCamera(false);
-    };
-
     checkDevice();
+    setTimeout(() => {
+      onStartLiveNess()
+      isFlashCamera = true
+      setTimeout(() => {
+        // onStartLiveNess()
+      }, 1000);
+    }, 9900);
   }, []);
 
   const [text, setText] = useState('');
-  const [callbackTimeout, setCallbackTimeout] = useState(null); // State to store the timeout ID
 
   const onStartLiveNess = () => {
     setStatus(!status);
-    if (!status) {
-      // Set a timeout when starting live-ness
-      const timeoutId = setTimeout(() => {
-        setIsFlashCamera(true);
-      }, 10000);
-      setCallbackTimeout(timeoutId);
-    } else {
-      // Clear the timeout if stopping live-ness
-      if (callbackTimeout) {
-        clearTimeout(callbackTimeout);
-        setCallbackTimeout(null);
-      }
-    }
   };
 
   const handleLayout = e => {
@@ -231,12 +224,13 @@ export default function App() {
       console.log("🚀 ~ handleLoginFaceId ~ error:", error);
     }
   };
-
+  
   return (
     <View style={styles.container}>
       {status && (
         <View style={styles.view_camera} onLayout={handleLayout}>
-          <LivenessView
+          { isFlashCamera
+             ? <LivenessView
             ref={ref}
             style={
               Platform.OS === 'ios' ? styles.view_liveness :
@@ -250,12 +244,7 @@ export default function App() {
               if (data.nativeEvent?.data?.livenessImage != null) {
                 onCheckFaceId(data.nativeEvent?.data?.livenessImage);
                 if (isIphoneX) {
-                  setIsFlashCamera(false);
-                }
-                // Clear the timeout if the event is received
-                if (callbackTimeout) {
-                  clearTimeout(callbackTimeout);
-                  setCallbackTimeout(null);
+                  isFlashCamera = false;
                 }
               }
             }}
@@ -265,8 +254,37 @@ export default function App() {
             privateKey={privateKey}
             publicKey={publicKey}
             debugging={true}
-            isFlashCamera={isIphoneX && !isFlashCamera}
+            // isFlashCamera={isIphoneX && isFlashCamera}
+            isFlashCamera={true}
           />
+          : <Liveness3DView
+              ref={ref}
+              style={
+                Platform.OS === 'ios' ? styles.view_liveness :
+                {
+                  height: PixelRatio.getPixelSizeForLayoutSize(layout.height),
+                  width: PixelRatio.getPixelSizeForLayoutSize(layout.width),
+                }
+              }
+              onEvent={(data) => {
+                console.log('===sendEvent===', data.nativeEvent?.data);
+                if (data.nativeEvent?.data?.livenessImage != null) {
+                  onCheckFaceId(data.nativeEvent?.data?.livenessImage);
+                  if (isIphoneX) {
+                    isFlashCamera = false;
+                  }
+                }
+              }}
+              requestid={'sdfsdfsdfsdf'}
+              appId={'com.pvcb'}
+              baseUrl={'https://ekyc-sandbox.eidas.vn/face-matching'}
+              privateKey={privateKey}
+              publicKey={publicKey}
+              debugging={true}
+              // isFlashCamera={isIphoneX && isFlashCamera}
+              isFlashCamera={true}
+            />
+          }
         </View>
       )}
       {!status && <TextInput
