@@ -1,10 +1,3 @@
-//
-//  LivenessView.swift
-//  AppTest
-//
-//  Created by NamNg on 5/14/24.
-//
-
 import Foundation
 import React
 import UIKit
@@ -22,7 +15,6 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   var publicKey = ""
   var secret = "ABCDEFGHIJKLMNOP"
   var debugging = false
-  var isFlashCamera = false
   var isDoneSmile = false
   
   override init(frame: CGRect) {
@@ -109,10 +101,6 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   
   @objc func setDebugging(_ val: Bool) {
     self.debugging = val as Bool
-  }
-  
-  @objc func setIsFlashCamera(_ val: Bool) {
-    self.isFlashCamera = val as Bool
   }
   
   func liveness(liveness: LivenessUtilityDetector, didFail withError: LivenessError) {

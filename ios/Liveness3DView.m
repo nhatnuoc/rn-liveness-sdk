@@ -1,10 +1,3 @@
-//
-//  LivenessView.m
-//  AppTest
-//
-//  Created by NamNg on 5/14/24.
-//
-
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
@@ -20,5 +13,4 @@
   RCT_EXPORT_VIEW_PROPERTY(privateKey, NSString)
   RCT_EXPORT_VIEW_PROPERTY(publicKey, NSString)
   RCT_EXPORT_VIEW_PROPERTY(debugging, BOOL)
-  RCT_EXPORT_VIEW_PROPERTY(isFlashCamera, BOOL)
 @end

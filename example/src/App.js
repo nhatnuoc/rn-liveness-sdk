@@ -229,35 +229,7 @@ export default function App() {
     <View style={styles.container}>
       {status && (
         <View style={styles.view_camera} onLayout={handleLayout}>
-          { isFlashCamera
-             ? <LivenessView
-            ref={ref}
-            style={
-              Platform.OS === 'ios' ? styles.view_liveness :
-              {
-                height: PixelRatio.getPixelSizeForLayoutSize(layout.height),
-                width: PixelRatio.getPixelSizeForLayoutSize(layout.width),
-              }
-            }
-            onEvent={(data) => {
-              console.log('===sendEvent===', data.nativeEvent?.data);
-              if (data.nativeEvent?.data?.livenessImage != null) {
-                onCheckFaceId(data.nativeEvent?.data?.livenessImage);
-                if (isIphoneX) {
-                  isFlashCamera = false;
-                }
-              }
-            }}
-            requestid={'sdfsdfsdfsdf'}
-            appId={'com.pvcb'}
-            baseUrl={'https://ekyc-sandbox.eidas.vn/face-matching'}
-            privateKey={privateKey}
-            publicKey={publicKey}
-            debugging={true}
-            // isFlashCamera={isIphoneX && isFlashCamera}
-            isFlashCamera={true}
-          />
-          : <Liveness3DView
+          <LivenessView
               ref={ref}
               style={
                 Platform.OS === 'ios' ? styles.view_liveness :
@@ -281,10 +253,7 @@ export default function App() {
               privateKey={privateKey}
               publicKey={publicKey}
               debugging={true}
-              // isFlashCamera={isIphoneX && isFlashCamera}
-              isFlashCamera={true}
             />
-          }
         </View>
       )}
       {!status && <TextInput

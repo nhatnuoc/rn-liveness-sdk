@@ -32,7 +32,6 @@ class LivenessViewManager(
   private var privateKey = ""
   private var publicKey = ""
   private var debugging: Boolean = false
-  private var isFlashCamera: Boolean = false
 
   private var propWidth: Int? = null
   private var propHeight: Int? = null
@@ -103,11 +102,6 @@ class LivenessViewManager(
   @ReactProp(name = "debugging")
   fun setDebugging(view: FrameLayout, debugging: Boolean) {
     this.debugging = debugging
-  }
-
-  @ReactProp(name = "isFlashCamera")
-  fun setIsFlashCamera(view: FrameLayout, isFlashCamera: Boolean) {
-    this.isFlashCamera = isFlashCamera
   }
 
   /**
