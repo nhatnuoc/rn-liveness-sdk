@@ -19,7 +19,6 @@ import SimpleModal from './SimpleModal';
 
 import {
   LivenessView,
-  Liveness3DView,
 } from 'liveness-rn';
 
 const createFragment = viewId =>
