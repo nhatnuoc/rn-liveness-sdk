@@ -14,6 +14,8 @@ import com.liveness.sdk.corev4.LiveNessSDK
 import com.liveness.sdk.corev4.model.LivenessModel
 import com.liveness.sdk.corev4.utils.CallbackLivenessListener
 import java.io.ByteArrayInputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.io.InputStream
 
 
@@ -61,8 +63,8 @@ class LivenessView @JvmOverloads constructor(
         }else {
           data?.imageResult?.apply {
             if(this.size>2){
-              val originalImage = this[0].image
-              val colorImage = this[1].image
+              val originalImage = base64ToPathFile(this[0].image, context)
+              val colorImage = base64ToPathFile(this[1].image, context)
               val map = Arguments.createMap()
               map.putString("livenessImage", originalImage)
               map.putString("livenessOriginalImage", colorImage)
@@ -78,6 +80,24 @@ class LivenessView @JvmOverloads constructor(
         }
 
       }
+    }
+  }
+
+  fun base64ToPathFile(b64Data: String?, context: Context): String? {
+    return try {
+      val decodedBytes = Base64.decode(b64Data, Base64.DEFAULT)
+      val file = File(context.cacheDir, "image_${System.currentTimeMillis()}.jpg")
+
+      // Write the decoded bytes to the file
+      FileOutputStream(file).use { outputStream ->
+        outputStream.write(decodedBytes)
+      }
+
+      // Return the absolute path of the file
+      file.absolutePath
+    } catch (e: Exception) {
+      e.printStackTrace()
+      null
     }
   }
 

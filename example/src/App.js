@@ -90,7 +90,7 @@ Y/EdqKp20cAT9vgNap7Bfgv5XN9PrE+Yt0C1BkxXnfJHA7L9hcoYrknsae/Fa2IP
 -----END CERTIFICATE-----
 `
 
-const loginFaceId = ({ filePath, userId }) => {
+const loginFaceId = ({ filePath, livenessPath, livenessThermalPath, userId }) => {
   console.log(filePath)
   const data = new FormData();
   //   data.append("image", filePath);
@@ -99,6 +99,16 @@ const loginFaceId = ({ filePath, userId }) => {
     type: "image/png",
     name: "image.png",
   });
+  data.append("sdk_thermal_image", livenessThermalPath ? {
+    uri: `file://${livenessThermalPath}`,
+    type: "image/png",
+    name: "image.png",
+  } : "");
+  data.append("sdk_liveness_image", livenessPath ? {
+    uri: `file://${livenessPath}`,
+    type: "image/png",
+    name: "image.png",
+  } : "");
   // data.append("user_id", "thuthuy");
   data.append("user_id", userId);
   // data.append("user_id", '68');
@@ -212,10 +222,11 @@ export default function App() {
     setLayout({ width, height });
   };
 
-  const onCheckFaceId = async (filePath) => {
+  const onCheckFaceId = async (filePath, fileLiveness) => {
     try {
       const res = await loginFaceId({
         filePath: filePath,
+        fileLiveness: fileLiveness,
         userId: text,
       });
       console.log(res);
@@ -241,8 +252,8 @@ export default function App() {
               }
               onEvent={(data) => {
                 console.log('===sendEvent===', data.nativeEvent?.data);
-                if (data.nativeEvent?.data?.livenessImage != null) {
-                  onCheckFaceId(data.nativeEvent?.data?.livenessImage);
+                if (data.nativeEvent?.data?.livenessImage != null || data.nativeEvent?.data?.livenessOriginalImage != null) {
+                  onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage);
                   if (isIphoneX) {
                     isFlashCamera = false
                   }
