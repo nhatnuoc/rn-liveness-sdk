@@ -62,7 +62,7 @@ class LivenessView @JvmOverloads constructor(
           callNativeEvent(map)
         }else {
           data?.imageResult?.apply {
-            if(this.size>2){
+            if(this.size>=2){
               val originalImage = base64ToPathFile(this[0].image, context)
               val colorImage = base64ToPathFile(this[1].image, context)
               val map = Arguments.createMap()
