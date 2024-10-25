@@ -3,11 +3,12 @@ import React
 import UIKit
 import LocalAuthentication
 import FlashLiveness
+@_implementationOnly import QTSLiveness
 
 @available(iOS 15.0, *)
-class LivenessView: UIView, LivenessUtilityDetectorDelegate {
+class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLiveness.LivenessUtilityDetectorDelegate {
   var transactionId = ""
-  var livenessDetector: LivenessUtilityDetector?
+  var livenessDetector: Any?
   var requestid = ""
   var appId = ""
   var baseUrl = ""
@@ -15,6 +16,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   var publicKey = ""
   var secret = "ABCDEFGHIJKLMNOP"
   var debugging = false
+  var isFlashCamera = false
   var isDoneSmile = false
   
   override init(frame: CGRect) {
@@ -28,10 +30,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   }
     
   private func setupConfig() {
-    if !appId.isEmpty && !baseUrl.isEmpty && !publicKey.isEmpty && !privateKey.isEmpty && !requestid.isEmpty {
-      Networking.shared.setup(appId: appId, logLevel: .debug, url: self.baseUrl, publicKey: self.publicKey, privateKey: self.privateKey)
       setupView()
-    }
   }
  
   private func setupView() {
@@ -52,12 +51,23 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
 //        } else {
 //          pushEvent(data: ["status" : response.status, "data": response.data, "signature": response.signature])
 //        }
-          let colors: [UIColor] = [.red, .green, .blue]
+          if isFlashCamera {
+              let colors: [UIColor] = [.red, .green, .blue]
 
-          // Chọn một màu ngẫu nhiên
-          if let randomColor: UIColor = colors.randomElement(){
-              self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, mode: .offline(filterColors: [randomColor]), delegate: self)
-              try self.livenessDetector?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+              // Chọn một màu ngẫu nhiên
+              if let randomColor: UIColor = colors.randomElement(){
+                  self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, mode: .offline(filterColors: [randomColor]), delegate: self)
+                  try (self.livenessDetector as! LivenessUtilityDetector).getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+              }
+          } else {
+              self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(previewView: self,
+                                                                                 threshold: .low,
+                                                                                 smallFaceThreshold: 0.25,
+                                                                                 debugging: true,
+                                                                                 delegate: self,
+                                                                                 livenessMode: .local,
+                                                                                 additionHeader: ["header":"header"])
+              try (self.livenessDetector as! QTSLivenessDetector).getVerificationRequiresAndStartSession(transactionId: self.transactionId)
           }
       } catch {
         pushEvent(data: error)
@@ -75,51 +85,90 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
   @objc var onEvent: RCTBubblingEventBlock?
   
   @objc func setRequestid(_ val: NSString) {
+      print("9999")
     self.requestid = val as String
     self.setupConfig()
   }
     
   @objc func setAppId(_ val: NSString) {
+      print("9999")
     self.appId = val as String
     self.setupConfig()
   }
     
   @objc func setBaseUrl(_ val: NSString) {
+      print("9999")
     self.baseUrl = val as String
     self.setupConfig()
   }
     
   @objc func setPrivateKey(_ val: NSString) {
+      print("9999")
     self.privateKey = val as String
     self.setupConfig()
   }
     
   @objc func setPublicKey(_ val: NSString) {
+      print("9999")
     self.publicKey = val as String
     self.setupConfig()
   }
   
   @objc func setDebugging(_ val: Bool) {
+      print("9999")
     self.debugging = val as Bool
   }
+    
+  @objc func setIsFlashCamera(_ val: Bool) {
+        print("9999")
+        self.isFlashCamera = val as Bool
+        self.setupConfig()
+  }
   
-  func liveness(liveness: LivenessUtilityDetector, didFail withError: LivenessError) {
+    private func liveness(liveness: FlashLiveness.LivenessUtilityDetector, didFail withError: FlashLiveness.LivenessError) {
     pushEvent(data: withError)
   }
   
-    func liveness(_ liveness: LivenessUtilityDetector, didFinishWithResult result: LivenessResult) {
+    func liveness(_ liveness: FlashLiveness.LivenessUtilityDetector, didFinishWithResult result:  FlashLiveness.LivenessResult) {
         let dataRes: [String: Any] = ["message": result.mess, "result": result, "code": result.code, "livenesScore": result.livenesScore, "status": result.status, "success": result.succes]
         pushEvent(data: dataRes)
     }
     
-    func liveness(_ liveness: LivenessUtilityDetector, didFinishWithFaceImages images: LivenessFaceImages) {
+    func liveness(_ liveness: FlashLiveness.LivenessUtilityDetector, didFinishWithFaceImages images: FlashLiveness.LivenessFaceImages) {
         images.images?.forEach { image in
             let livenessImage = saveImageToFile(image: image) ?? ""
             let dataRes: [String: Any] = ["livenessImage": livenessImage]
               pushEvent(data: dataRes)
-              livenessDetector?.stopLiveness()
+            (livenessDetector as! LivenessUtilityDetector).stopLiveness()
         }
     }
+    
+    
+    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFail withError: QTSLiveness.LivenessError) {
+      pushEvent(data: withError)
+    }
+    
+//    func liveness(liveness: QTSLivenessDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: LivenessResult?) {
+//        let imageData = verificationImage.pngData()!
+//        let livenessImage = imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
+//        let data = response?.data
+//        if(response?.status == 200) {
+//            let dataRes: [String: Any] = ["message": message, "livenessImage": livenessImage, "result": result, "code": 200, "livenesScore": livenesScore != 0 ? livenesScore : data!["livenesScore"] ?? 0, "request_id": response?.request_id ?? "", "status": response?.status ?? false, "success": response?.succes ?? false, "livenessType": data!["livenessType"] as? String ?? "", "faceMatchingScore": data!["faceMatchingScore"] as? String ?? "", "data": response?.data as Any]
+//          pushEvent(data: dataRes)
+//          livenessDetector?.stopLiveness()
+//        }  else {
+//            let dataRes: [String: Any] = ["message": message, "livenessImage": livenessImage, "result": result, "code": 101, "livenesScore": livenesScore, "status": response?.status ?? false, "success": response?.succes ?? false, "livenessType": data!["livenessType"] as? String ?? "", "faceMatchingScore": data!["faceMatchingScore"] as? String ?? "", "data": response?.data as Any]
+//            pushEvent(data: dataRes)
+//        }
+//  //      Request id, message, status, success
+//    }
+      
+    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, image: UIImage, videoURL: URL?) {
+          let livenessImage = saveImageToFile(image: image) ?? ""
+          let dataRes: [String: Any] = ["livenessImage": livenessImage,"livenesScore": score]
+            pushEvent(data: dataRes)
+        (livenessDetector as! QTSLivenessDetector).stopLiveness()
+      }
     
     func saveImageToFile(image: UIImage) -> String? {
         // Chuyển đổi UIImage thành Data (PNG format)
@@ -150,7 +199,7 @@ class LivenessView: UIView, LivenessUtilityDetectorDelegate {
     
     
   func stopLiveness() {
-    livenessDetector?.stopLiveness()
+      (livenessDetector as AnyObject).stopLiveness()
   }
     
   var faceIDAvailable: Bool {

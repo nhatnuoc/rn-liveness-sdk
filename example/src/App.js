@@ -188,13 +188,13 @@ export default function App() {
 
   useEffect(() => {
     checkDevice();
-    setTimeout(() => {
-      onStartLiveNess()
-      isFlashCamera = true
-      setTimeout(() => {
-        // onStartLiveNess()
-      }, 1000);
-    }, 9900);
+    // setTimeout(() => {
+    //   onStartLiveNess()
+    //   isFlashCamera = true
+    //   setTimeout(() => {
+    //     // onStartLiveNess()
+    //   }, 1000);
+    // }, 9900);
   }, []);
 
   const [text, setText] = useState('');
@@ -253,6 +253,7 @@ export default function App() {
               privateKey={privateKey}
               publicKey={publicKey}
               debugging={true}
+              isFlashCamera={false}
             />
         </View>
       )}
