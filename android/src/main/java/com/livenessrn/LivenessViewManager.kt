@@ -117,7 +117,11 @@ class LivenessViewManager(
     val parentView = root.findViewById<ViewGroup>(reactNativeViewId)
     setupLayout(parentView)
     val activity = reactContext.currentActivity as FragmentActivity
-    LiveNessSDK.setConfigSDK(activity, getLivenessRequest())
+    LiveNessSDK.startLiveNess(
+      activity,
+      getLivenessRequest(),
+      activity.supportFragmentManager,
+      reactNativeViewId, null)
   }
 
   private fun setupLayout(view: View) {
