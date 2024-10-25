@@ -155,8 +155,9 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
     
     func liveness(_ liveness: FlashLiveness.LivenessUtilityDetector, didFinishWithFaceImages images: FlashLiveness.LivenessFaceImages) {
         images.images?.forEach { image in
-            let livenessImage = saveImageToFile(image: image) ?? ""
-            let dataRes: [String: Any] = ["livenessImage": livenessImage]
+            let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
+            let livenessOriginalImage = saveImageToFile(image: images.originalImage, isOriginal: true) ?? ""
+            let dataRes: [String: Any] = ["livenessImage": livenessImage, "livenessOriginalImage": livenessOriginalImage]
               pushEvent(data: dataRes)
             (livenessDetector as! LivenessUtilityDetector).stopLiveness()
         }
@@ -183,13 +184,13 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
 //    }
       
     func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, image: UIImage, videoURL: URL?) {
-          let livenessImage = saveImageToFile(image: image) ?? ""
+          let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
           let dataRes: [String: Any] = ["livenessImage": livenessImage,"livenesScore": score]
             pushEvent(data: dataRes)
         (livenessDetector as! QTSLivenessDetector).stopLiveness()
       }
     
-    func saveImageToFile(image: UIImage) -> String? {
+    func saveImageToFile(image: UIImage, isOriginal: Bool) -> String? {
         // Chuyển đổi UIImage thành Data (PNG format)
         guard let imageData = image.pngData() else {
             print("Không thể chuyển đổi ảnh thành dữ liệu PNG")
@@ -199,7 +200,7 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
         // Lấy đường dẫn thư mục tạm thời (temporary directory)
         let tempDirectory = FileManager.default.temporaryDirectory
         // Tạo tên file với phần mở rộng .png
-        let fileName = "face_authentications" + ".png"
+        let fileName = "face_authentications_\(isOriginal ? "original" : "")" + ".png"
         // Tạo đường dẫn đầy đủ cho file
         let fileURL = tempDirectory.appendingPathComponent(fileName)
         

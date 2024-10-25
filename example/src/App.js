@@ -253,7 +253,7 @@ export default function App() {
               privateKey={privateKey}
               publicKey={publicKey}
               debugging={true}
-              isFlashCamera={false}
+              isFlashCamera={true}
             />
         </View>
       )}
