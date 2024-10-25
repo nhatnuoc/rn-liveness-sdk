@@ -121,7 +121,7 @@ class LivenessViewManager(
       activity,
       getLivenessRequest(),
       activity.supportFragmentManager,
-      reactNativeViewId, null)
+      reactNativeViewId, null, true)
   }
 
   private fun setupLayout(view: View) {
@@ -166,19 +166,25 @@ class LivenessViewManager(
     }
 
     val optionRequest: HashMap<String, String> = HashMap()
-    optionRequest["requestId"] = this.requestId
-    optionRequest["clientTransactionId"] = this.requestId
+//    optionRequest["requestId"] = this.requestId
+//    optionRequest["clientTransactionId"] = this.requestId
     val request = LivenessRequest(
-      duration = 600, privateKey = privateKey,
+      duration = 600,
+      privateKey = privateKey,
       appId = this.appId,
-      deviceId = deviceId, clientTransactionId = this.requestId, secret = secret,
-      baseURL = baseURL, publicKey = publicKey, isDebug = debugging
+      deviceId = deviceId,
+//      clientTransactionId = this.requestId,
+//      secret = secret,
+      baseURL = baseURL,
+      publicKey = publicKey,
+      isDebug = debugging,
+      offlineMode = true
     )
-    request.colorConfig = listOf(0xFFFFFF00L, 0xFF800080L, 0xFFFFA500L)
-    // if (isOffline) {
+//    request.colorConfig = listOf(0xFFFFFF00L, 0xFF800080L, 0xFFFFA500L)
+     if (request.offlineMode) {
     val random = Random()
     request.dataConfig = DataConfig(random.nextInt(4), random.nextInt(4) + 1)
-    // }
+     }
     return request
   }
 }

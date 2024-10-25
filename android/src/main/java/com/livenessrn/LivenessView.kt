@@ -1,7 +1,10 @@
 package com.livenessrn
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.AttributeSet
+import android.util.Base64
 import android.widget.FrameLayout
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactContext
@@ -10,6 +13,8 @@ import com.facebook.react.uimanager.events.RCTEventEmitter
 import com.liveness.sdk.corev4.LiveNessSDK
 import com.liveness.sdk.corev4.model.LivenessModel
 import com.liveness.sdk.corev4.utils.CallbackLivenessListener
+import java.io.ByteArrayInputStream
+import java.io.InputStream
 
 
 class LivenessView @JvmOverloads constructor(
@@ -39,7 +44,8 @@ class LivenessView @JvmOverloads constructor(
         map.putMap("data", mapData)
         callNativeEvent(map)
       } else {
-        val map = Arguments.createMap()
+        if (data?.imageResult.isNullOrEmpty() ) {
+          val map = Arguments.createMap()
 //        if (livenessModel?.action != null) {
 //          map.putInt("action", livenessModel?.action ?: -1)
 //          map.putString("message", livenessModel?.message ?: "")
@@ -48,11 +54,41 @@ class LivenessView @JvmOverloads constructor(
 //          map.putString("message", livenessModel?.message ?: "")
 //          map.putInt("code", 101)
 //        }
-        map.putBoolean("status", false)
-        map.putString("message", data?.message ?: "")
-        map.putInt("code", 101)
-        callNativeEvent(map)
+          map.putBoolean("status", false)
+          map.putString("message", data?.message ?: "")
+          map.putInt("code", 101)
+          callNativeEvent(map)
+        }else {
+          data?.imageResult?.apply {
+            if(this.size>2){
+              val originalImage = this[0].image
+              val colorImage = this[1].image
+              val map = Arguments.createMap()
+              map.putString("livenessImage", originalImage)
+              map.putString("livenessOriginalImage", colorImage)
+              callNativeEvent(map)
+            }else{
+              val map = Arguments.createMap()
+              map.putBoolean("status", false)
+              map.putString("message", data?.message ?: "")
+              map.putInt("code", 101)
+              callNativeEvent(map)
+            }
+          }
+        }
+
       }
+    }
+  }
+
+  fun base64ToBitmap(b64Data: String?): Bitmap? {
+    return try {
+      val decodedString = Base64.decode(b64Data, Base64.DEFAULT)
+      val inputStream: InputStream = ByteArrayInputStream(decodedString)
+      BitmapFactory.decodeStream(inputStream)
+    } catch (e: Error) {
+      e.printStackTrace()
+      null
     }
   }
 
