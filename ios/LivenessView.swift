@@ -21,59 +21,78 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-   setupView()
+//   setupView()
   }
  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-   setupView()
+//   setupView()
   }
     
   private func setupConfig() {
+      resetLivenessDetector()
       setupView()
   }
+    private func resetLivenessDetector() {
+        removeFromSuperview()
+        if let detector = livenessDetector as? FlashLiveness.LivenessUtilityDetector {
+            // Reset specific configurations or data for FlashLiveness if needed
+            detector.stopLiveness() // Stop the session for FlashLiveness
+            print("FlashLiveness detector stopped and reset.")
+        } else if let detector = livenessDetector as? QTSLiveness.QTSLivenessDetector {
+            // Reset specific configurations or data for QTSLiveness if needed
+            detector.stopLiveness() // Stop the session for QTSLiveness
+            print("QTSLiveness detector stopped and reset.")
+        }
+        
+        livenessDetector = nil // Set to nil to allow reinitialization
+    }
+
  
   private func setupView() {
-    // in here you can configure your view
-    Task {
       do {
-//        let response = try await Networking.shared.initTransaction(additionParam: ["clientTransactionId": self.requestid], clientTransactionId: self.requestid)
-//        if response.status == 200 {
-//          self.transactionId = response.data
-//            self.livenessDetector = LivenessUtilityDetector.createLivenessDetector(previewView: self,
-//                                                                               threshold: .low,
-//                                                                               smallFaceThreshold: 0.25,
-//                                                                               debugging: true,
-//                                                                               delegate: self,
-//                                                                               livenessMode: .local,
-//                                                                               additionHeader: ["header":"header"])
-//          try self.livenessDetector?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
-//        } else {
-//          pushEvent(data: ["status" : response.status, "data": response.data, "signature": response.signature])
-//        }
-          if isFlashCamera {
-              let colors: [UIColor] = [.red, .green, .blue]
-
-              // Chọn một màu ngẫu nhiên
-              if let randomColor: UIColor = colors.randomElement(){
-                  self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: self, mode: .offline(filterColors: [randomColor]), delegate: self)
-                  try (self.livenessDetector as! LivenessUtilityDetector).getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+                  if isFlashCamera {
+                      let colors: [UIColor] = [.red, .green, .blue]
+                      if let randomColor = colors.randomElement() {
+                          // FlashLiveness setup
+                          self.livenessDetector = LivenessUtil.createLivenessDetector(
+                              previewView: self,
+                              mode: .offline(filterColors: [randomColor]),
+                              delegate: self
+                          )
+                      }
+                  } else {
+                      // QTSLiveness setup
+                      self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
+                          previewView: self,
+                          threshold: .low,
+                          smallFaceThreshold: 0.25,
+                          debugging: true,
+                          delegate: self,
+                          livenessMode: .local,
+                          additionHeader: ["header": "header"]
+                      )
+                  }
+                  
+                  // Starting the session only if livenessDetector was successfully created
+                  try startSession()
+                  
+              } catch {
+                  pushEvent(data: ["error": error.localizedDescription])
               }
-          } else {
-              self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(previewView: self,
-                                                                                 threshold: .low,
-                                                                                 smallFaceThreshold: 0.25,
-                                                                                 debugging: true,
-                                                                                 delegate: self,
-                                                                                 livenessMode: .local,
-                                                                                 additionHeader: ["header":"header"])
-              try (self.livenessDetector as! QTSLivenessDetector).getVerificationRequiresAndStartSession(transactionId: self.transactionId)
-          }
-      } catch {
-        pushEvent(data: error)
-      }
-    }
   }
+    
+    private func startSession() throws {
+            guard let detector = livenessDetector else {
+                throw NSError(domain: "LivenessError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Liveness Detector could not be initialized"])
+            }
+
+            if isFlashCamera, let flashDetector = detector as? LivenessUtilityDetector {
+                try flashDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+            } else if let qtDetector = detector as? QTSLiveness.QTSLivenessDetector {
+                try qtDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+            }
+        }
   
   private func pushEvent(data: Any) -> Void {
     if (self.onEvent != nil) {
@@ -87,31 +106,31 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
   @objc func setRequestid(_ val: NSString) {
       print("9999")
     self.requestid = val as String
-    self.setupConfig()
+//    self.setupConfig()
   }
     
   @objc func setAppId(_ val: NSString) {
       print("9999")
     self.appId = val as String
-    self.setupConfig()
+//    self.setupConfig()
   }
     
   @objc func setBaseUrl(_ val: NSString) {
       print("9999")
     self.baseUrl = val as String
-    self.setupConfig()
+//    self.setupConfig()
   }
     
   @objc func setPrivateKey(_ val: NSString) {
       print("9999")
     self.privateKey = val as String
-    self.setupConfig()
+//    self.setupConfig()
   }
     
   @objc func setPublicKey(_ val: NSString) {
       print("9999")
     self.publicKey = val as String
-    self.setupConfig()
+//    self.setupConfig()
   }
   
   @objc func setDebugging(_ val: Bool) {
