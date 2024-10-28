@@ -99,16 +99,18 @@ const loginFaceId = ({ filePath, livenessPath, livenessThermalPath, userId }) =>
     type: "image/png",
     name: "image.png",
   });
-  data.append("sdk_thermal_image", livenessThermalPath ? {
-    uri: `file://${livenessThermalPath}`,
-    type: "image/png",
-    name: "image.png",
-  } : "");
-  data.append("sdk_liveness_image", livenessPath ? {
-    uri: `file://${livenessPath}`,
-    type: "image/png",
-    name: "image.png",
-  } : "");
+  // data.append("sdk_thermal_image", livenessThermalPath ? {
+  //   uri: `file://${livenessThermalPath}`,
+  //   type: "image/png",
+  //   name: "image.png",
+  // } : "");
+  data.append("sdk_thermal_image", livenessThermalPath ?? "");
+  // data.append("sdk_liveness_image", livenessPath ? {
+  //   uri: `file://${livenessPath}`,
+  //   type: "image/png",
+  //   name: "image.png",
+  // } : "");
+  data.append("sdk_liveness_image", livenessPath ?? "");
   // data.append("user_id", "thuthuy");
   data.append("user_id", userId);
   // data.append("user_id", '68');
