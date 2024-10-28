@@ -42,15 +42,84 @@ repositories {
 }
 ```
 
+add to dependencies
+
+```dependencies
+    implementation("com.facebook.react:react-android")
+    implementation('androidx.appcompat:appcompat:1.4.1')
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+
+    implementation('com.google.mlkit:face-detection:16.1.5')
+    implementation('com.otaliastudios:cameraview:2.7.2')
+    implementation('org.bouncycastle:bcpkix-jdk18on:1.73')
+    implementation('com.nimbusds:nimbus-jose-jwt:9.31')
+    implementation('commons-codec:commons-codec:1.16.0')
+```
+
+compileOptions
+
+```compileOptions
+compileOptions {
+      sourceCompatibility JavaVersion.VERSION_1_8
+      targetCompatibility JavaVersion.VERSION_1_8
+    }
+```
+gradle version
+
+```gradle version
+    classpath com.android.tools.build:gradle:7.2.1
+    classpath org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version
+```
+
 #### IOS
 ```
-After pod installation is complete, copy the file "LivenessUtility.xcframework" to /Pods/LivenessCloud/LivenessUtility.
+After pod installation is complete
+```
 
-The file is placed in the ios_fameworks path.
+Add permissions in Info.plist
+
+``` Add permissions in Info.plist
+<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Use to scan QR code and take photos of user&apos;s certificate and uses the camera to read passports</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>The application does not use this feature</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>The application does not use this feature</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The application does not use this feature</string>
+	<key>NSDocumentsDirectory</key>
+	<string>The application does not use this feature</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+```
+
+### add Podfile
+
+add library
+```
+  pod 'QTSCardReader' ,:git => 'https://github.com/trungnguyen1791/QTSCardReader.git'
+  pod 'SVProgressHUD'
+  pod 'Alamofire', '5.8.1'
+  pod 'QTSLiveness', '1.0.2'
+  pod 'FlashLiveness', :git => 'https://github.com/stevienguyen1988/FlashLivenessPod.git'
+```
 
 ```
-```
-add Podfile:
     use_frameworks!
     ***
     installer.pods_project.targets.each do |target|
@@ -69,18 +138,10 @@ add Podfile:
   end
 ```
 
-import PVcomBankPayment from 'liveness-rn';
-
-```
-getDeviceId:
-  getDeviceId((data) => {
-    // todo deviceId
-  });
-
-registerFace:
-  registerFace(imageBase64, (data) => {
-   // todo data registerFace
-  });
+#### React native
+#####  All ways to use the sdk have been detailed as examples in the sample folder
+``` File example
+path example/src/App.js
 ```
 
 ## Contributing

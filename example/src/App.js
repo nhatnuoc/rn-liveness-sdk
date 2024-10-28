@@ -260,9 +260,11 @@ export default function App() {
               onEvent={(data) => {
                 console.log('===sendEvent===', data.nativeEvent?.data);
                 if (data.nativeEvent?.data?.livenessImage != null || data.nativeEvent?.data?.livenessOriginalImage != null) {
-                  onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage);
-                  if (isIphoneX) {
+                  if (isIphoneX && isFlashCamera) {
+                    onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage);
                     setIsFlashCamera(false)
+                  } else {
+                    onCheckFaceId(data.nativeEvent?.data?.livenessImage);
                   }
                 }
               }}

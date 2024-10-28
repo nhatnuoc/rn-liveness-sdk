@@ -39,13 +39,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/NamNg102/liveness-rn",
-  "author": "NamNg102 <ngonamhk102@gmail.com> (https://github.com/NamNg102)",
+  "repository": "https://github.com/Techainer/rn-sdk",
+  "author": "sonuos1501 <son.uospt@gmail.com> (https://github.com/sonuos1501)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/NamNg102/liveness-rn/issues"
+    "url": "https://github.com/Techainer/rn-sdk/issues"
   },
-  "homepage": "https://github.com/NamNg102/liveness-rn#readme",
+  "homepage": "https://github.com/Techainer/rn-sdk#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

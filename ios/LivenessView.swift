@@ -55,7 +55,7 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
                       let colors: [UIColor] = [.red, .green, .blue]
                       if let randomColor = colors.randomElement() {
                           // FlashLiveness setup
-                          self.livenessDetector = LivenessUtil.createLivenessDetector(
+                          self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
                               previewView: self,
                               mode: .offline(filterColors: [randomColor]),
                               delegate: self
@@ -87,7 +87,7 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
                 throw NSError(domain: "LivenessError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Liveness Detector could not be initialized"])
             }
 
-            if isFlashCamera, let flashDetector = detector as? LivenessUtilityDetector {
+            if isFlashCamera, let flashDetector = detector as? FlashLiveness.LivenessUtilityDetector {
                 try flashDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
             } else if let qtDetector = detector as? QTSLiveness.QTSLivenessDetector {
                 try qtDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
@@ -200,7 +200,7 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
         // Lấy đường dẫn thư mục tạm thời (temporary directory)
         let tempDirectory = FileManager.default.temporaryDirectory
         // Tạo tên file với phần mở rộng .png
-        let fileName = "face_authentications_\(isOriginal ? "original" : "")" + ".png"
+        let fileName = "face_authentications\(isOriginal ? "_original" : "")" + ".png"
         // Tạo đường dẫn đầy đủ cho file
         let fileURL = tempDirectory.appendingPathComponent(fileName)
         
@@ -216,8 +216,6 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
         }
     }
 
-    
-    
   func stopLiveness() {
       (livenessDetector as AnyObject).stopLiveness()
   }
