@@ -231,7 +231,7 @@ export default function App() {
     try {
       const res = await loginFaceId({
         filePath: filePath,
-        fileLiveness: fileLiveness,
+        livenessPath: fileLiveness,
         userId: text,
       });
       console.log(res);
