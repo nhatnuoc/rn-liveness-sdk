@@ -3,7 +3,7 @@
 Liveness - React Native
 
 ## Request
-  * Minimum iOS Deployment Target: 11.0
+  * Minimum iOS Deployment Target: 13.0
   * Xcode 14 or newer
   * Swift 5
   * Android minSdkVersion: 24
@@ -17,13 +17,13 @@ package.json
 
 ```json
 "dependencies": {
-    "liveness-rn": "https://github.com/NamNg102/liveness-rn.git#{tag_version}",
+    "liveness-rn": "https://github.com/Techainer/rn-sdk.git#{tag_version}",
 }
 ```
 or
 ```json
 "dependencies": {
-    "liveness-rn": "file://{path_to_folder_clone}/liveness-rn",
+    "liveness-rn": "file://{path_to_folder_clone}/rn-sdk",
 }
 ```
 
