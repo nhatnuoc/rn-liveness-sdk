@@ -171,7 +171,6 @@ const isIphoneXOrLater = (model) => {
 };
 
 var isIphoneX = false
-var isFlashCamera = false
 
 const checkDevice = async () => {
   const model = DeviceInfo.getModel();
@@ -180,6 +179,7 @@ const checkDevice = async () => {
 
 export default function App() {
   const [status, setStatus] = useState(false);
+  const [isFlashCamera, setIsFlashCamera] = useState(false);
   const [layout, setLayout] = useState({ width: 0, height: 0 });
   const ref = useRef(null);
 
@@ -197,21 +197,26 @@ export default function App() {
 
   useEffect(() => {
     checkDevice();
-    // if (isIphoneX && !isFlashCamera) {
-    //   setTimeout(() => {
-    //     onStartLiveNess()
-    //     setTimeout(() => {
-    //       onStartLiveNess()
-    //     }, 100);
-    //   }, 9900);
-    // }
   }, []);
 
   const [text, setText] = useState('');
 
   const onStartLiveNess = () => {
     setStatus(!status);
-    isFlashCamera = !isIphoneX
+    if (isIphoneX && !status) {
+      setIsFlashCamera(false)
+      setTimeout(() => {
+       if (!isFlashCamera) {
+        setIsFlashCamera(true)
+        setStatus(false)
+        setTimeout(() => {
+          setStatus(true)
+        }, 2);
+       }
+      }, 10000);
+    } else {
+      setIsFlashCamera(true);
+    }
   };
 
   const handleLayout = e => {
@@ -255,7 +260,7 @@ export default function App() {
                 if (data.nativeEvent?.data?.livenessImage != null || data.nativeEvent?.data?.livenessOriginalImage != null) {
                   onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage);
                   if (isIphoneX) {
-                    isFlashCamera = false
+                    setIsFlashCamera(false)
                   }
                 }
               }}
@@ -265,7 +270,7 @@ export default function App() {
               privateKey={privateKey}
               publicKey={publicKey}
               debugging={true}
-              isFlashCamera={false}
+              isFlashCamera={isFlashCamera}
             />
         </View>
       )}
