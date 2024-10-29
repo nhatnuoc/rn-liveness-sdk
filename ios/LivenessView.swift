@@ -67,7 +67,7 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
                           previewView: self,
                           threshold: .low,
                           smallFaceThreshold: 0.25,
-                          debugging: true,
+                          debugging: false,
                           delegate: self,
                           livenessMode: .local,
                           additionHeader: ["header": "header"]

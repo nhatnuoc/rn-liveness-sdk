@@ -17,7 +17,8 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,m,mm,swift}"
   
   # s.xcconfig = { 'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES' }
-  s.dependency "QTSLiveness", '~> 1.0.2'
+  # s.dependency "QTSLiveness", '~> 1.0.2'
+  s.dependency "QTSLiveness"
   s.dependency "FlashLiveness"
   s.dependency 'KeychainSwift', '~> 19.0'
   
