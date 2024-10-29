@@ -144,6 +144,37 @@ add library
 path example/src/App.js
 ```
 
+# Out when liveness success
+
+## Sdk flash
+Trả về 2 ảnh:
+ + Ảnh ám màu liveness: data.nativeEvent?.data?.livenessImage
+ + Ảnh thường: data.nativeEvent?.data?.livenessOriginalImage
+
+## Sdk 3D
+Trả về 1 ảnh duy nhất:
+  + Ảnh ám màu liveness: data.nativeEvent?.data?.livenessImage
+
+Chỉ sử dụng cho Iphone x trở nên. Trường hợp nếu 10s sử dụng 3D không nhận được response trả về sẽ tự động chuyển sang Sdk flash
+### Trường chuyển đổi giữa Flash và 3D là isFlashCamera
+isFlashCamera = true --> Sử dụng sdk flash
+isFlashCamera = false --> Sử dụng sdk 3D
+debugging = false --> bắt buộc, chuyển thành true nếu cần để test
+
+```
+onEvent={(data) => {
+  console.log('===sendEvent===', data.nativeEvent?.data);
+  if (data.nativeEvent?.data?.livenessImage != null || data.nativeEvent?.data?.livenessOriginalImage != null) {
+    if (isIphoneX && isFlashCamera) {
+      onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage);
+      setIsFlashCamera(false)
+    } else {
+      onCheckFaceId(data.nativeEvent?.data?.livenessImage);
+    }
+  }
+}}
+```
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.

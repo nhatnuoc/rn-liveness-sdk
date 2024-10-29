@@ -58,6 +58,7 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
                           self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
                               previewView: self,
                               mode: .offline(filterColors: [randomColor]),
+                              debugging: debugging,
                               delegate: self
                           )
                       }
@@ -67,7 +68,7 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
                           previewView: self,
                           threshold: .low,
                           smallFaceThreshold: 0.25,
-                          debugging: false,
+                          debugging: debugging,
                           delegate: self,
                           livenessMode: .local,
                           additionHeader: ["header": "header"]
