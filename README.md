@@ -150,10 +150,12 @@ path example/src/App.js
 Trả về 2 ảnh:
  + Ảnh ám màu liveness: data.nativeEvent?.data?.livenessImage
  + Ảnh thường: data.nativeEvent?.data?.livenessOriginalImage
+ + color kiểu int: data.nativeEvent?.data?.color
 
 ## Sdk 3D
 Trả về 1 ảnh duy nhất:
   + Ảnh ám màu liveness: data.nativeEvent?.data?.livenessImage
+  + Vertor là mảng float: data.nativeEvent?.data?.livenessImage?.vector
 
 Chỉ sử dụng cho Iphone x trở nên. Trường hợp nếu 10s sử dụng 3D không nhận được response trả về sẽ tự động chuyển sang Sdk flash
 ### Trường chuyển đổi giữa Flash và 3D là isFlashCamera

@@ -158,7 +158,11 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
         images.images?.forEach { image in
             let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
             let livenessOriginalImage = saveImageToFile(image: images.originalImage, isOriginal: true) ?? ""
-            let dataRes: [String: Any] = ["livenessImage": livenessImage, "livenessOriginalImage": livenessOriginalImage]
+            let dataRes: [String: Any] = [
+                "livenessImage": livenessImage,
+                "livenessOriginalImage": livenessOriginalImage,
+                "color": (images.colors?.first ?? .red).toHexDouble(),
+            ]
               pushEvent(data: dataRes)
             (livenessDetector as! LivenessUtilityDetector).stopLiveness()
         }
@@ -184,9 +188,13 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
 //  //      Request id, message, status, success
 //    }
       
-    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, image: UIImage, videoURL: URL?) {
+    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, maxtrix:[Float], image: UIImage, videoURL: URL?) {
           let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
-          let dataRes: [String: Any] = ["livenessImage": livenessImage,"livenesScore": score]
+        let dataRes: [String: Any] = [
+            "livenessImage": livenessImage,
+            "livenesScore": score,
+            "vector": maxtrix,
+        ]
             pushEvent(data: dataRes)
         (livenessDetector as! QTSLivenessDetector).stopLiveness()
       }
@@ -229,3 +237,24 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
     return false
   }
 }
+
+extension UIColor {
+    func toHexDouble(includeAlpha: Bool = false) -> Double {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+
+        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        let rgb: Int
+        if includeAlpha {
+            rgb = (Int(red * 255) << 24) | (Int(green * 255) << 16) | (Int(blue * 255) << 8) | Int(alpha * 255)
+        } else {
+            rgb = (Int(red * 255) << 16) | (Int(green * 255) << 8) | Int(blue * 255)
+        }
+
+        return Double(rgb)
+    }
+}
+
