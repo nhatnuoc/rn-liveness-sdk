@@ -275,7 +275,7 @@ export default function App() {
               baseUrl={'https://ekyc-sandbox.eidas.vn/face-matching'}
               privateKey={privateKey}
               publicKey={publicKey}
-              debugging={false}
+              debugging={true}
               isFlashCamera={isFlashCamera}
             />
         </View>
