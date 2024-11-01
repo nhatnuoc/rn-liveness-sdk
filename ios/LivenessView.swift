@@ -156,7 +156,7 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
     
     func liveness(_ liveness: FlashLiveness.LivenessUtilityDetector, didFinishWithFaceImages images: FlashLiveness.LivenessFaceImages) {
         images.images?.forEach { image in
-            let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
+            let livenessImage = convertImageToBase64(image) ?? ""
             let livenessOriginalImage = saveImageToFile(image: images.originalImage, isOriginal: true) ?? ""
             let dataRes: [String: Any] = [
                 "livenessImage": livenessImage,
@@ -224,6 +224,16 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
             return nil
         }
     }
+
+    func convertImageToBase64(_ image: UIImage) -> String? {
+        // Convert UIImage to Data in JPEG format with optional compression quality
+        guard let imageData = image.jpegData(compressionQuality: 1.0) else { return nil }
+        
+        // Convert the Data to a Base64 encoded string
+        let base64String = imageData.base64EncodedString(options: .lineLength64Characters)
+        return base64String
+    }
+
 
   func stopLiveness() {
       (livenessDetector as AnyObject).stopLiveness()

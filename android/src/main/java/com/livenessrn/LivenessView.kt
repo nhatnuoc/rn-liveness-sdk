@@ -64,7 +64,7 @@ class LivenessView @JvmOverloads constructor(
           data?.imageResult?.apply {
             if(this.size>=2){
               val originalImage = base64ToPathFile(this[0].image, context)
-              val colorImage = base64ToPathFile(this[1].image, context)
+              val colorImage = this[1].image
               val map = Arguments.createMap()
               map.putString("livenessImage", originalImage)
               map.putString("livenessOriginalImage", colorImage)
