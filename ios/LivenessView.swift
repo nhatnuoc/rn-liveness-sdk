@@ -5,10 +5,11 @@ import LocalAuthentication
 import FlashLiveness
 @_implementationOnly import QTSLiveness
 
-@available(iOS 15.0, *)
+@available(iOS 13.0, *)
 class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLiveness.LivenessUtilityDetectorDelegate {
   var transactionId = ""
   var livenessDetector: Any?
+  private var viewMask: LivenessMaskView!
   var requestid = ""
   var appId = ""
   var baseUrl = ""
@@ -18,6 +19,13 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
   var debugging = false
   var isFlashCamera = false
   var isDoneSmile = false
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if let viewMask = viewMask {
+            viewMask.frame = self.bounds // Ensure viewMask covers the entire view
+        } // Ensure viewMask covers the entire view
+    }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -71,9 +79,13 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
                           debugging: debugging,
                           delegate: self,
                           livenessMode: .local,
-                          calculationMode: .combine,
+                          calculationMode: .multiple,
                           additionHeader: ["header": "header"]
                       )
+                      viewMask = LivenessMaskView(frame: bounds)
+                      viewMask.backgroundColor = UIColor.clear
+                      viewMask.layer.zPosition = 1 // Bring viewMask to the top layer
+                      addSubview(viewMask)
                   }
                   
                   // Starting the session only if livenessDetector was successfully created

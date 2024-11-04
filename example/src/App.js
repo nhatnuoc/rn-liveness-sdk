@@ -249,7 +249,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       {status && (
-        <View style={styles.view_camera} onLayout={handleLayout}>
+        <View style={[styles.view_camera, {width: isFlashCamera ? '100%' : '100%'}]} onLayout={handleLayout}>
           <LivenessView
               ref={ref}
               style={
@@ -275,7 +275,7 @@ export default function App() {
               baseUrl={'https://ekyc-sandbox.eidas.vn/face-matching'}
               privateKey={privateKey}
               publicKey={publicKey}
-              debugging={true}
+              debugging={false}
               isFlashCamera={isFlashCamera}
             />
         </View>
@@ -310,7 +310,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   view_camera: {
-    width: '100%',
     height: 700,
     backgroundColor: 'transparent',
     marginBottom: 24,
