@@ -71,6 +71,7 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
                           debugging: debugging,
                           delegate: self,
                           livenessMode: .local,
+                          calculationMode: .combine,
                           additionHeader: ["header": "header"]
                       )
                   }
