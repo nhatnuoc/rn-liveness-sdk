@@ -121,7 +121,7 @@ class LivenessViewManager(
       activity,
       getLivenessRequest(),
       activity.supportFragmentManager,
-      reactNativeViewId, null, true)
+      reactNativeViewId, null, false)
   }
 
   private fun setupLayout(view: View) {
