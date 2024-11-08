@@ -83,6 +83,7 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
                           additionHeader: ["header": "header"]
                       )
                       viewMask = LivenessMaskView(frame: bounds)
+                      viewMask.instructionText = "Hãy đưa khuôn mặt vào khung hình"
                       viewMask.backgroundColor = UIColor.clear
                       viewMask.layer.zPosition = 1 // Bring viewMask to the top layer
                       addSubview(viewMask)
