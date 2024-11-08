@@ -6,7 +6,7 @@ class LivenessMaskView: UIView {
                 self.textLayer?.string = self.instructionText
 //                    self.textLayer?.frame = self.bounds
                 self.updateTextLayerLayout(text: self.instructionText ?? "")
-//                    self.setNeedsLayout()
+                    self.setNeedsLayout()
             }
         }
     }
@@ -39,7 +39,7 @@ class LivenessMaskView: UIView {
         self.layer.mask = shapeLayer
         self.areaViewFrame = areaViewFrame
         
-        self.textLayer = self.drawTextLayer(withText: self.instructionText ?? "", rect: CGRect(x: 13.0, y: yPos - 40, width: rect.width, height: 30))
+        self.textLayer = self.drawTextLayer(withText: self.instructionText ?? "Hãy đưa khuôn mặt vào khung hình", rect: CGRect(x: 13.0, y: yPos - 40, width: rect.width, height: 30))
         self.layer.addSublayer(self.textLayer!)
         self.textLayer?.isHidden = true
     }
