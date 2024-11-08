@@ -178,7 +178,8 @@ class LivenessViewManager(
       baseURL = baseURL,
       publicKey = publicKey,
       isDebug = debugging,
-      offlineMode = true
+      offlineMode = true,
+      isSaveImage = true
     )
 //    request.colorConfig = listOf(0xFFFFFF00L, 0xFF800080L, 0xFFFFA500L)
      if (request.offlineMode) {

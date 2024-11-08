@@ -266,7 +266,7 @@ export default function App() {
                     onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
                     setIsFlashCamera(false)
                   } else {
-                    onCheckFaceId(data.nativeEvent?.data?.livenessImage);
+                    onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage);
                   }
                 }
               }}

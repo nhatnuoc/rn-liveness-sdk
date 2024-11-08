@@ -168,17 +168,15 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
     }
     
     func liveness(_ liveness: FlashLiveness.LivenessUtilityDetector, didFinishWithFaceImages images: FlashLiveness.LivenessFaceImages) {
-        images.images?.forEach { image in
-            let livenessImage = convertImageToBase64(image) ?? ""
-            let livenessOriginalImage = saveImageToFile(image: images.originalImage, isOriginal: true) ?? ""
-            let dataRes: [String: Any] = [
-                "livenessImage": livenessImage,
-                "livenessOriginalImage": livenessOriginalImage,
-                "color": (images.colors?.first ?? .red).toHexDouble(),
-            ]
-              pushEvent(data: dataRes)
-            (livenessDetector as! LivenessUtilityDetector).stopLiveness()
-        }
+        let livenessImage = images.images.first.imagePath
+        let livenessOriginalImage = images.originalImage.imagePath
+        let dataRes: [String: Any] = [
+            "livenessImage": livenessImage,
+            "livenessOriginalImage": livenessOriginalImage,
+            "color": images.images.first.hexColorString,
+        ]
+          pushEvent(data: dataRes)
+        (livenessDetector as! LivenessUtilityDetector).stopLiveness()
     }
     
     
@@ -204,8 +202,7 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
     func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, maxtrix:[Float], image: UIImage, videoURL: URL?) {
           let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
         let dataRes: [String: Any] = [
-            "livenessImage": livenessImage,
-            "livenesScore": score,
+            "livenessOriginalImage": livenessImage,
             "vector": maxtrix,
         ]
             pushEvent(data: dataRes)
