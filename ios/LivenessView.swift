@@ -163,17 +163,17 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
   }
   
     func liveness(_ liveness: FlashLiveness.LivenessUtilityDetector, didFinishWithResult result:  FlashLiveness.LivenessResult) {
-        let dataRes: [String: Any] = ["message": result.mess, "result": result, "code": result.code, "livenesScore": result.livenesScore, "status": result.status, "success": result.succes]
+        let dataRes: [String: Any] = ["message": result.mess, "result": result, "code": result.code, "livenesScore": result.livenesScore, "status": result.status]
         pushEvent(data: dataRes)
     }
     
     func liveness(_ liveness: FlashLiveness.LivenessUtilityDetector, didFinishWithFaceImages images: FlashLiveness.LivenessFaceImages) {
-        let livenessImage = images.images.first.imagePath
+        let livenessImage = images.images?.first?.imagePath
         let livenessOriginalImage = images.originalImage.imagePath
         let dataRes: [String: Any] = [
-            "livenessImage": livenessImage,
-            "livenessOriginalImage": livenessOriginalImage,
-            "color": images.images.first.hexColorString,
+            "livenessImage": livenessImage ?? "",
+            "livenessOriginalImage": livenessOriginalImage ?? "",
+            "color": images.images?.first?.colorString ?? "",
         ]
           pushEvent(data: dataRes)
         (livenessDetector as! LivenessUtilityDetector).stopLiveness()
