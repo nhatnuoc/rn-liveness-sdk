@@ -60,16 +60,12 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
   private func setupView() {
       do {
                   if isFlashCamera {
-                      let colors: [UIColor] = [.red, .green, .blue]
-                      if let randomColor = colors.randomElement() {
-                          // FlashLiveness setup
-                          self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
-                              previewView: self,
-                              mode: .offline(filterColors: [randomColor]),
-                              debugging: debugging,
-                              delegate: self
-                          )
-                      }
+                      self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
+                          previewView: self,
+                          mode: .offline,
+                          debugging: debugging,
+                          delegate: self
+                      )
                   } else {
                       // QTSLiveness setup
                       self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(

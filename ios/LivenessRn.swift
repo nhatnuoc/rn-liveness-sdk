@@ -1,6 +1,6 @@
 import React
 import UIKit
-@_implementationOnly import QTSLiveness
+import FlashLiveness
 //import LivenessUtility
 
 
