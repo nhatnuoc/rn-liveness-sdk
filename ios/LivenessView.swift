@@ -164,8 +164,8 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
     }
     
     func liveness(_ liveness: FlashLiveness.LivenessUtilityDetector, didFinishWithFaceImages images: FlashLiveness.LivenessFaceImages) {
-        let livenessImage = images.images?.first?.imagePath
-        let livenessOriginalImage = images.originalImage.imagePath
+        let livenessImage = images.images?.first?.imagePath?.absoluteString
+        let livenessOriginalImage = images.originalImage.imagePath?.absoluteString
         let dataRes: [String: Any] = [
             "livenessImage": livenessImage ?? "",
             "livenessOriginalImage": livenessOriginalImage ?? "",
