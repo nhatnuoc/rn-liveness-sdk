@@ -18,6 +18,7 @@ import com.facebook.react.uimanager.annotations.ReactPropGroup
 import com.liveness.sdk.corev4.LiveNessSDK
 import com.liveness.sdk.corev4.model.DataConfig
 import com.liveness.sdk.corev4.model.LivenessRequest
+import com.liveness.sdk.corev4.model.VerifyLevel
 import java.util.Random
 
 class LivenessViewManager(
@@ -179,7 +180,8 @@ class LivenessViewManager(
       publicKey = publicKey,
       isDebug = debugging,
       offlineMode = true,
-      isSaveImage = true
+      isSaveImage = true,
+      verifyLevel = VerifyLevel.LOW,
     )
 //    request.colorConfig = listOf(0xFFFFFF00L, 0xFF800080L, 0xFFFFA500L)
      if (request.offlineMode) {
