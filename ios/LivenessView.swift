@@ -3,10 +3,11 @@ import React
 import UIKit
 import LocalAuthentication
 import FlashLiveness
-@_implementationOnly import QTSLiveness
+// @_implementationOnly import QTSLiveness
+// QTSLiveness.LivenessUtilityDetectorDelegate,
 
 @available(iOS 13.0, *)
-class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLiveness.LivenessUtilityDetectorDelegate {
+class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate {
   var transactionId = ""
   var livenessDetector: Any?
   private var viewMask: LivenessMaskView!
@@ -47,11 +48,12 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
             // Reset specific configurations or data for FlashLiveness if needed
             detector.stopLiveness() // Stop the session for FlashLiveness
             print("FlashLiveness detector stopped and reset.")
-        } else if let detector = livenessDetector as? QTSLiveness.QTSLivenessDetector {
-            // Reset specific configurations or data for QTSLiveness if needed
-            detector.stopLiveness() // Stop the session for QTSLiveness
-            print("QTSLiveness detector stopped and reset.")
         }
+//        else if let detector = livenessDetector as? QTSLiveness.QTSLivenessDetector {
+//            // Reset specific configurations or data for QTSLiveness if needed
+//            detector.stopLiveness() // Stop the session for QTSLiveness
+//            print("QTSLiveness detector stopped and reset.")
+//        }
         
         livenessDetector = nil // Set to nil to allow reinitialization
     }
@@ -59,31 +61,37 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
  
   private func setupView() {
       do {
-                  if isFlashCamera {
-                      self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
-                          previewView: self,
-                          mode: .offline,
-                          debugging: debugging,
-                          delegate: self
-                      )
-                  } else {
-                      // QTSLiveness setup
-                      self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
-                          previewView: self,
-                          threshold: .low,
-                          smallFaceThreshold: 0.25,
-                          debugging: debugging,
-                          delegate: self,
-                          livenessMode: .local,
-                          calculationMode: .multiple,
-                          additionHeader: ["header": "header"]
-                      )
-                      viewMask = LivenessMaskView(frame: bounds)
-                      viewMask.backgroundColor = UIColor.clear
-                      viewMask.layer.zPosition = 1 // Bring viewMask to the top layer
-                      addSubview(viewMask)
-                  }
-                  
+//                  if isFlashCamera {
+//                      self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
+//                          previewView: self,
+//                          mode: .offline,
+//                          debugging: debugging,
+//                          delegate: self
+//                      )
+//                  } else {
+//                      // QTSLiveness setup
+//                      self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
+//                          previewView: self,
+//                          threshold: .low,
+//                          smallFaceThreshold: 0.25,
+//                          debugging: debugging,
+//                          delegate: self,
+//                          livenessMode: .local,
+//                          calculationMode: .multiple,
+//                          additionHeader: ["header": "header"]
+//                      )
+//                      viewMask = LivenessMaskView(frame: bounds)
+//                      viewMask.backgroundColor = UIColor.clear
+//                      viewMask.layer.zPosition = 1 // Bring viewMask to the top layer
+//                      addSubview(viewMask)
+//                  }
+          
+                  self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
+                      previewView: self,
+                      mode: .offline,
+                      debugging: debugging,
+                      delegate: self
+                  )
                   // Starting the session only if livenessDetector was successfully created
                   try startSession()
                   
@@ -96,12 +104,14 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
             guard let detector = livenessDetector else {
                 throw NSError(domain: "LivenessError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Liveness Detector could not be initialized"])
             }
-
-            if isFlashCamera, let flashDetector = detector as? FlashLiveness.LivenessUtilityDetector {
-                try flashDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
-            } else if let qtDetector = detector as? QTSLiveness.QTSLivenessDetector {
-                try qtDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
-            }
+            
+            try (detector as? FlashLiveness.LivenessUtilityDetector)?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+        
+//            if isFlashCamera, let flashDetector = detector as? FlashLiveness.LivenessUtilityDetector {
+//                try flashDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+//            } else if let qtDetector = detector as? QTSLiveness.QTSLivenessDetector {
+//                try qtDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+//            }
         }
   
   private func pushEvent(data: Any) -> Void {
@@ -176,9 +186,9 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
     }
     
     
-    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFail withError: QTSLiveness.LivenessError) {
-      pushEvent(data: withError)
-    }
+//    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFail withError: QTSLiveness.LivenessError) {
+//      pushEvent(data: withError)
+//    }
     
 //    func liveness(liveness: QTSLivenessDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: LivenessResult?) {
 //        let imageData = verificationImage.pngData()!
@@ -195,15 +205,15 @@ class LivenessView: UIView, QTSLiveness.LivenessUtilityDetectorDelegate, FlashLi
 //  //      Request id, message, status, success
 //    }
       
-    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, maxtrix:[Float], image: UIImage, videoURL: URL?) {
-          let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
-        let dataRes: [String: Any] = [
-            "livenessOriginalImage": livenessImage,
-            "vector": maxtrix,
-        ]
-            pushEvent(data: dataRes)
-        (livenessDetector as! QTSLivenessDetector).stopLiveness()
-      }
+//    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, maxtrix:[Float], image: UIImage, videoURL: URL?) {
+//          let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
+//        let dataRes: [String: Any] = [
+//            "livenessOriginalImage": livenessImage,
+//            "vector": maxtrix,
+//        ]
+//            pushEvent(data: dataRes)
+//        (livenessDetector as! QTSLivenessDetector).stopLiveness()
+//      }
     
     func saveImageToFile(image: UIImage, isOriginal: Bool) -> String? {
         // Chuyển đổi UIImage thành Data (PNG format)

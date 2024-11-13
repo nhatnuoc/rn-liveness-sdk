@@ -3,7 +3,7 @@ import Foundation
 import React
 import AVFoundation
 
-@available(iOS 15.0, *)
+@available(iOS 13.0, *)
 @objc (RCTLivenessViewManager)
 class RCTLivenessViewManager: RCTViewManager {
 
