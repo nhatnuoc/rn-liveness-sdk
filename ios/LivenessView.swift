@@ -89,7 +89,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate {
                   self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
                       previewView: self,
                       mode: .offline,
-                      threshold: .low,
+                      threshold: .medium,
                       debugging: debugging,
                       delegate: self
                   )
