@@ -212,7 +212,7 @@ const checkDevice = async () => {
 
 export default function App() {
   const [status, setStatus] = useState(false);
-  const [isFlashCamera, setIsFlashCamera] = useState(false);
+  const [isFlashCamera, setIsFlashCamera] = useState(true);
   const [layout, setLayout] = useState({ width: 0, height: 0 });
   const ref = useRef(null);
 
@@ -236,20 +236,20 @@ export default function App() {
 
   const onStartLiveNess = () => {
     setStatus(!status);
-    if (isIphoneX && !status) {
-      setIsFlashCamera(false)
-      setTimeout(() => {
-       if (!isFlashCamera) {
-        setIsFlashCamera(true)
-        setStatus(false)
-        setTimeout(() => {
-          setStatus(true)
-        }, 2);
-       }
-      }, 5000);
-    } else {
-      setIsFlashCamera(true);
-    }
+    // if (isIphoneX && !status) {
+    //   setIsFlashCamera(false)
+    //   setTimeout(() => {
+    //    if (!isFlashCamera) {
+    //     setIsFlashCamera(true)
+    //     setStatus(false)
+    //     setTimeout(() => {
+    //       setStatus(true)
+    //     }, 2);
+    //    }
+    //   }, 5000);
+    // } else {
+    //   setIsFlashCamera(true);
+    // }
   };
 
   const handleLayout = e => {
