@@ -31,6 +31,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 import {
+  Dimensions,
   StyleSheet,
   View,
   Text,
@@ -43,6 +44,7 @@ import {
 } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
+const { width: windowWidth } = Dimensions.get("window");
 
 import SimpleModal from './SimpleModal';
 
@@ -316,7 +318,7 @@ export default function App() {
         value={text}
         onChangeText={(newText) => setText(newText)}
       />}
-      <View style={{ position: 'absolute', zIndex: 1000, top: 20, left: 20 }}>
+      <View style={{ position: 'absolute',width: '40%', zIndex: 1000, bottom: 20, left: (windowWidth / 3) }}>
         <TouchableOpacity onPress={onStartLiveNess} style={styles.btn_liveness}>
           <Text>Start LiveNess</Text>
         </TouchableOpacity>
