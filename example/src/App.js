@@ -316,9 +316,11 @@ export default function App() {
         value={text}
         onChangeText={(newText) => setText(newText)}
       />}
-      <TouchableOpacity onPress={onStartLiveNess} style={styles.btn_liveness}>
-        <Text>Start LiveNess</Text>
-      </TouchableOpacity>
+      <View style={{ position: 'absolute', zIndex: 1000, top: 20, left: 20 }}>
+        <TouchableOpacity onPress={onStartLiveNess} style={styles.btn_liveness}>
+          <Text>Start LiveNess</Text>
+        </TouchableOpacity>
+      </View>
       <SimpleModal
         isOpen={loginError}
         setIsOpen={setLoginError}
@@ -340,9 +342,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   view_camera: {
-    height: 700,
+    height: '100%',
     backgroundColor: 'transparent',
-    marginBottom: 24,
   },
   view_liveness: {
     flex: 1,
@@ -355,6 +356,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 12,
     marginBottom: 24,
+    zIndex: 1000,
   },
   btn_register_face: {
     padding: 10,
