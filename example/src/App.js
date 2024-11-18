@@ -344,7 +344,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   view_camera: {
-    height: '100%',
+    // height: '100%',
+    height: windowWidth * 1.7,
     backgroundColor: 'transparent',
   },
   view_liveness: {
