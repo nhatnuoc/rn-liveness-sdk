@@ -63,8 +63,10 @@ class LivenessView @JvmOverloads constructor(
         }else {
           data?.imageResult?.apply {
             if(this.size>=2){
-              val originalImage = this[0].imagePath
-              val colorImage = this[1].imagePath
+              // val originalImage = this[0].imagePath
+              // val colorImage = this[1].imagePath
+              val originalImage = this[0].image
+              val colorImage = this[1].image
               val map = Arguments.createMap()
               map.putString("livenessImage", originalImage)
               map.putString("livenessOriginalImage", colorImage)
