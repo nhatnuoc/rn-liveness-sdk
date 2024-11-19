@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 18,
     marginBottom: 20,
+    color: 'black',
   },
   closeButton: {
     backgroundColor: 'blue',

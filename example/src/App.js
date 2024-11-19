@@ -376,5 +376,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 10,
     marginBottom: 20,
+    color: 'black',
   },
 });
