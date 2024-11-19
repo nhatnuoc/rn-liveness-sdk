@@ -148,11 +148,14 @@ path example/src/App.js
 
 ## Sdk flash
 Trả về 2 ảnh:
- + Ảnh ám màu liveness (pathFile): data.nativeEvent?.data?.livenessImage
- + Ảnh thường (path file): data.nativeEvent?.data?.livenessOriginalImage
+ + Ảnh ám màu liveness (base64): data.nativeEvent?.data?.livenessImage
+ + Ảnh thường (base64): data.nativeEvent?.data?.livenessOriginalImage
  + color kiểu string ngẫu nhiểu trong các ký tự (r, g, b): data.nativeEvent?.data?.color
 
-## Sdk 3D
+=> + Lưu ý màn livenesss style nên để widht: 100%, height: windowWidth * 1.7
+  + Để khung hình camera vào giữa màn hình 
+
+## Sdk 3D Hiện tại version này chưa có
 Trả về 1 ảnh duy nhất:
   + Ảnh thường (path file): data.nativeEvent?.data?.livenessOriginalImage
   + Vertor là mảng float (2 giá trị vector): data.nativeEvent?.data?.livenessImage?.vector
