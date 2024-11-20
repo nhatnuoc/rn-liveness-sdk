@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
   },
   view_camera: {
     // height: '100%',
-    height: windowWidth * 1.7,
+    height: Platform.OS == 'android' ? windowWidth * 1.7 : '100%',
     backgroundColor: 'transparent',
   },
   view_liveness: {
