@@ -20,7 +20,7 @@ PODS:
   - hermes-engine/Pre-built (0.72.10)
   - KeychainSwift (19.0.0)
   - libevent (2.1.12)
-  - liveness-rn (1.0.6):
+  - liveness-rn (1.0.8):
     - FlashLiveness
     - KeychainSwift (~> 19.0)
     - RCT-Folly (= 2021.07.22.00)
@@ -440,6 +440,8 @@ PODS:
     - React
   - RNDeviceInfo (13.2.0):
     - React-Core
+  - RNFS (2.20.0):
+    - React-Core
   - SignManager (1.0.6)
   - SocketRocket (0.6.1)
   - Yoga (1.14.0)
@@ -489,6 +491,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNFS (from `../node_modules/react-native-fs`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -585,6 +588,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/masked-view"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -604,7 +609,7 @@ SPEC CHECKSUMS:
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  liveness-rn: 742f5451c5677d13d477ae37ac116c1b14eafc9d
+  liveness-rn: c627b204dd1fd4d479424e8052e28993d14a943d
   ObjectMapper: e6e4d91ff7f2861df7aecc536c92d8363f4c9677
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: b4d3068afa6f52ec5260a8417053b1f1b421483d
@@ -640,6 +645,7 @@ SPEC CHECKSUMS:
   ReactCommon: a655a8b61cc80c7cabd8db83f69e6f498d4d0894
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNDeviceInfo: 29e01d5ae94bdb5a0f6c11a4c438132545b4df80
+  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   SignManager: 67d0f04ff3695c1dde7c056bc9ba09de0db2f806
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3

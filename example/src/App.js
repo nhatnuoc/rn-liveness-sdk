@@ -48,6 +48,7 @@ const { width: windowWidth } = Dimensions.get("window");
 
 import SimpleModal from './SimpleModal';
 
+import RNFS from "react-native-fs";
 
 import {
   LivenessView,
@@ -121,22 +122,34 @@ Y/EdqKp20cAT9vgNap7Bfgv5XN9PrE+Yt0C1BkxXnfJHA7L9hcoYrknsae/Fa2IP
 99RyIXaHLJyzSTKLRUhEVqrycM0UXg==
 -----END CERTIFICATE-----
 `
+const saveBase64ToFile = async (base64Data, fileName) => {
+  try {
+    const path = `${RNFS.ExternalDirectoryPath}/${fileName}`;
+    await RNFS.writeFile(path, base64Data, 'utf8');
+    console.log(`File saved at: ${path}`);
+    return path;
+  } catch (error) {
+    console.error('Error saving file:', error);
+    return null;
+  }
+};
+
 
 const loginFaceId = ({ filePath, livenessPath, livenessThermalPath, color, userId }) => {
   console.log(filePath)
   const data = new FormData();
-  //   data.append("image", filePath);
-  data.append("image", {
-    uri: `file://${filePath}`,
-    type: "image/png",
-    name: "image.png",
-  });
+  data.append("image", filePath);
+  // data.append("image", {
+  //   uri: `file://${filePath}`,
+  //   type: "image/png",
+  //   name: "image.png",
+  // });
   // data.append("sdk_thermal_image", livenessThermalPath ? {
   //   uri: `file://${livenessThermalPath}`,
   //   type: "image/png",
   //   name: "image.png",
   // } : "");
-  data.append("sdk_thermal_image", livenessThermalPath ?? "");
+  // data.append("sdk_thermal_image", livenessThermalPath ?? "");
   // data.append("sdk_liveness_image", livenessPath ? {
   //   uri: `file://${livenessPath}`,
   //   type: "image/png",
@@ -145,7 +158,7 @@ const loginFaceId = ({ filePath, livenessPath, livenessThermalPath, color, userI
   data.append("sdk_liveness_image", livenessPath ?? "");
   // data.append("user_id", "thuthuy");
   data.append("user_id", userId);
-  data.append("color", color);
+  data.append("sdk_color", color);
   // data.append("user_id", '68');
   data.append("threshold", 0.8);
   data.append("check_liveness", "True");
@@ -293,6 +306,8 @@ export default function App() {
               }
               onEvent={(data) => {
                 console.log('===sendEvent===', data.nativeEvent?.data);
+                saveBase64ToFile(data.nativeEvent?.data?.livenessOriginalImage, "original.txt")
+                saveBase64ToFile(data.nativeEvent?.data?.livenessImage, "liveness.txt")
                 if (data.nativeEvent?.data?.livenessImage != null || data.nativeEvent?.data?.livenessOriginalImage != null) {
                   if (isIphoneX && isFlashCamera) {
                     onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
