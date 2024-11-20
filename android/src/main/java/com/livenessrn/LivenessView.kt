@@ -68,8 +68,8 @@ class LivenessView @JvmOverloads constructor(
               val originalImage = this[0].image
               val colorImage = this[1].image
               val map = Arguments.createMap()
-              map.putString("livenessImage", originalImage)
-              map.putString("livenessOriginalImage", colorImage)
+              map.putString("livenessImage", colorImage)
+              map.putString("livenessOriginalImage", originalImage)
               map.putString("color", this[1].colorString)
               callNativeEvent(map)
             }else{
