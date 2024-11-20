@@ -308,14 +308,15 @@ export default function App() {
                 console.log('===sendEvent===', data.nativeEvent?.data);
                 saveBase64ToFile(data.nativeEvent?.data?.livenessOriginalImage, "original.txt")
                 saveBase64ToFile(data.nativeEvent?.data?.livenessImage, "liveness.txt")
-                if (data.nativeEvent?.data?.livenessImage != null || data.nativeEvent?.data?.livenessOriginalImage != null) {
-                  if (isIphoneX && isFlashCamera) {
-                    onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
-                    setIsFlashCamera(false)
-                  } else {
-                    onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage);
-                  }
-                }
+                onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
+                // if (data.nativeEvent?.data?.livenessImage != null || data.nativeEvent?.data?.livenessOriginalImage != null) {
+                //   if (isIphoneX && isFlashCamera) {
+                //     onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
+                //     setIsFlashCamera(false)
+                //   } else {
+                //     onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage);
+                //   }
+                // }
               }}
               requestid={'sdfsdfsdfsdf'}
               appId={'com.pvcb'}
