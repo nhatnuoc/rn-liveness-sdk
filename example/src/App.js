@@ -49,6 +49,8 @@ const { width: windowWidth } = Dimensions.get("window");
 import SimpleModal from './SimpleModal';
 
 import RNFS from "react-native-fs";
+import { Buffer } from 'buffer';
+
 
 import {
   LivenessView,
@@ -122,6 +124,34 @@ Y/EdqKp20cAT9vgNap7Bfgv5XN9PrE+Yt0C1BkxXnfJHA7L9hcoYrknsae/Fa2IP
 99RyIXaHLJyzSTKLRUhEVqrycM0UXg==
 -----END CERTIFICATE-----
 `
+
+
+// Function to calculate the size of a Base64 string in MB
+function getBase64SizeInMB(base64String) {
+  // Ensure the input is not empty or invalid
+  if (!base64String || typeof base64String !== 'string') {
+    console.error("Invalid Base64 string");
+    return 0;
+  }
+  
+  try {
+    // Convert the Base64 string to a buffer (binary data)
+    const buffer = Buffer.from(base64String, 'base64');
+    
+    // Get the size in bytes
+    const sizeInBytes = buffer.length;
+    
+    // Convert bytes to MB (1 MB = 1024 * 1024 bytes)
+    const sizeInMB = sizeInBytes / (1024 * 1024);
+    
+    // Return the size in MB with 2 decimal places
+    return sizeInMB.toFixed(2);  // Rounds the result to 2 decimal places
+  } catch (error) {
+    console.error("Error decoding Base64 string:", error);
+    return 0;
+  }
+}
+
 const saveBase64ToFile = async (base64Data, fileName) => {
   try {
     const path = `${RNFS.ExternalDirectoryPath}/${fileName}`;
@@ -136,7 +166,7 @@ const saveBase64ToFile = async (base64Data, fileName) => {
 
 
 const loginFaceId = ({ filePath, livenessPath, livenessThermalPath, color, userId }) => {
-  console.log(filePath)
+  // console.log(filePath)
   const data = new FormData();
   data.append("image", filePath);
   // data.append("image", {
@@ -305,9 +335,9 @@ export default function App() {
                 }
               }
               onEvent={(data) => {
-                console.log('===sendEvent===', data.nativeEvent?.data);
-                saveBase64ToFile(data.nativeEvent?.data?.livenessOriginalImage, "original.txt")
-                saveBase64ToFile(data.nativeEvent?.data?.livenessImage, "liveness.txt")
+                // console.log('===sendEvent===', data.nativeEvent?.data);
+                console.log("Original: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessOriginalImage))
+                console.log("liveness: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessImage))
                 onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
                 // if (data.nativeEvent?.data?.livenessImage != null || data.nativeEvent?.data?.livenessOriginalImage != null) {
                 //   if (isIphoneX && isFlashCamera) {
