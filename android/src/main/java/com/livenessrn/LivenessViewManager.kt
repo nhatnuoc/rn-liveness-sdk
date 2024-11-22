@@ -186,7 +186,12 @@ class LivenessViewManager(
 //    request.colorConfig = listOf(0xFFFFFF00L, 0xFF800080L, 0xFFFFA500L)
      if (request.offlineMode) {
         val random = Random()
-        request.dataConfig = DataConfig(random.nextInt(4), random.nextInt(4) + 1)
+        request.dataConfig = DataConfig(
+          random.nextInt(4),
+          random.nextInt(4) + 1,
+          quality = 80,
+          maxWidth = 640,
+        )
      }
     return request
   }

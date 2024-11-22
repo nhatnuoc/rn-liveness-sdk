@@ -66,10 +66,10 @@ class LivenessView @JvmOverloads constructor(
             if(this.size>=2){
               // val originalImage = this[0].imagePath
               // val colorImage = this[1].imagePath
-               val originalImage = this[0].imagePath?.let { convertPathToBase64WithLimitKB(path = it) }
-               val colorImage = this[1].imagePath?.let { convertPathToBase64WithLimitKB(path = it) }
-//              val originalImage = this[0].image
-//              val colorImage = this[1].image
+//               val originalImage = this[0].imagePath?.let { convertPathToBase64WithLimitKB(path = it) }
+//               val colorImage = this[1].imagePath?.let { convertPathToBase64WithLimitKB(path = it) }
+              val originalImage = this[0].image
+              val colorImage = this[1].image
               val map = Arguments.createMap()
               map.putString("livenessImage", colorImage)
               map.putString("livenessOriginalImage", originalImage)
