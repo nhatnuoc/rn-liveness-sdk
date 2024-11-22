@@ -14,6 +14,7 @@ import com.liveness.sdk.corev4.LiveNessSDK
 import com.liveness.sdk.corev4.model.LivenessModel
 import com.liveness.sdk.corev4.utils.CallbackLivenessListener
 import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -65,8 +66,10 @@ class LivenessView @JvmOverloads constructor(
             if(this.size>=2){
               // val originalImage = this[0].imagePath
               // val colorImage = this[1].imagePath
-              val originalImage = this[0].image
-              val colorImage = this[1].image
+               val originalImage = this[0].imagePath?.let { convertPathToBase64WithLimitKB(path = it) }
+               val colorImage = this[1].imagePath?.let { convertPathToBase64WithLimitKB(path = it) }
+//              val originalImage = this[0].image
+//              val colorImage = this[1].image
               val map = Arguments.createMap()
               map.putString("livenessImage", colorImage)
               map.putString("livenessOriginalImage", originalImage)
@@ -83,6 +86,47 @@ class LivenessView @JvmOverloads constructor(
         }
 
       }
+    }
+  }
+
+  fun convertPathToBase64WithLimitKB(path: String, maxSizeInKB: Int = 400): String? {
+    try {
+      val file = File(path)
+      if (!file.exists()) {
+        throw IllegalArgumentException("File not found at path: $path")
+      }
+
+      // 1. Decode the image from the file path
+      var bitmap = BitmapFactory.decodeFile(path)
+        ?: throw IllegalArgumentException("Failed to decode image at path: $path")
+
+      // 2. Compress and resize the image to reduce size
+      var quality = 100 // Start with max quality
+      var byteArray: ByteArray
+      do {
+        val outputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream) // Compress as JPEG
+        byteArray = outputStream.toByteArray()
+        outputStream.close()
+
+        // Reduce quality if size is still too large
+        quality -= 5
+
+        // Resize bitmap if needed
+        if (byteArray.size > maxSizeInKB * 1024 && quality <= 5) {
+          val newWidth = (bitmap.width * 0.9).toInt() // Reduce width by 10%
+          val newHeight = (bitmap.height * 0.9).toInt() // Reduce height by 10%
+          bitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+          quality = 100 // Reset quality for resized image
+        }
+      } while (byteArray.size > maxSizeInKB * 1024 && quality > 0)
+
+      // 3. Convert the byte array to Base64 string
+      return Base64.encodeToString(byteArray, Base64.DEFAULT)
+
+    } catch (e: Exception) {
+      e.printStackTrace()
+      return null // Return null if an error occurs
     }
   }
 

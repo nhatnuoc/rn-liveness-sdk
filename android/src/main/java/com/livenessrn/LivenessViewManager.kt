@@ -180,7 +180,7 @@ class LivenessViewManager(
       publicKey = publicKey,
       isDebug = debugging,
       offlineMode = true,
-      isSaveImage = false,
+      isSaveImage = true,
       verifyLevel = VerifyLevel.LOW,
     )
 //    request.colorConfig = listOf(0xFFFFFF00L, 0xFF800080L, 0xFFFFA500L)
