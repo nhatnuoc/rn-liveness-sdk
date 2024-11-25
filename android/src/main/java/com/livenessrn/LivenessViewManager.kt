@@ -189,8 +189,8 @@ class LivenessViewManager(
         request.dataConfig = DataConfig(
           random.nextInt(4),
           random.nextInt(4) + 1,
-          quality = 80,
-          maxWidth = 640,
+          quality = 70,
+          maxWidth = 480,
         )
      }
     return request
