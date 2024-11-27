@@ -46,6 +46,16 @@ class LivenessViewManager(
 
   override fun getCommandsMap() = mapOf("create" to COMMAND_CREATE)
 
+  override fun onDropViewInstance(view: LivenessView) {
+    super.onDropViewInstance(view)
+    // Giải phóng tài nguyên liên quan đến view
+    view.removeAllViews();
+    view.invalidate();
+    view.destroyDrawingCache();
+
+    Log.d(REACT_CLASS, "LivenessView instance dropped and resources released.");
+  }
+
   override fun getExportedCustomDirectEventTypeConstants(): Map<String, Any> {
     return MapBuilder.builder<String, Any>()
       .put(
@@ -118,6 +128,11 @@ class LivenessViewManager(
     val parentView = root.findViewById<ViewGroup>(reactNativeViewId)
     setupLayout(parentView)
     val activity = reactContext.currentActivity as FragmentActivity
+    val fragmentManager = activity.supportFragmentManager
+    fragmentManager.fragments.forEach {
+      fragmentManager.beginTransaction().remove(it).commitAllowingStateLoss()
+    }
+
     LiveNessSDK.startLiveNess(
       activity,
       getLivenessRequest(),
