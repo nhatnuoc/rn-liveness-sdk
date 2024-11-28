@@ -3,7 +3,6 @@ package com.livenessrn
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.support.v4.app.FragmentActivity
 import android.util.AttributeSet
 import android.util.Base64
 import android.widget.FrameLayout
