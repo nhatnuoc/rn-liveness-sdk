@@ -48,12 +48,14 @@ class LivenessViewManager(
 
   override fun onDropViewInstance(view: LivenessView) {
     super.onDropViewInstance(view)
-    // Giải phóng tài nguyên liên quan đến view
-    view.removeAllViews();
-    view.invalidate();
-    view.destroyDrawingCache();
+    try {
+      // Giải phóng tài nguyên liên quan đến view
+      view.removeAllViews()
+      view.invalidate()
+      view.destroyDrawingCache()
 
-    Log.d(REACT_CLASS, "LivenessView instance dropped and resources released.");
+      Log.d(REACT_CLASS, "LivenessView instance dropped and resources released.")
+    } catch(_: Exception) {}
   }
 
   override fun getExportedCustomDirectEventTypeConstants(): Map<String, Any> {
@@ -131,11 +133,13 @@ class LivenessViewManager(
     val activity = reactContext.currentActivity as FragmentActivity
     val fragmentManager = activity.supportFragmentManager
 
-    if (fragmentManager.fragments.isNotEmpty()) {
-      fragmentManager.fragments.forEach { fragment ->
-        fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
+    try {
+      if (fragmentManager.fragments.isNotEmpty()) {
+        fragmentManager.fragments.forEach { fragment ->
+          fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
+        }
       }
-    }
+    } catch (_: Exception) {}
 
     LiveNessSDK.startLiveNess(
       activity,
