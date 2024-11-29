@@ -127,17 +127,24 @@ class LivenessViewManager(
   private fun createFragment(root: FrameLayout, reactNativeViewId: Int) {
     val parentView = root.findViewById<ViewGroup>(reactNativeViewId)
     setupLayout(parentView)
+
     val activity = reactContext.currentActivity as FragmentActivity
     val fragmentManager = activity.supportFragmentManager
-    fragmentManager.fragments.forEach {
-      fragmentManager.beginTransaction().remove(it).commitAllowingStateLoss()
+
+    if (fragmentManager.fragments.isNotEmpty()) {
+      fragmentManager.fragments.forEach { fragment ->
+        fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
+      }
     }
 
     LiveNessSDK.startLiveNess(
       activity,
       getLivenessRequest(),
-      activity.supportFragmentManager,
-      reactNativeViewId, null, false)
+      fragmentManager,
+      reactNativeViewId,
+      null,
+      false
+    )
   }
 
   private fun setupLayout(view: View) {
