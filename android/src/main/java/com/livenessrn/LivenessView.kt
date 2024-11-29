@@ -5,10 +5,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.AttributeSet
 import android.util.Base64
+import android.util.Log
 import android.widget.FrameLayout
+import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.WritableMap
+import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.events.RCTEventEmitter
 import com.liveness.sdk.corev4.LiveNessSDK
 import com.liveness.sdk.corev4.model.LivenessModel
@@ -26,6 +29,13 @@ class LivenessView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs) {
   private val callBack = object : CallbackLivenessListener {
     override fun onCallbackLiveness(data: LivenessModel?) {
+      if (data?.status != null && data.status == 6666) {
+        Log.d("CallBack back1", "CallBack back1")
+        val activity = (context as ThemedReactContext).currentActivity as FragmentActivity
+        activity.finish()
+        return
+      }
+
       if (data?.status != null && data.status == 200) {
         val map = Arguments.createMap()
         map.putInt("status", data.status ?: -1)
