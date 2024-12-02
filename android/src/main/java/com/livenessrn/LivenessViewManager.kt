@@ -37,6 +37,7 @@ class LivenessViewManager(
 
   private var propWidth: Int? = null
   private var propHeight: Int? = null
+  private var id: Int = -1;
 
   override fun getName() = REACT_CLASS
 
@@ -54,7 +55,10 @@ class LivenessViewManager(
       if (fragmentManager.fragments.isNotEmpty()) {
         Log.d("createFragment", "remove fragment liveness")
         fragmentManager.fragments.forEach { fragment ->
-          fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
+          Log.d("remove fragment liveness", "${fragment.id}")
+          if (id == fragment.id) {
+            fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
+          }
         }
       }
     } catch (_: Exception) {}
@@ -79,6 +83,7 @@ class LivenessViewManager(
   ) {
     super.receiveCommand(root, commandId, args)
     val reactNativeViewId = requireNotNull(args).getInt(0)
+    id = reactNativeViewId
     when (commandId.toInt()) {
       COMMAND_CREATE -> createFragment(root, reactNativeViewId)
     }
