@@ -49,13 +49,14 @@ class LivenessViewManager(
   override fun onDropViewInstance(view: LivenessView) {
     super.onDropViewInstance(view)
     try {
-      // Giải phóng tài nguyên liên quan đến view
-      view.removeAllViews()
-      view.invalidate()
-      view.destroyDrawingCache()
-
-      Log.d(REACT_CLASS, "LivenessView instance dropped and resources released.")
-    } catch(_: Exception) {}
+      val activity = reactContext.currentActivity as FragmentActivity
+      val fragmentManager = activity.supportFragmentManager
+      if (fragmentManager.fragments.isNotEmpty()) {
+        fragmentManager.fragments.forEach { fragment ->
+          fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
+        }
+      }
+    } catch (_: Exception) {}
   }
 
   override fun getExportedCustomDirectEventTypeConstants(): Map<String, Any> {
@@ -132,15 +133,19 @@ class LivenessViewManager(
 
     val activity = reactContext.currentActivity as FragmentActivity
     val fragmentManager = activity.supportFragmentManager
-
     try {
+      Log.d("createFragment", "Success")
       if (fragmentManager.fragments.isNotEmpty()) {
         fragmentManager.fragments.forEach { fragment ->
           fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
         }
       }
-    } catch (_: Exception) {}
+    } catch (e: Exception) {
+      Log.d("createFragment", "Error: $e")
+    }
 
+    Log.d("createFragment", "Start liveness")
+    Log.d("createFragment", "Start liveness: $reactNativeViewId")
     LiveNessSDK.startLiveNess(
       activity,
       getLivenessRequest(),
