@@ -52,6 +52,7 @@ class LivenessViewManager(
       val activity = reactContext.currentActivity as FragmentActivity
       val fragmentManager = activity.supportFragmentManager
       if (fragmentManager.fragments.isNotEmpty()) {
+        Log.d("createFragment", "remove fragment liveness")
         fragmentManager.fragments.forEach { fragment ->
           fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
         }
@@ -133,16 +134,16 @@ class LivenessViewManager(
 
     val activity = reactContext.currentActivity as FragmentActivity
     val fragmentManager = activity.supportFragmentManager
-    try {
-      Log.d("createFragment", "Success")
-      if (fragmentManager.fragments.isNotEmpty()) {
-        fragmentManager.fragments.forEach { fragment ->
-          fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
-        }
-      }
-    } catch (e: Exception) {
-      Log.d("createFragment", "Error: $e")
-    }
+//    try {
+//      Log.d("createFragment", "Success")
+//      if (fragmentManager.fragments.isNotEmpty()) {
+//        fragmentManager.fragments.forEach { fragment ->
+//          fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
+//        }
+//      }
+//    } catch (e: Exception) {
+//      Log.d("createFragment", "Error: $e")
+//    }
 
     Log.d("createFragment", "Start liveness")
     Log.d("createFragment", "Start liveness: $reactNativeViewId")
