@@ -38,10 +38,40 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate {
 //   setupView()
   }
     
-  private func setupConfig() {
-      resetLivenessDetector()
-      setupView()
-  }
+    deinit {
+        print("Dispose Liveness")
+        resetLivenessDetector()
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        if superview != nil {
+            print("LivenessView đã được thêm vào màn hình.")
+            // Thực hiện các tác vụ cần thiết
+        } else {
+            print("LivenessView đã bị xoá khỏi màn hình.")
+            resetLivenessDetector()
+        }
+    }
+    
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        if window != nil {
+            print("LivenessView đã xuất hiện trong window.")
+            // Thực hiện các tác vụ liên quan đến giao diện.
+        } else {
+            print("LivenessView đã bị xóa khỏi window.")
+            resetLivenessDetector()
+        }
+    }
+
+
+    
+      private func setupConfig() {
+          resetLivenessDetector()
+          setupView()
+      }
+    
     private func resetLivenessDetector() {
         removeFromSuperview()
         if let detector = livenessDetector as? FlashLiveness.LivenessUtilityDetector {
@@ -49,11 +79,11 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate {
             detector.stopLiveness() // Stop the session for FlashLiveness
             print("FlashLiveness detector stopped and reset.")
         }
-//        else if let detector = livenessDetector as? QTSLiveness.QTSLivenessDetector {
-//            // Reset specific configurations or data for QTSLiveness if needed
-//            detector.stopLiveness() // Stop the session for QTSLiveness
-//            print("QTSLiveness detector stopped and reset.")
-//        }
+    //        else if let detector = livenessDetector as? QTSLiveness.QTSLivenessDetector {
+    //            // Reset specific configurations or data for QTSLiveness if needed
+    //            detector.stopLiveness() // Stop the session for QTSLiveness
+    //            print("QTSLiveness detector stopped and reset.")
+    //        }
         
         livenessDetector = nil // Set to nil to allow reinitialization
     }
