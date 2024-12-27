@@ -390,8 +390,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   view_camera: {
-    // height: '100%',
-    height: Platform.OS == 'android' ? windowWidth * 1.7 : '100%',
+    height: '100%',
+    // height: Platform.OS == 'android' ? windowWidth * 1.7 : '100%',
     backgroundColor: 'transparent',
   },
   view_liveness: {
