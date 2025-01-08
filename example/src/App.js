@@ -133,17 +133,17 @@ function getBase64SizeInMB(base64String) {
     console.error("Invalid Base64 string");
     return 0;
   }
-  
+
   try {
     // Convert the Base64 string to a buffer (binary data)
     const buffer = Buffer.from(base64String, 'base64');
-    
+
     // Get the size in bytes
     const sizeInBytes = buffer.length;
-    
+
     // Convert bytes to MB (1 MB = 1024 * 1024 bytes)
     const sizeInMB = sizeInBytes / (1024 * 1024);
-    
+
     // Return the size in MB with 2 decimal places
     return sizeInMB.toFixed(2);  // Rounds the result to 2 decimal places
   } catch (error) {
@@ -280,7 +280,7 @@ export default function App() {
   const [text, setText] = useState('');
   const timeoutRef = useRef(null);
   const innerTimeoutRef = useRef(null);
-  
+
   const onStartLiveNess = () => {
     // Clear any existing timeouts
     if (timeoutRef.current) {
@@ -291,7 +291,7 @@ export default function App() {
     }
 
     setStatus(!status);
-  
+
     if (isIphoneX) {
       setIsFlashCamera(false);
       timeoutRef.current = setTimeout(() => {
@@ -307,7 +307,7 @@ export default function App() {
       setIsFlashCamera(true);
     }
   };
-  
+
   // Cleanup timeouts when component unmounts
   useEffect(() => {
     return () => {
@@ -347,40 +347,40 @@ export default function App() {
       console.log("🚀 ~ handleLoginFaceId ~ error:", error);
     }
   };
-  
+
   return (
     <View style={styles.container}>
       {status && (
-        <View style={[styles.view_camera, {width: isFlashCamera ? '100%' : '100%'}]} onLayout={handleLayout}>
+        <View style={[styles.view_camera, { width: isFlashCamera ? '100%' : '100%' }]} onLayout={handleLayout}>
           <LivenessView
-              ref={ref}
-              style={
-                Platform.OS === 'ios' ? styles.view_liveness :
+            ref={ref}
+            style={
+              Platform.OS === 'ios' ? styles.view_liveness :
                 {
                   height: PixelRatio.getPixelSizeForLayoutSize(layout.height),
                   width: PixelRatio.getPixelSizeForLayoutSize(layout.width),
                 }
+            }
+            onEvent={(data) => {
+              // console.log('===sendEvent===', data.nativeEvent?.data);
+              console.log("Original: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessOriginalImage))
+              console.log("liveness: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessImage))
+              // onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
+              clear();
+              if (isFlashCamera) {
+                onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
+              } else {
+                onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage);
               }
-              onEvent={(data) => {
-                // console.log('===sendEvent===', data.nativeEvent?.data);
-                console.log("Original: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessOriginalImage))
-                console.log("liveness: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessImage))
-                // onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
-                clear();
-                if (isFlashCamera) {
-                  onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
-                } else {
-                  onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage);
-                }
-              }}
-              requestid={'sdfsdfsdfsdf'}
-              appId={'com.pvcb'}
-              baseUrl={'https://ekyc-sandbox.eidas.vn/face-matching'}
-              privateKey={privateKey}
-              publicKey={publicKey}
-              debugging={false}
-              isFlashCamera={isFlashCamera}
-            />
+            }}
+            requestid={'sdfsdfsdfsdf'}
+            appId={'com.pvcb'}
+            baseUrl={'https://ekyc-sandbox.eidas.vn/face-matching'}
+            privateKey={privateKey}
+            publicKey={publicKey}
+            debugging={false}
+            isFlashCamera={isFlashCamera}
+          />
         </View>
       )}
       {!status && <TextInput
@@ -389,7 +389,7 @@ export default function App() {
         value={text}
         onChangeText={(newText) => setText(newText)}
       />}
-      <View style={{ position: 'absolute',width: '40%', zIndex: 1000, bottom: 20, left: (windowWidth / 3) }}>
+      <View style={{ position: 'absolute', width: '40%', zIndex: 1000, bottom: 20, left: (windowWidth / 3) }}>
         <TouchableOpacity onPress={onStartLiveNess} style={styles.btn_liveness}>
           <Text>Start LiveNess</Text>
         </TouchableOpacity>
