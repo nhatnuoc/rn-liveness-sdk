@@ -3,7 +3,7 @@ import React
 import UIKit
 import LocalAuthentication
 import FlashLiveness
- @_implementationOnly import QTSLiveness
+import QTSLiveness
 
 @available(iOS 13.0, *)
 class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLiveness.LivenessUtilityDetectorDelegate {
