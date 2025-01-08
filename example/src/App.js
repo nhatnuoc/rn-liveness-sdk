@@ -280,21 +280,21 @@ export default function App() {
   const [text, setText] = useState('');
 
   const onStartLiveNess = () => {
-    setStatus(!status);
-    // if (isIphoneX && !status) {
-    //   setIsFlashCamera(false)
-    //   setTimeout(() => {
-    //    if (!isFlashCamera) {
-    //     setIsFlashCamera(true)
-    //     setStatus(false)
-    //     setTimeout(() => {
-    //       setStatus(true)
-    //     }, 2);
-    //    }
-    //   }, 5000);
-    // } else {
-    //   setIsFlashCamera(true);
-    // }
+    // setStatus(!status);
+    if (isIphoneX && !status) {
+      setIsFlashCamera(false)
+      setTimeout(() => {
+       if (!isFlashCamera) {
+        setIsFlashCamera(true)
+        setStatus(false)
+        setTimeout(() => {
+          setStatus(true)
+        }, 2);
+       }
+      }, 5000);
+    } else {
+      setIsFlashCamera(true);
+    }
   };
 
   const handleLayout = e => {
