@@ -278,24 +278,51 @@ export default function App() {
   }, []);
 
   const [text, setText] = useState('');
-
+  const timeoutRef = useRef(null);
+  const innerTimeoutRef = useRef(null);
+  
   const onStartLiveNess = () => {
-    // setStatus(!status);
-    if (isIphoneX && !status) {
-      setIsFlashCamera(false)
-      setTimeout(() => {
-       if (!isFlashCamera) {
-        setIsFlashCamera(true)
-        setStatus(false)
-        setTimeout(() => {
-          setStatus(true)
-        }, 2);
-       }
+    // Clear any existing timeouts
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    if (innerTimeoutRef.current) {
+      clearTimeout(innerTimeoutRef.current);
+    }
+
+    setStatus(!status);
+  
+    if (isIphoneX) {
+      setIsFlashCamera(false);
+      timeoutRef.current = setTimeout(() => {
+        if (!isFlashCamera) {
+          setIsFlashCamera(true);
+          setStatus(false);
+          innerTimeoutRef.current = setTimeout(() => {
+            setStatus(true);
+          }, 2);
+        }
       }, 5000);
     } else {
       setIsFlashCamera(true);
     }
   };
+  
+  // Cleanup timeouts when component unmounts
+  useEffect(() => {
+    return () => {
+      clear();
+    };
+  }, []);
+
+  function clear() {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    if (innerTimeoutRef.current) {
+      clearTimeout(innerTimeoutRef.current);
+    }
+  }
 
   const handleLayout = e => {
     const { height, width } = e.nativeEvent.layout;
@@ -338,15 +365,13 @@ export default function App() {
                 // console.log('===sendEvent===', data.nativeEvent?.data);
                 console.log("Original: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessOriginalImage))
                 console.log("liveness: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessImage))
-                onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
-                // if (data.nativeEvent?.data?.livenessImage != null || data.nativeEvent?.data?.livenessOriginalImage != null) {
-                //   if (isIphoneX && isFlashCamera) {
-                //     onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
-                //     setIsFlashCamera(false)
-                //   } else {
-                //     onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage);
-                //   }
-                // }
+                // onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
+                clear();
+                if (isFlashCamera) {
+                  onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
+                } else {
+                  onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage);
+                }
               }}
               requestid={'sdfsdfsdfsdf'}
               appId={'com.pvcb'}
