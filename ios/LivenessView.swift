@@ -242,7 +242,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
             "vector": maxtrix,
         ]
             pushEvent(data: dataRes)
-        (livenessDetector as! QTSLivenessDetector).stopLiveness()
+        (livenessDetector as? QTSLiveness.DepthLivenessDetector)?.stopLiveness()
       }
     
     func saveImageToFile(image: UIImage, isOriginal: Bool) -> String? {
