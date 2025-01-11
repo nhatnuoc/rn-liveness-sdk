@@ -217,7 +217,8 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
     }
     
     func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFail withError: QTSLiveness.LivenessError) {
-      pushEvent(data: withError)
+        liveness.stopLiveness()
+        pushEvent(data: withError)
     }
     
 //    func liveness(liveness: QTSLivenessDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: LivenessResult?) {
@@ -242,7 +243,8 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
             "vector": maxtrix,
         ]
             pushEvent(data: dataRes)
-        (livenessDetector as? QTSLiveness.DepthLivenessDetector)?.stopLiveness()
+            liveness.stopLiveness()
+//        (livenessDetector as? QTSLiveness.DepthLivenessDetector)?.stopLiveness()
       }
     
     func saveImageToFile(image: UIImage, isOriginal: Bool) -> String? {
