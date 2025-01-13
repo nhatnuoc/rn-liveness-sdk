@@ -115,7 +115,7 @@ add library
   <!-- pod 'QTSCardReader' ,:git => 'https://github.com/trungnguyen1791/QTSCardReader.git'
   pod 'SVProgressHUD'
   pod 'Alamofire', '5.8.1'
-  pod 'QTSLiveness', '1.0.2' -->
+  pod 'QTSLiveness'
   pod 'FlashLiveness', :git => 'https://github.com/stevienguyen1988/FlashLivenessPod.git'
 ```
 
