@@ -194,7 +194,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
   }
   
     private func liveness(liveness: FlashLiveness.LivenessUtilityDetector, didFail withError: FlashLiveness.LivenessError) {
-    pushEvent(data: withError)
+//    pushEvent(data: withError)
   }
   
     func liveness(_ liveness: FlashLiveness.LivenessUtilityDetector, didFinishWithResult result:  FlashLiveness.LivenessResult) {
@@ -217,8 +217,8 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
     }
     
     func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFail withError: QTSLiveness.LivenessError) {
-        liveness.stopLiveness()
-        pushEvent(data: withError)
+//        liveness.stopLiveness()
+//        pushEvent(data: withError)
     }
     
 //    func liveness(liveness: QTSLivenessDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: LivenessResult?) {
@@ -235,17 +235,18 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
 //        }
 //  //      Request id, message, status, success
 //    }
-      
-    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, maxtrix:[Float], image: UIImage, videoURL: URL?) {
-          let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
-        let dataRes: [String: Any] = [
-            "livenessOriginalImage": livenessImage,
-            "vector": maxtrix,
-        ]
-            pushEvent(data: dataRes)
-            liveness.stopLiveness()
-//        (livenessDetector as? QTSLiveness.DepthLivenessDetector)?.stopLiveness()
-      }
+    
+    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, maxtrix: [Float], image: UIImage, videoURL: URL?){
+//        let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
+        let livenessImage = convertImageToBase64(image) ?? ""
+       let dataRes: [String: Any] = [
+           "livenessOriginalImage": livenessImage,
+           "vector": maxtrix,
+       ]
+        pushEvent(data: dataRes)
+        print(dataRes)
+        liveness.stopLiveness()
+    }
     
     func saveImageToFile(image: UIImage, isOriginal: Bool) -> String? {
         // Chuyển đổi UIImage thành Data (PNG format)
@@ -279,6 +280,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
         
         // Convert the Data to a Base64 encoded string
         let base64String = imageData.base64EncodedString(options: .lineLength64Characters)
+        print("convert done")
         return base64String
     }
 
