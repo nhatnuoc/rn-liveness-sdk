@@ -302,7 +302,7 @@ export default function App() {
             setStatus(true);
           }, 2);
         }
-      }, 1000000);
+      }, 5000);
     } else {
       setIsFlashCamera(true);
     }
