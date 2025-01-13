@@ -98,7 +98,14 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
                   debugging: debugging,
                   delegate: self,
                   livenessMode: .local,
-                  calculationMode: .multiple,
+                  localLivenessThreshold: {
+                    if #available(iOS 18.0, *) {
+                        return 0.94
+                    } else {
+                        return 0.9
+                    }
+                }(),
+                  calculationMode: .combine,
                   additionHeader: ["header": "header"]
               )
               viewMask = LivenessMaskView(frame: bounds)
