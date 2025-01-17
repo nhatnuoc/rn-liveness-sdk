@@ -65,7 +65,15 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
         }
     }
 
-
+    func checkfaceID() -> Bool {
+      let authType = LocalAuthManager.shared.biometricType
+      switch authType {
+      case .faceID:
+        return true
+      default:
+        return false
+      }
+    }
     
       private func setupConfig() {
           resetLivenessDetector()
@@ -91,36 +99,16 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
   private func setupView() {
       do {
           if !isFlashCamera, #available(iOS 13.0, *) {
-              // QTSLiveness setup
-              self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
-                  previewView: self,
-                  threshold: .low,
-                  smallFaceThreshold: 0.25,
-                  debugging: debugging,
-                  delegate: self,
-                  livenessMode: .local,
-                  localLivenessThreshold: {
-                    if #available(iOS 18.0, *) {
-                        return 0.94
-                    } else {
-                        return 0.9
-                    }
-                }(),
-                  calculationMode: .combine,
-                  additionHeader: ["header": "header"]
-              )
-              viewMask = LivenessMaskView(frame: bounds)
-              viewMask.backgroundColor = UIColor.clear
-              viewMask.layer.zPosition = 1 // Bring viewMask to the top layer
-              addSubview(viewMask)
+
+              var stateFaceId = checkfaceID()
+              if stateFaceId {
+                  // QTSLiveness setup
+                  initCamera3D()
+              } else {
+                  initCameraFlash()
+              }
           } else {
-              self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
-                    previewView: self,
-                    mode: .offline,
-                    threshold: .low,
-                    debugging: debugging,
-                    delegate: self
-                )
+              initCameraFlash()
           }
 //                  self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
 //                      previewView: self,
@@ -136,6 +124,40 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
                   pushEvent(data: ["error": error.localizedDescription])
               }
   }
+
+    private func initCamera3D() {
+        self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
+            previewView: self,
+            threshold: .low,
+            smallFaceThreshold: 0.25,
+            debugging: debugging,
+            delegate: self,
+            livenessMode: .local,
+            localLivenessThreshold: {
+              if #available(iOS 18.0, *) {
+                  return 0.94
+              } else {
+                  return 0.9
+              }
+          }(),
+            calculationMode: .combine,
+            additionHeader: ["header": "header"]
+        )
+        viewMask = LivenessMaskView(frame: bounds)
+        viewMask.backgroundColor = UIColor.clear
+        viewMask.layer.zPosition = 1 // Bring viewMask to the top layer
+        addSubview(viewMask)
+    }
+
+    private func initCameraFlash() {
+        self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
+            previewView: self,
+            mode: .offline,
+            threshold: .low,
+            debugging: debugging,
+            delegate: self
+        )
+    }
     
     private func startSession() throws {
             guard let detector = livenessDetector else {
