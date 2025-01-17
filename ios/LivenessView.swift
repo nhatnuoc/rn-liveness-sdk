@@ -4,6 +4,7 @@ import UIKit
 import LocalAuthentication
 import FlashLiveness
 import QTSLiveness
+import LocalAuthentication
 
 @available(iOS 13.0, *)
 class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLiveness.LivenessUtilityDetectorDelegate {
