@@ -1,6 +1,6 @@
 {
   "name": "liveness-rn",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "My Liveness Library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

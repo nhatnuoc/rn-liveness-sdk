@@ -179,7 +179,7 @@ const loginFaceId = ({ filePath, livenessPath, livenessThermalPath, color, userI
   //   type: "image/png",
   //   name: "image.png",
   // } : "");
-  // data.append("sdk_thermal_image", livenessThermalPath ?? "");
+  data.append("sdk_thermal_image", livenessThermalPath ?? "");
   // data.append("sdk_liveness_image", livenessPath ? {
   //   uri: `file://${livenessPath}`,
   //   type: "image/png",
@@ -332,11 +332,12 @@ export default function App() {
     setLayout({ width, height });
   };
 
-  const onCheckFaceId = async (filePath, fileLiveness, color) => {
+  const onCheckFaceId = async ({filePath, fileLiveness, livenessThermalPath, color}) => {
     try {
       const res = await loginFaceId({
         filePath: filePath,
         livenessPath: fileLiveness,
+        livenessThermalPath: livenessThermalPath,
         color: color,
         userId: text,
       });
@@ -368,9 +369,9 @@ export default function App() {
               // onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
               clear();
               if (isFlashCamera) {
-                onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
+                onCheckFaceId({filePath: data.nativeEvent?.data?.livenessOriginalImage, fileLiveness: data.nativeEvent?.data?.livenessImage, color: data.nativeEvent?.data?.color});
               } else {
-                onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage);
+                onCheckFaceId({filePath: data.nativeEvent?.data?.livenessOriginalImage, livenessThermalPath: data.nativeEvent?.data?.livenessImage});
               }
             }}
             requestid={'sdfsdfsdfsdf'}

@@ -155,9 +155,10 @@ Trả về 2 ảnh:
 => + Lưu ý màn livenesss style nên để widht: 100%, height: Platform.OS == 'android' ? windowWidth * 1.7 : '100%'
   + Để khung hình camera vào giữa màn hình 
 
-## Sdk 3D Hiện tại version này chưa có
-Trả về 1 ảnh duy nhất:
-  + Ảnh thường (path file): data.nativeEvent?.data?.livenessOriginalImage
+## Sdk 3D
+Trả về 2 ảnh:
+  + Ảnh thường (base64): data.nativeEvent?.data?.livenessOriginalImage
+  + Ảnh ảnh nhiệt (base64): data.nativeEvent?.data?.livenessImage
   + Vertor là mảng float (2 giá trị vector): data.nativeEvent?.data?.livenessImage?.vector
 
 Chỉ sử dụng cho Iphone x trở nên. Trường hợp nếu 10s sử dụng 3D không nhận được response trả về sẽ tự động chuyển sang Sdk flash

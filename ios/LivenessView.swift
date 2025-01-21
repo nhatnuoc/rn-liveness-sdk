@@ -7,7 +7,7 @@ import QTSLiveness
 import LocalAuthentication
 
 @available(iOS 13.0, *)
-class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLiveness.LivenessUtilityDetectorDelegate {
+class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLiveness.QTSLivenessUtilityDetectorDelegate {
   var transactionId = ""
   var livenessDetector: Any?
   private var viewMask: LivenessMaskView!
@@ -137,7 +137,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
               if #available(iOS 18.0, *) {
                   return 0.94
               } else {
-                  return 0.9
+                  return 0.95
               }
           }(),
             calculationMode: .combine,
@@ -246,7 +246,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
         (livenessDetector as! LivenessUtilityDetector).stopLiveness()
     }
     
-    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFail withError: QTSLiveness.LivenessError) {
+    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFail withError: QTSLiveness.QTSLivenessError) {
 //        liveness.stopLiveness()
 //        pushEvent(data: withError)
     }
@@ -266,11 +266,13 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
 //  //      Request id, message, status, success
 //    }
     
-    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, maxtrix: [Float], image: UIImage, videoURL: URL?){
+    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, maxtrix: [Float], image: UIImage, thermal_image: UIImage, videoURL: URL?){
 //        let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
-        let livenessImage = convertImageToBase64(image) ?? ""
+        let livenessImage = convertImageToBase64(thermal_image) ?? ""
+        let livenessOriginalImage = convertImageToBase64(image) ?? ""
        let dataRes: [String: Any] = [
-           "livenessOriginalImage": livenessImage,
+            "livenessImage": livenessImage,
+           "livenessOriginalImage": livenessOriginalImage,
            "vector": maxtrix,
        ]
         pushEvent(data: dataRes)

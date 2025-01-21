@@ -10,8 +10,9 @@ PODS:
     - React-Core (= 0.72.10)
     - React-jsi (= 0.72.10)
     - ReactCommon/turbomodule/core (= 0.72.10)
-  - FlashLiveness (1.1.17):
+  - FlashLiveness (1.2.2):
     - KeychainSwift (~> 19.0)
+    - lottie-ios (= 4.4.1)
     - ObjectMapper (~> 4.2)
     - SignManager (~> 1.0.6)
   - fmt (6.2.1)
@@ -21,14 +22,15 @@ PODS:
   - hermes-engine/Pre-built (0.72.10)
   - KeychainSwift (19.0.0)
   - libevent (2.1.12)
-  - liveness-rn (1.0.21):
+  - liveness-rn (1.0.22):
     - FlashLiveness
     - KeychainSwift (~> 19.0)
     - QTSLiveness
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
+  - lottie-ios (4.4.1)
   - ObjectMapper (4.4.2)
-  - QTSLiveness (1.0.8):
+  - QTSLiveness (1.0.9):
     - CryptoSwift (~> 1.8.2)
     - KeychainSwift (~> 19.0)
     - ObjectMapper (~> 4.2)
@@ -508,6 +510,7 @@ SPEC REPOS:
     - fmt
     - KeychainSwift
     - libevent
+    - lottie-ios
     - ObjectMapper
     - QTSLiveness
     - SignManager
@@ -605,7 +608,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   FlashLiveness:
-    :commit: 46cefe00fb78f652ec46a949aac7272cc41082f9
+    :commit: 18633185173b454525ff6576b9e7707d6001569a
     :git: https://github.com/stevienguyen1988/FlashLivenessPod.git
 
 SPEC CHECKSUMS:
@@ -614,15 +617,16 @@ SPEC CHECKSUMS:
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f91d538f197fa71a7d5b77ec2069d49550c0eb96
   FBReactNativeSpec: b13d1c23d6ed82d6b66aad7a253edf8ba76c4a4c
-  FlashLiveness: 246d6c773927c108bc49b5db64d4ad38d9463cee
+  FlashLiveness: 762c9c2dde708c5bf5b249004f4003acc70f9889
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  liveness-rn: 6fabde033d71f6eb7ee78180c0c6fc4e520dff75
+  liveness-rn: d818cd593c354dc64e557640e3f8d469fe5569e8
+  lottie-ios: e047b1d2e6239b787cc5e9755b988869cf190494
   ObjectMapper: e6e4d91ff7f2861df7aecc536c92d8363f4c9677
-  QTSLiveness: d247463aa509e17c5e28d23664bd7b8fdecb4742
+  QTSLiveness: 0776d626e92c515eabd05bd2e2b965932bd42a62
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: b4d3068afa6f52ec5260a8417053b1f1b421483d
   RCTTypeSafety: a4551b3d338c96435f63bf06d564055c1d3cc0ac
@@ -662,6 +666,6 @@ SPEC CHECKSUMS:
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3
 
-PODFILE CHECKSUM: 186a938d09a98a5ea5420b25fdaf18e63871479c
+PODFILE CHECKSUM: 4e0194206bbd8a6ac9ebc4820f8f5aa1482606bc
 
 COCOAPODS: 1.15.2
