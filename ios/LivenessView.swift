@@ -98,17 +98,36 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
  
   private func setupView() {
       do {
-          if !isFlashCamera, #available(iOS 13.0, *) {
-
-              var stateFaceId = checkfaceID()
-              if stateFaceId {
-                  // QTSLiveness setup
-                  initCamera3D()
-              } else {
-                  initCameraFlash()
-              }
+          if !isFlashCamera && checkfaceID(), #available(iOS 13.0, *) {
+              self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
+                  previewView: self,
+                  threshold: .low,
+                  smallFaceThreshold: 0.25,
+                  debugging: debugging,
+                  delegate: self,
+                  livenessMode: .local,
+                  localLivenessThreshold: {
+                    if #available(iOS 18.0, *) {
+                        return 0.94
+                    } else {
+                        return 0.95
+                    }
+                }(),
+                  calculationMode: .combine,
+                  additionHeader: ["header": "header"]
+              )
+              viewMask = LivenessMaskView(frame: bounds)
+              viewMask.backgroundColor = UIColor.clear
+              viewMask.layer.zPosition = 1 // Bring viewMask to the top layer
+              addSubview(viewMask)
           } else {
-              initCameraFlash()
+              self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
+                  previewView: self,
+                  mode: .offline,
+                  threshold: .low,
+                  debugging: debugging,
+                  delegate: self
+              )
           }
 //                  self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
 //                      previewView: self,
@@ -125,40 +144,6 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
               }
   }
 
-    private func initCamera3D() {
-        self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
-            previewView: self,
-            threshold: .low,
-            smallFaceThreshold: 0.25,
-            debugging: debugging,
-            delegate: self,
-            livenessMode: .local,
-            localLivenessThreshold: {
-              if #available(iOS 18.0, *) {
-                  return 0.94
-              } else {
-                  return 0.95
-              }
-          }(),
-            calculationMode: .combine,
-            additionHeader: ["header": "header"]
-        )
-        viewMask = LivenessMaskView(frame: bounds)
-        viewMask.backgroundColor = UIColor.clear
-        viewMask.layer.zPosition = 1 // Bring viewMask to the top layer
-        addSubview(viewMask)
-    }
-
-    private func initCameraFlash() {
-        self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
-            previewView: self,
-            mode: .offline,
-            threshold: .low,
-            debugging: debugging,
-            delegate: self
-        )
-    }
-    
     private func startSession() throws {
             guard let detector = livenessDetector else {
                 throw NSError(domain: "LivenessError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Liveness Detector could not be initialized"])
@@ -166,7 +151,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
             
 //            try (detector as? FlashLiveness.LivenessUtilityDetector)?.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
         
-            if isFlashCamera, let flashDetector = detector as? FlashLiveness.LivenessUtilityDetector {
+            if let flashDetector = detector as? FlashLiveness.LivenessUtilityDetector {
                 try flashDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
             } else if let qtDetector = detector as? QTSLiveness.QTSLivenessDetector {
                 try qtDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
