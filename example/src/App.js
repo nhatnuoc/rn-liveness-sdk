@@ -179,16 +179,22 @@ const loginFaceId = ({ filePath, livenessPath, livenessThermalPath, color, userI
   //   type: "image/png",
   //   name: "image.png",
   // } : "");
-  data.append("sdk_thermal_image", livenessThermalPath ?? "");
+  if (livenessThermalPath) {
+    data.append("sdk_thermal_image", livenessThermalPath ?? "");
+  }
   // data.append("sdk_liveness_image", livenessPath ? {
   //   uri: `file://${livenessPath}`,
   //   type: "image/png",
   //   name: "image.png",
   // } : "");
-  data.append("sdk_liveness_image", livenessPath ?? "");
+  if (livenessPath) {
+    data.append("sdk_liveness_image", livenessPath);
+  }
   // data.append("user_id", "thuthuy");
   data.append("user_id", userId);
-  data.append("sdk_color", color);
+  if (color) {
+    data.append("sdk_color", color);
+  }
   // data.append("user_id", '68');
   data.append("threshold", 0.8);
   data.append("check_liveness", "True");
