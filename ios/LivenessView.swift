@@ -108,9 +108,9 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
                   livenessMode: .local,
                   localLivenessThreshold: {
                     if #available(iOS 18.0, *) {
-                        return 0.94
+                         return 0.94
                     } else {
-                        return 0.95
+                        return 0.97
                     }
                 }(),
                   calculationMode: .combine,
