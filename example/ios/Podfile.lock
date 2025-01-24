@@ -28,7 +28,7 @@ PODS:
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - ObjectMapper (4.4.2)
-  - QTSLiveness (1.0.9):
+  - QTSLiveness (1.1.0):
     - CryptoSwift (~> 1.8.2)
     - KeychainSwift (~> 19.0)
     - ObjectMapper (~> 4.2)
@@ -623,7 +623,7 @@ SPEC CHECKSUMS:
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   liveness-rn: 5e95ee3862d12c1ec646ac78d87b3598722959af
   ObjectMapper: e6e4d91ff7f2861df7aecc536c92d8363f4c9677
-  QTSLiveness: 0776d626e92c515eabd05bd2e2b965932bd42a62
+  QTSLiveness: adff5945df0f2b302a144d79d241aac088532900
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: b4d3068afa6f52ec5260a8417053b1f1b421483d
   RCTTypeSafety: a4551b3d338c96435f63bf06d564055c1d3cc0ac
