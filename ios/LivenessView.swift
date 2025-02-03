@@ -116,10 +116,10 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
                   calculationMode: .combine,
                   additionHeader: ["header": "header"]
               )
-              viewMask = LivenessMaskView(frame: bounds)
-              viewMask.backgroundColor = UIColor.clear
-              viewMask.layer.zPosition = 1 // Bring viewMask to the top layer
-              addSubview(viewMask)
+            //   viewMask = LivenessMaskView(frame: bounds)
+            //   viewMask.backgroundColor = UIColor.clear
+            //   viewMask.layer.zPosition = 1 // Bring viewMask to the top layer
+            //   addSubview(viewMask)
           } else {
               self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
                   previewView: self,
@@ -154,7 +154,13 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
             if let flashDetector = detector as? FlashLiveness.LivenessUtilityDetector {
                 try flashDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
             } else if let qtDetector = detector as? QTSLiveness.QTSLivenessDetector {
-                try qtDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                    do {
+                        try qtDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
+                    } catch {
+                        
+                    }
+                })
             }
         }
   
