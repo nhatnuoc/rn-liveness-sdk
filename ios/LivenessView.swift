@@ -154,13 +154,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
             if let flashDetector = detector as? FlashLiveness.LivenessUtilityDetector {
                 try flashDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
             } else if let qtDetector = detector as? QTSLiveness.QTSLivenessDetector {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-                    do {
-                        try qtDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
-                    } catch {
-                        
-                    }
-                })
+                try qtDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
             }
         }
   
