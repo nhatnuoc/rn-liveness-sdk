@@ -263,7 +263,7 @@ const checkDevice = async () => {
 
 export default function App() {
   const [status, setStatus] = useState(false);
-  const [isFlashCamera, setIsFlashCamera] = useState(true);
+  const [isFlashCamera, setIsFlashCamera] = useState(false);
   const [layout, setLayout] = useState({ width: 0, height: 0 });
   const ref = useRef(null);
 
