@@ -10,7 +10,7 @@ PODS:
     - React-Core (= 0.72.10)
     - React-jsi (= 0.72.10)
     - ReactCommon/turbomodule/core (= 0.72.10)
-  - FlashLiveness (1.1.17):
+  - FlashLiveness (1.2.5):
     - KeychainSwift (~> 19.0)
     - ObjectMapper (~> 4.2)
     - SignManager (~> 1.0.6)
@@ -458,7 +458,7 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
-  - FlashLiveness (from `https://github.com/stevienguyen1988/FlashLivenessPod.git`, tag `v1.1.17`)
+  - FlashLiveness (from `https://github.com/stevienguyen1988/FlashLivenessPod.git`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
@@ -524,7 +524,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/React/FBReactNativeSpec"
   FlashLiveness:
     :git: https://github.com/stevienguyen1988/FlashLivenessPod.git
-    :tag: v1.1.17
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   hermes-engine:
@@ -606,8 +605,8 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   FlashLiveness:
+    :commit: 55253bfd1881da01253846608b3552a4491d3021
     :git: https://github.com/stevienguyen1988/FlashLivenessPod.git
-    :tag: v1.1.17
 
 SPEC CHECKSUMS:
   boost: 7dcd2de282d72e344012f7d6564d024930a6a440
@@ -615,7 +614,7 @@ SPEC CHECKSUMS:
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f91d538f197fa71a7d5b77ec2069d49550c0eb96
   FBReactNativeSpec: b13d1c23d6ed82d6b66aad7a253edf8ba76c4a4c
-  FlashLiveness: 246d6c773927c108bc49b5db64d4ad38d9463cee
+  FlashLiveness: cfbb7f9431eebd9d26787c7e12c030a6b6f42a8b
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
@@ -663,6 +662,6 @@ SPEC CHECKSUMS:
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3
 
-PODFILE CHECKSUM: 217e4405125392448b359e165e7e73a39204d9f8
+PODFILE CHECKSUM: 4e0194206bbd8a6ac9ebc4820f8f5aa1482606bc
 
 COCOAPODS: 1.15.2
