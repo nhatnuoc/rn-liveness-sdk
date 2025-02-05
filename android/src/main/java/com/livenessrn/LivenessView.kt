@@ -2,6 +2,7 @@ package com.livenessrn
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.BitmapFactory
 import android.util.AttributeSet
 import android.util.Base64
@@ -27,6 +28,11 @@ class LivenessView @JvmOverloads constructor(
   context: Context,
   attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
+
+  init {
+    this.setBackgroundColor(Color.TRANSPARENT)
+  }
+
   private val callBack = object : CallbackLivenessListener {
     override fun onCallbackLiveness(data: LivenessModel?) {
       if (data?.status != null && data.status == 6666) {
