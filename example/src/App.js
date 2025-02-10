@@ -6,7 +6,7 @@ import Liveness from './Liveness'
 
 const Stack = createStackNavigator();
 
-const App = () => {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="HomeScreen">
@@ -16,8 +16,6 @@ const App = () => {
     </NavigationContainer>
   );
 }
-
-export default App;
 
 // "@react-navigation/native": "^7.0.0",
 // "@react-navigation/stack": "^7.0.0",

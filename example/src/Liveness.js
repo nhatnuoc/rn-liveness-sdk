@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 import {
-  Dimensions,
   StyleSheet,
   View,
   Platform,
@@ -246,11 +245,6 @@ const Liveness = ({ route, navigation }) => {
     }
   }, [ref.current]);
 
-  useEffect(() => {
-    checkDevice();
-    onStartLiveNess();
-  }, []);
-
   const onStartLiveNess = () => {
     // Clear any existing timeouts
     clear();
@@ -275,6 +269,8 @@ const Liveness = ({ route, navigation }) => {
 
   // Cleanup timeouts when component unmounts
   useEffect(() => {
+    checkDevice();
+    onStartLiveNess();
     return () => {
       clear();
     };
