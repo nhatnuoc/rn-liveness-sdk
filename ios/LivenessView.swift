@@ -20,6 +20,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
   var debugging = false
   var isFlashCamera = false
   var isDoneSmile = false
+    private var originalBrightness: CGFloat?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -31,24 +32,29 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
   override init(frame: CGRect) {
     super.init(frame: frame)
 //   setupView()
+      registerForNotifications()
   }
  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 //   setupView()
+      registerForNotifications()
   }
     
     deinit {
         print("Dispose Liveness")
         resetLivenessDetector()
+        unregisterFromNotifications()
     }
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         if superview != nil {
+//            upLightScreen()
             print("LivenessView đã được thêm vào màn hình.")
             // Thực hiện các tác vụ cần thiết
         } else {
+            revertLightScreen()
             print("LivenessView đã bị xoá khỏi màn hình.")
             resetLivenessDetector()
         }
@@ -57,14 +63,58 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
     override func didMoveToWindow() {
         super.didMoveToWindow()
         if window != nil {
+//            upLightScreen()
             print("LivenessView đã xuất hiện trong window.")
             // Thực hiện các tác vụ liên quan đến giao diện.
         } else {
+            revertLightScreen()
             print("LivenessView đã bị xóa khỏi window.")
             resetLivenessDetector()
         }
     }
 
+    private func registerForNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+
+    private func unregisterFromNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+
+    @objc private func onEnterBackground() {
+        // Handle entering background
+        print("App entered background")
+//        revertLightScreen()
+    }
+
+    @objc private func onEnterForeground() {
+        // Handle entering foreground
+        print("App entered foreground")
+//        upLightScreen()
+    }
+    
+    func upLightScreen() {
+        // Lưu độ sáng ban đầu nếu chưa lưu
+        if self.originalBrightness == nil {
+            self.originalBrightness = UIScreen.main.brightness
+        }
+
+        // Tăng độ sáng lên mức tối đa
+        UIScreen.main.brightness = 1.0
+    }
+    
+    func revertLightScreen() {
+        // Khôi phục độ sáng ban đầu nếu đã được lưu
+//        if let brightness = self.originalBrightness {
+//            UIScreen.main.brightness = brightness
+//            self.originalBrightness = nil
+//        }
+        
+        UIScreen.main.brightness = 0.0
+    }
+    
     func checkfaceID() -> Bool {
       let authType = LocalAuthManager.shared.biometricType
       switch authType {
@@ -97,6 +147,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
 
  
   private func setupView() {
+      upLightScreen()
       do {
           if !isFlashCamera && checkfaceID(), #available(iOS 13.0, *) {
               self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
