@@ -42,6 +42,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
   }
     
     deinit {
+        revertLightScreen()
         print("Dispose Liveness")
         resetLivenessDetector()
         unregisterFromNotifications()
@@ -86,20 +87,22 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
     @objc private func onEnterBackground() {
         // Handle entering background
         print("App entered background")
-//        revertLightScreen()
+       revertLightScreen()
     }
 
     @objc private func onEnterForeground() {
         // Handle entering foreground
         print("App entered foreground")
-//        upLightScreen()
+       upLightScreen()
     }
     
     func upLightScreen() {
+        revertLightScreen()
+        
         // Lưu độ sáng ban đầu nếu chưa lưu
-        if self.originalBrightness == nil {
-            self.originalBrightness = UIScreen.main.brightness
-        }
+//        if self.originalBrightness == nil {
+//            self.originalBrightness = UIScreen.main.brightness
+//        }
 
         // Tăng độ sáng lên mức tối đa
         UIScreen.main.brightness = 1.0
@@ -112,7 +115,8 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
 //            self.originalBrightness = nil
 //        }
         
-        UIScreen.main.brightness = 0.0
+        UIScreen.main.brightness = 0.35
+        print("Brightness revert to")
     }
     
     func checkfaceID() -> Bool {
@@ -126,30 +130,34 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
     }
     
       private func setupConfig() {
+          upLightScreen()
           resetLivenessDetector()
           setupView()
       }
     
     private func resetLivenessDetector() {
         removeFromSuperview()
-        if let detector = livenessDetector as? FlashLiveness.LivenessUtilityDetector {
-            // Reset specific configurations or data for FlashLiveness if needed
-            detector.stopLiveness() // Stop the session for FlashLiveness
-            print("FlashLiveness detector stopped and reset.")
-        } else if let detector = livenessDetector as? QTSLiveness.QTSLivenessDetector {
+        if #available(iOS 15.0, *) {
+            if let detector = livenessDetector as? FlashLiveness.LivenessUtilityDetector {
+                // Reset specific configurations or data for FlashLiveness if needed
+                detector.stopLiveness() // Stop the session for FlashLiveness
+                print("FlashLiveness detector stopped and reset.")
+            } else if let detector = livenessDetector as? QTSLiveness.QTSLivenessDetector {
                 // Reset specific configurations or data for QTSLiveness if needed
                 detector.stopLiveness() // Stop the session for QTSLiveness
                 print("QTSLiveness detector stopped and reset.")
             }
+        } else {
+            // Fallback on earlier versions
+        }
         
         livenessDetector = nil // Set to nil to allow reinitialization
     }
 
  
   private func setupView() {
-      upLightScreen()
       do {
-          if !isFlashCamera && checkfaceID(), #available(iOS 13.0, *) {
+          if !isFlashCamera && checkfaceID(), #available(iOS 15.0, *) {
               self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
                   previewView: self,
                   threshold: .low,
@@ -204,7 +212,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
         
             if let flashDetector = detector as? FlashLiveness.LivenessUtilityDetector {
                 try flashDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
-            } else if let qtDetector = detector as? QTSLiveness.QTSLivenessDetector {
+            } else if #available(iOS 15.0, *), let qtDetector = detector as? QTSLiveness.QTSLivenessDetector {
                 try qtDetector.getVerificationRequiresAndStartSession(transactionId: self.transactionId)
             }
         }
@@ -282,6 +290,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
         (livenessDetector as! LivenessUtilityDetector).stopLiveness()
     }
     
+    @available(iOS 15.0, *)
     func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFail withError: QTSLiveness.QTSLivenessError) {
 //        liveness.stopLiveness()
 //        pushEvent(data: withError)
@@ -302,6 +311,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
 //  //      Request id, message, status, success
 //    }
     
+    @available(iOS 15.0, *)
     func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFinishLocalLiveness score: Float, maxtrix: [Float], image: UIImage, thermal_image: UIImage, videoURL: URL?){
 //        let livenessImage = saveImageToFile(image: image, isOriginal: false) ?? ""
         let livenessImage = convertImageToBase64(thermal_image) ?? ""
