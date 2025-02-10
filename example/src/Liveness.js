@@ -227,7 +227,7 @@ const checkDevice = async () => {
 };
 
 const Liveness = ({ route, navigation }) => {
-  const { userId } = route.params;
+  const { userId } = 'route.params';
 
   const [isFlashCamera, setIsFlashCamera] = useState(false);
   const [layout, setLayout] = useState({ width: 0, height: 0 });
@@ -244,6 +244,9 @@ const Liveness = ({ route, navigation }) => {
       }
     }
   }, [ref.current]);
+
+  const timeoutRef = useRef(null);
+  const innerTimeoutRef = useRef(null);
 
   const onStartLiveNess = () => {
     // Clear any existing timeouts

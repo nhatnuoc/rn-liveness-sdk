@@ -16,7 +16,13 @@ const HomeScreen = ({ navigation }) => {
       />
       <Button
         title="Start liveness"
-        onPress={() => navigation.navigate('Liveness', { userId: text })}
+        onPress={() => {
+          if (typeof navigation.navigate !== 'function') {
+            console.error("navigation.navigate không phải là một function");
+            return;
+          }
+          navigation.navigate('Liveness', { userId: text });
+        }}
       />
     </View>
   );
