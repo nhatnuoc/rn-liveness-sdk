@@ -15,8 +15,8 @@ if linkage != nil
 end
 
 target 'LivenessRnExample' do
-  # use_frameworks! :linkage => :static
-  use_frameworks!
+  use_frameworks! :linkage => :static
+  # use_frameworks!
   config = use_native_modules!
 
   #  pod 'LivenessCloud' ,:git => 'https://github.com/trungnguyen1791/LivenessCloudPOD.git'

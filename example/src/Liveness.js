@@ -4,17 +4,13 @@ import {
   Dimensions,
   StyleSheet,
   View,
-  Text,
-  TouchableOpacity,
   Platform,
   PixelRatio,
   UIManager,
   findNodeHandle,
-  TextInput,
 } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
-const { width: windowWidth } = Dimensions.get("window");
 
 import SimpleModal from './SimpleModal';
 
@@ -259,7 +255,7 @@ const Liveness = ({ route, navigation }) => {
     // Clear any existing timeouts
     clear();
 
-    setStatus(prev => !prev);
+    // setStatus(prev => !prev);
 
     if (isIphoneX) {
       setIsFlashCamera(false);
@@ -411,3 +407,5 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 });
+
+export default Liveness
