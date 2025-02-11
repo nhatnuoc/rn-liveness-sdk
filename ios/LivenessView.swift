@@ -61,18 +61,18 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
         }
     }
     
-    override func didMoveToWindow() {
-        super.didMoveToWindow()
-        if window != nil {
-//            upLightScreen()
-            print("LivenessView đã xuất hiện trong window.")
-            // Thực hiện các tác vụ liên quan đến giao diện.
-        } else {
-            revertLightScreen()
-            print("LivenessView đã bị xóa khỏi window.")
-            resetLivenessDetector()
-        }
-    }
+//    override func didMoveToWindow() {
+//        super.didMoveToWindow()
+//        if window != nil {
+////            upLightScreen()
+//            print("LivenessView đã xuất hiện trong window.")
+//            // Thực hiện các tác vụ liên quan đến giao diện.
+//        } else {
+//            revertLightScreen()
+//            print("LivenessView đã bị xóa khỏi window.")
+//            resetLivenessDetector()
+//        }
+//    }
 
     private func registerForNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(onEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
@@ -136,7 +136,6 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
       }
     
     private func resetLivenessDetector() {
-        removeFromSuperview()
         if #available(iOS 15.0, *) {
             if let detector = livenessDetector as? FlashLiveness.LivenessUtilityDetector {
                 // Reset specific configurations or data for FlashLiveness if needed
@@ -152,6 +151,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
         }
         
         livenessDetector = nil // Set to nil to allow reinitialization
+        removeFromSuperview()
     }
 
  
@@ -305,7 +305,8 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
                     mode: .offline,
                     threshold: .low,
                     debugging: debugging,
-                    delegate: self
+                    delegate: self,
+                    brightnessEnable: false
                 )
                 try startSession()
             } catch {
