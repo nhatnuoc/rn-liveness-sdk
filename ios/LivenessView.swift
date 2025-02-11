@@ -292,9 +292,10 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
     }
     
     @available(iOS 15.0, *)
-    func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFail withError: QTSLiveness.QTSLivenessError) {
-//        liveness.stopLiveness()
-//        pushEvent(data: withError)
+    func liveness(liveness: QTSLivenessDetector, didFail withError: QTSLivenessError) {
+        //        liveness.stopLiveness()
+        //        pushEvent(data: withError)
+        print(withError)
         if withError == QTSLiveness.QTSLivenessError.notSupported || withError == QTSLiveness.QTSLivenessError.arSessionFailed {
             do {
                 upLightScreen()
