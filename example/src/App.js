@@ -293,15 +293,15 @@ export default function App() {
 
     if (isIphoneX) {
       setIsFlashCamera(false);
-      // timeoutRef.current = setTimeout(() => {
-      //   if (!isFlashCamera) {
-      //     setIsFlashCamera(true);
-      //     // setStatus(false);
-      //     // innerTimeoutRef.current = setTimeout(() => {
-      //     //   setStatus(true);
-      //     // }, 2);
-      //   }
-      // }, 5000);
+      timeoutRef.current = setTimeout(() => {
+        if (!isFlashCamera) {
+          setIsFlashCamera(true);
+          // setStatus(false);
+          // innerTimeoutRef.current = setTimeout(() => {
+          //   setStatus(true);
+          // }, 2);
+        }
+      }, 5000);
     } else {
       setIsFlashCamera(true);
     }
