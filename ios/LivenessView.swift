@@ -157,7 +157,8 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
  
   private func setupView() {
       do {
-          if !isFlashCamera && checkfaceID(), #available(iOS 15.0, *) {
+//          if !isFlashCamera && checkfaceID(), #available(iOS 15.0, *) {
+          if !isFlashCamera, #available(iOS 15.0, *) {
               self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
                   previewView: self,
                   threshold: .low,
@@ -294,6 +295,22 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
     func liveness(liveness: QTSLiveness.QTSLivenessDetector, didFail withError: QTSLiveness.QTSLivenessError) {
 //        liveness.stopLiveness()
 //        pushEvent(data: withError)
+        if withError == QTSLiveness.QTSLivenessError.notSupported || withError == QTSLiveness.QTSLivenessError.arSessionFailed {
+            do {
+                upLightScreen()
+                resetLivenessDetector()
+                self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
+                    previewView: self,
+                    mode: .offline,
+                    threshold: .low,
+                    debugging: debugging,
+                    delegate: self
+                )
+                try startSession()
+            } catch {
+                pushEvent(data: ["error": error.localizedDescription])
+            }
+        }
     }
     
 //    func liveness(liveness: QTSLivenessDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: LivenessResult?) {
