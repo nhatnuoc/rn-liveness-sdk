@@ -185,7 +185,8 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
                   mode: .offline,
                   threshold: .low,
                   debugging: debugging,
-                  delegate: self
+                  delegate: self,
+                  brightnessEnable: false
               )
           }
 //                  self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(

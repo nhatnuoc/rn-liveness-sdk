@@ -10,7 +10,7 @@ PODS:
     - React-Core (= 0.72.10)
     - React-jsi (= 0.72.10)
     - ReactCommon/turbomodule/core (= 0.72.10)
-  - FlashLiveness (1.4.2):
+  - FlashLiveness (1.4.3):
     - KeychainSwift (~> 19.0)
     - ObjectMapper (~> 4.2)
     - SignManager (~> 1.0.6)
@@ -645,7 +645,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   FlashLiveness:
-    :commit: ac03b4ca0422f7e1aae6263f6347d97a44da7184
+    :commit: 3f6e459dc0f733868695137fae7baa03cf79eb85
     :git: https://github.com/stevienguyen1988/FlashLivenessPod.git
 
 SPEC CHECKSUMS:
@@ -654,7 +654,7 @@ SPEC CHECKSUMS:
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f91d538f197fa71a7d5b77ec2069d49550c0eb96
   FBReactNativeSpec: b13d1c23d6ed82d6b66aad7a253edf8ba76c4a4c
-  FlashLiveness: 18a2ef657724f223a32e2f517e68045889c07394
+  FlashLiveness: e1c68dc21f71de3c863a9df74e169249d52179b9
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
