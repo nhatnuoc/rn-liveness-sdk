@@ -157,8 +157,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
  
   private func setupView() {
       do {
-//          if !isFlashCamera && checkfaceID(), #available(iOS 15.0, *) {
-          if !isFlashCamera, #available(iOS 15.0, *) {
+          if !isFlashCamera && checkfaceID(), #available(iOS 15.0, *) {
               self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
                   previewView: self,
                   threshold: .low,
