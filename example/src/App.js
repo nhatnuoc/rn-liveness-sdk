@@ -380,7 +380,14 @@ export default function App() {
                 }
               } else {
                 // Clear hết timeout
-                clear();
+                if (timeoutRef.current) {
+                  clearTimeout(timeoutRef.current);
+                  timeoutRef.current = null;
+                }
+                if (innerTimeoutRef.current) {
+                  clearTimeout(innerTimeoutRef.current);
+                  innerTimeoutRef.current = null;
+                }
               }
             }}
             requestid={'sdfsdfsdfsdf'}
