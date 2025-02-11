@@ -366,15 +366,21 @@ export default function App() {
                 }
             }
             onEvent={(data) => {
-              // console.log('===sendEvent===', data.nativeEvent?.data);
-              console.log("Original: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessOriginalImage))
-              console.log("liveness: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessImage))
-              // onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
-              clear();
-              if (isFlashCamera) {
-                onCheckFaceId({filePath: data.nativeEvent?.data?.livenessOriginalImage, fileLiveness: data.nativeEvent?.data?.livenessImage, color: data.nativeEvent?.data?.color});
+              console.log('===sendEvent===', data.nativeEvent?.data);
+              if (!data.nativeEvent?.data?.isFlash == null) {
+                console.log("Original: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessOriginalImage))
+                // onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
+                clear();
+                if (isFlashCamera) {
+                  console.log("liveness: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessColorImage))
+                  onCheckFaceId({filePath: data.nativeEvent?.data?.livenessOriginalImage, fileLiveness: data.nativeEvent?.data?.livenessColorImage, color: data.nativeEvent?.data?.color});
+                } else {
+                  console.log("liveness: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessThermalImage))
+                  onCheckFaceId({filePath: data.nativeEvent?.data?.livenessOriginalImage, livenessThermalPath: data.nativeEvent?.data?.livenessThermalImage});
+                }
               } else {
-                onCheckFaceId({filePath: data.nativeEvent?.data?.livenessOriginalImage, livenessThermalPath: data.nativeEvent?.data?.livenessImage});
+                // Clear hết timeout
+                clear();
               }
             }}
             requestid={'sdfsdfsdfsdf'}

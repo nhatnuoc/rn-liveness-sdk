@@ -146,9 +146,12 @@ path example/src/App.js
 
 # Out when liveness success
 
+## Call back check isFlash
+Khởi tạo đang là loại camera nào: data.nativeEvent?.data?.isFlash
+
 ## Sdk flash
 Trả về 2 ảnh:
- + Ảnh ám màu liveness (base64): data.nativeEvent?.data?.livenessImage
+ + Ảnh ám màu liveness (base64): data.nativeEvent?.data?.livenessColorImage
  + Ảnh thường (base64): data.nativeEvent?.data?.livenessOriginalImage
  + color kiểu string ngẫu nhiểu trong các ký tự (r, g, b): data.nativeEvent?.data?.color
 
@@ -158,7 +161,7 @@ Trả về 2 ảnh:
 ## Sdk 3D
 Trả về 2 ảnh:
   + Ảnh thường (base64): data.nativeEvent?.data?.livenessOriginalImage
-  + Ảnh ảnh nhiệt (base64): data.nativeEvent?.data?.livenessImage
+  + Ảnh ảnh nhiệt (base64): data.nativeEvent?.data?.livenessThermalImage
   + Vertor là mảng float (2 giá trị vector): data.nativeEvent?.data?.livenessImage?.vector
 
 Chỉ sử dụng cho Iphone x trở nên. Trường hợp nếu 10s sử dụng 3D không nhận được response trả về sẽ tự động chuyển sang Sdk flash

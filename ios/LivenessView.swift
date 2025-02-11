@@ -157,6 +157,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
  
   private func setupView() {
       do {
+          let dataRes: [String: Any]
           if !isFlashCamera && checkfaceID(), #available(iOS 15.0, *) {
               self.livenessDetector = QTSLiveness.QTSLivenessDetector.createLivenessDetector(
                   previewView: self,
@@ -179,6 +180,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
             //   viewMask.backgroundColor = UIColor.clear
             //   viewMask.layer.zPosition = 1 // Bring viewMask to the top layer
             //   addSubview(viewMask)
+              dataRes = [ "isFlash": false ]
           } else {
               self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
                   previewView: self,
@@ -188,6 +190,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
                   delegate: self,
                   brightnessEnable: false
               )
+              dataRes = [ "isFlash": true ]
           }
 //                  self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
 //                      previewView: self,
@@ -198,7 +201,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
 //                  )
                   // Starting the session only if livenessDetector was successfully created
                   try startSession()
-                  
+                    pushEvent(data: dataRes)
               } catch {
                   pushEvent(data: ["error": error.localizedDescription])
               }
@@ -283,7 +286,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
         let livenessImage = images.images?.first?.imageBase64
         let livenessOriginalImage = images.originalImage.imageBase64
         let dataRes: [String: Any] = [
-            "livenessImage": livenessImage ?? "",
+            "livenessColorImage": livenessImage ?? "",
             "livenessOriginalImage": livenessOriginalImage ?? "",
             "color": images.images?.first?.colorString ?? "",
         ]
@@ -336,7 +339,7 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
         let livenessImage = convertImageToBase64(thermal_image) ?? ""
         let livenessOriginalImage = convertImageToBase64(image) ?? ""
        let dataRes: [String: Any] = [
-            "livenessImage": livenessImage,
+            "livenessThermalImage": livenessImage,
            "livenessOriginalImage": livenessOriginalImage,
            "vector": maxtrix,
        ]
