@@ -27,7 +27,7 @@ PODS:
     - QTSLiveness
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
-  - ObjectMapper (4.4.2)
+  - ObjectMapper (4.2.0)
   - QTSLiveness (1.2.8):
     - CryptoSwift (~> 1.8.2)
     - KeychainSwift (~> 19.0)
@@ -463,6 +463,7 @@ DEPENDENCIES:
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
   - liveness-rn (from `../..`)
+  - ObjectMapper (= 4.2)
   - QTSLiveness
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -621,7 +622,7 @@ SPEC CHECKSUMS:
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   liveness-rn: 58aaf6d696ec486d4c734683b8d1b41f392aa487
-  ObjectMapper: e6e4d91ff7f2861df7aecc536c92d8363f4c9677
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   QTSLiveness: c2bc53062839bb2b2d4e6c8717a981b1b4c50869
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: b4d3068afa6f52ec5260a8417053b1f1b421483d
@@ -662,6 +663,6 @@ SPEC CHECKSUMS:
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3
 
-PODFILE CHECKSUM: 71316fe25c11eecde5993f9f36d184ba0d71dcb3
+PODFILE CHECKSUM: 423705feba3dfa4042bc6e6de541418da4514ed2
 
 COCOAPODS: 1.15.2
