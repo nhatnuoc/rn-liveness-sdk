@@ -379,14 +379,16 @@ export default function App() {
                   onCheckFaceId({filePath: data.nativeEvent?.data?.livenessOriginalImage, livenessThermalPath: data.nativeEvent?.data?.livenessThermalImage});
                 }
               } else {
-                // Clear hết timeout
-                if (timeoutRef.current) {
-                  clearTimeout(timeoutRef.current);
-                  timeoutRef.current = null;
-                }
-                if (innerTimeoutRef.current) {
-                  clearTimeout(innerTimeoutRef.current);
-                  innerTimeoutRef.current = null;
+                if (!data.nativeEvent?.data?.isFlash) {
+                  // Clear hết timeout
+                  if (timeoutRef.current) {
+                    clearTimeout(timeoutRef.current);
+                    timeoutRef.current = null;
+                  }
+                  if (innerTimeoutRef.current) {
+                    clearTimeout(innerTimeoutRef.current);
+                    innerTimeoutRef.current = null;
+                  }
                 }
               }
             }}
