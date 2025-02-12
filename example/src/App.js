@@ -367,7 +367,7 @@ export default function App() {
             }
             onEvent={(data) => {
               console.log('===sendEvent===', data.nativeEvent?.data);
-              if (!data.nativeEvent?.data?.isFlash == null) {
+              if (data.nativeEvent?.data?.isFlash == null) {
                 console.log("Original: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessOriginalImage))
                 // onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
                 clear();
@@ -379,7 +379,7 @@ export default function App() {
                   onCheckFaceId({filePath: data.nativeEvent?.data?.livenessOriginalImage, livenessThermalPath: data.nativeEvent?.data?.livenessThermalImage});
                 }
               } else {
-                if (!data.nativeEvent?.data?.isFlash) {
+                if (data.nativeEvent?.data?.isFlash) {
                   // Clear hết timeout
                   if (timeoutRef.current) {
                     clearTimeout(timeoutRef.current);
