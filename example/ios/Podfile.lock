@@ -443,8 +443,6 @@ PODS:
     - React-jsi (= 0.72.10)
     - React-logger (= 0.72.10)
     - React-perflogger (= 0.72.10)
-  - RNCMaskedView (0.1.11):
-    - React
   - RNDeviceInfo (13.2.0):
     - React-Core
   - RNFS (2.20.0):
@@ -498,7 +496,6 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFS (from `../node_modules/react-native-fs`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -595,8 +592,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  RNCMaskedView:
-    :path: "../node_modules/@react-native-community/masked-view"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNFS:
@@ -656,7 +651,6 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 68353a05c25b32d442610ef19af377f2b198f3fe
   React-utils: a715392dfaaa383668566e400f40493093c08d7e
   ReactCommon: a655a8b61cc80c7cabd8db83f69e6f498d4d0894
-  RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNDeviceInfo: 29e01d5ae94bdb5a0f6c11a4c438132545b4df80
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   SignManager: 67d0f04ff3695c1dde7c056bc9ba09de0db2f806
