@@ -111,7 +111,9 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
 //        }
 
         // Tăng độ sáng lên mức tối đa
-        UIScreen.main.brightness = 1.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            UIScreen.main.brightness = 1.0
+        }
     }
     
     func revertLightScreen() {
