@@ -287,6 +287,7 @@ export default function App() {
 
   const onStartLiveNess = () => {
     // Clear any existing timeouts
+    setIsFlashCamera(null);
     clear();
 
     setStatus(prev => !prev);
@@ -315,7 +316,6 @@ export default function App() {
   }, []);
 
   function clear() {
-    setIsFlashCamera(null);
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
@@ -381,14 +381,7 @@ export default function App() {
               } else {
                 if (data.nativeEvent?.data?.isFlash) {
                   // Clear hết timeout
-                  if (timeoutRef.current) {
-                    clearTimeout(timeoutRef.current);
-                    timeoutRef.current = null;
-                  }
-                  if (innerTimeoutRef.current) {
-                    clearTimeout(innerTimeoutRef.current);
-                    innerTimeoutRef.current = null;
-                  }
+                  clear();
                 }
               }
             }}

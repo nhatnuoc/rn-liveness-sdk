@@ -32,14 +32,20 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
   override init(frame: CGRect) {
     super.init(frame: frame)
 //   setupView()
+      setBackground()
       registerForNotifications()
   }
  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 //   setupView()
+      setBackground()
       registerForNotifications()
   }
+    
+    func setBackground() {
+        self.backgroundColor = .clear
+    }
     
     deinit {
         revertLightScreen()
@@ -299,23 +305,23 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
         //        liveness.stopLiveness()
         //        pushEvent(data: withError)
         print(withError)
-        if withError == QTSLiveness.QTSLivenessError.notSupported || withError == QTSLiveness.QTSLivenessError.arSessionFailed {
-            do {
-                upLightScreen()
-                resetLivenessDetector()
-                self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
-                    previewView: self,
-                    mode: .offline,
-                    threshold: .low,
-                    debugging: debugging,
-                    delegate: self,
-                    brightnessEnable: false
-                )
-                try startSession()
-            } catch {
-                pushEvent(data: ["error": error.localizedDescription])
-            }
-        }
+//        if withError == QTSLiveness.QTSLivenessError.notSupported || withError == QTSLiveness.QTSLivenessError.arSessionFailed {
+//            do {
+//                upLightScreen()
+//                resetLivenessDetector()
+//                self.livenessDetector = FlashLiveness.LivenessUtil.createLivenessDetector(
+//                    previewView: self,
+//                    mode: .offline,
+//                    threshold: .low,
+//                    debugging: debugging,
+//                    delegate: self,
+//                    brightnessEnable: false
+//                )
+//                try startSession()
+//            } catch {
+//                pushEvent(data: ["error": error.localizedDescription])
+//            }
+//        }
     }
     
 //    func liveness(liveness: QTSLivenessDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: LivenessResult?) {
