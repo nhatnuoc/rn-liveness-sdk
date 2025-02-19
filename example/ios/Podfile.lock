@@ -21,18 +21,18 @@ PODS:
   - hermes-engine/Pre-built (0.72.10)
   - KeychainSwift (19.0.0)
   - libevent (2.1.12)
-  - liveness-rn (1.0.30):
+  - liveness-rn (1.0.31):
     - FlashLiveness
     - KeychainSwift (~> 19.0)
     - QTSLiveness
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - ObjectMapper (4.2.0)
-  - QTSLiveness (1.2.9):
+  - QTSLiveness (1.3.0):
     - CryptoSwift (~> 1.8.2)
     - KeychainSwift (~> 19.0)
     - ObjectMapper (~> 4.2)
-    - SignManager (~> 1.0.5)
+    - SignManager (~> 1.0.8)
   - RCT-Folly (2021.07.22.00):
     - boost
     - DoubleConversion
@@ -447,7 +447,7 @@ PODS:
     - React-Core
   - RNFS (2.20.0):
     - React-Core
-  - SignManager (1.0.6)
+  - SignManager (1.0.9)
   - SocketRocket (0.6.1)
   - Yoga (1.14.0)
 
@@ -601,7 +601,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   FlashLiveness:
-    :commit: 3f6e459dc0f733868695137fae7baa03cf79eb85
+    :commit: b3f5bba820c1d321679df534d6fb85c48a83f05e
     :git: https://github.com/stevienguyen1988/FlashLivenessPod.git
 
 SPEC CHECKSUMS:
@@ -616,9 +616,9 @@ SPEC CHECKSUMS:
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  liveness-rn: 356bc7fb87406f300bbbf445b6509a5526f7e707
+  liveness-rn: c67fc30584083d8d8b681660c169bd09419b8724
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  QTSLiveness: 67ce723c281d0f57b578c6f3c6b423ef933a9641
+  QTSLiveness: ec6eb695483fff45659224a187d3d42076289b16
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: b4d3068afa6f52ec5260a8417053b1f1b421483d
   RCTTypeSafety: a4551b3d338c96435f63bf06d564055c1d3cc0ac
@@ -653,7 +653,7 @@ SPEC CHECKSUMS:
   ReactCommon: a655a8b61cc80c7cabd8db83f69e6f498d4d0894
   RNDeviceInfo: 29e01d5ae94bdb5a0f6c11a4c438132545b4df80
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  SignManager: 67d0f04ff3695c1dde7c056bc9ba09de0db2f806
+  SignManager: d551f838cbdfb3e9a30b238a5e959bfb69327fcf
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3
 
