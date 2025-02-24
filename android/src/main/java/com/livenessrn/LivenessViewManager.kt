@@ -1,12 +1,15 @@
 package com.livenessrn
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Choreographer
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.FrameLayout.LayoutParams
+import android.app.Activity
 import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
@@ -38,6 +41,7 @@ class LivenessViewManager(
   private var propWidth: Int? = null
   private var propHeight: Int? = null
   private var id: Int = -1;
+  private var originalBrightness: Float? = null
 
   override fun getName() = REACT_CLASS
 
@@ -58,10 +62,30 @@ class LivenessViewManager(
           Log.d("remove fragment liveness", "${fragment.id}")
           if (id == fragment.id) {
             fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
+            setBrightness(originalBrightness ?: 0.3f)
           }
         }
       }
     } catch (_: Exception) {}
+  }
+
+  fun setBrightness(value: Float) {
+    val window = (reactContext.currentActivity as FragmentActivity).window
+    val handler = Handler(Looper.getMainLooper())
+    handler.post {
+      if (window != null) {
+          window.attributes = window.attributes.apply {
+              screenBrightness = value
+          }
+      }
+    }
+  }
+
+  fun getBrightness() {
+    val window = (reactContext.currentActivity as FragmentActivity).window
+    if (originalBrightness == null && window != null) {
+        originalBrightness = window.attributes.screenBrightness
+    }
   }
 
   override fun getExportedCustomDirectEventTypeConstants(): Map<String, Any> {
@@ -152,6 +176,8 @@ class LivenessViewManager(
 
     Log.d("createFragment", "Start liveness")
     Log.d("createFragment", "Start liveness: $reactNativeViewId")
+    getBrightness()
+    setBrightness(1f)
     LiveNessSDK.startLiveNess(
       activity,
       getLivenessRequest(),
