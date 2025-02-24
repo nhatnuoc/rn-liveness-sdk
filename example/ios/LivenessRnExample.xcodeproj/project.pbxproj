@@ -9,15 +9,15 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* LivenessRnExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* LivenessRnExampleTests.m */; };
 		04255F642CE5DF6D007B1DEC /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 04255F632CE5DF6D007B1DEC /* main.jsbundle */; };
+		0B755259E566332DBA920757 /* Pods_LivenessRnExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D396C755D56C00BE76EDB13 /* Pods_LivenessRnExample.framework */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3B7CEF21B6B3B2B880147F12 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = EEE0C54B636DFC040E761E96 /* PrivacyInfo.xcprivacy */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		AFFF3D7BEC3E056311B2A228 /* Pods_LivenessRnExample_LivenessRnExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48592D12CE0A562B63B6DDF /* Pods_LivenessRnExample_LivenessRnExampleTests.framework */; };
+		BD717CD6858F1F8497952BED /* Pods_LivenessRnExample_LivenessRnExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C52BFD286AC7F905F1E6E76 /* Pods_LivenessRnExample_LivenessRnExampleTests.framework */; };
 		DBE707262BF5073A00C27D20 /* com.qts.test.txt in Resources */ = {isa = PBXBuildFile; fileRef = DBE707242BF5073A00C27D20 /* com.qts.test.txt */; };
 		DBE707272BF5073A00C27D20 /* eid.txt in Resources */ = {isa = PBXBuildFile; fileRef = DBE707252BF5073A00C27D20 /* eid.txt */; };
-		F5DBD3AF73FF829AE595D427 /* Pods_LivenessRnExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB7BB96E68E2599929F11DC /* Pods_LivenessRnExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +37,6 @@
 		0404E7CF2CBFA3C2002B4B0F /* LivenessUtility.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LivenessUtility.xcframework; path = ../../ios_frameworks/LivenessUtility.xcframework; sourceTree = "<group>"; };
 		0404E7D22CBFA5EA002B4B0F /* FlashLiveness.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FlashLiveness.xcframework; path = Pods/FlashLiveness/FlashLiveness/FlashLiveness.xcframework; sourceTree = "<group>"; };
 		04255F632CE5DF6D007B1DEC /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		06D7687996DA5ECAD5DAA485 /* Pods-LivenessRnExample-LivenessRnExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LivenessRnExample-LivenessRnExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-LivenessRnExample-LivenessRnExampleTests/Pods-LivenessRnExample-LivenessRnExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* LivenessRnExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LivenessRnExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LivenessRnExample/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = LivenessRnExample/AppDelegate.mm; sourceTree = "<group>"; };
@@ -45,11 +44,12 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LivenessRnExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LivenessRnExample/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = LivenessRnExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		49FFF50CADC7869541CFDBD4 /* Pods-LivenessRnExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LivenessRnExample.release.xcconfig"; path = "Target Support Files/Pods-LivenessRnExample/Pods-LivenessRnExample.release.xcconfig"; sourceTree = "<group>"; };
-		6AB7BB96E68E2599929F11DC /* Pods_LivenessRnExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LivenessRnExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D396C755D56C00BE76EDB13 /* Pods_LivenessRnExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LivenessRnExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7136B53B35CC377603DAEB3E /* Pods-LivenessRnExample-LivenessRnExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LivenessRnExample-LivenessRnExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-LivenessRnExample-LivenessRnExampleTests/Pods-LivenessRnExample-LivenessRnExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7C52BFD286AC7F905F1E6E76 /* Pods_LivenessRnExample_LivenessRnExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LivenessRnExample_LivenessRnExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LivenessRnExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B51C37A2A2E1DFC375B75826 /* Pods-LivenessRnExample-LivenessRnExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LivenessRnExample-LivenessRnExampleTests.release.xcconfig"; path = "Target Support Files/Pods-LivenessRnExample-LivenessRnExampleTests/Pods-LivenessRnExample-LivenessRnExampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		C48592D12CE0A562B63B6DDF /* Pods_LivenessRnExample_LivenessRnExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LivenessRnExample_LivenessRnExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FDFBC19B7F6CEE5D08B584E /* Pods-LivenessRnExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LivenessRnExample.debug.xcconfig"; path = "Target Support Files/Pods-LivenessRnExample/Pods-LivenessRnExample.debug.xcconfig"; sourceTree = "<group>"; };
+		D553264E1B982FECE75DCABC /* Pods-LivenessRnExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LivenessRnExample.release.xcconfig"; path = "Target Support Files/Pods-LivenessRnExample/Pods-LivenessRnExample.release.xcconfig"; sourceTree = "<group>"; };
 		DB30AC572BE9267F00204ECF /* CoreModules.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreModules.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB30AC5E2BE927E300204ECF /* CoreModules.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreModules.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB30AC632BE928E600204ECF /* CoreModules.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreModules.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,7 +58,7 @@
 		DBE707252BF5073A00C27D20 /* eid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = eid.txt; path = ../../ios/eid.txt; sourceTree = "<group>"; };
 		DBF48FD42BE8B0E800CED3BC /* CoreModules.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreModules.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF48FDA2BE8B10C00CED3BC /* LivenessUtility.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LivenessUtility.xcframework; path = Pods/LivenessCloud/LivenessUtility/LivenessUtility.xcframework; sourceTree = "<group>"; };
-		DCDC0FC03D3471C025601C67 /* Pods-LivenessRnExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LivenessRnExample.debug.xcconfig"; path = "Target Support Files/Pods-LivenessRnExample/Pods-LivenessRnExample.debug.xcconfig"; sourceTree = "<group>"; };
+		E30AF298519B099CE6BB4FA0 /* Pods-LivenessRnExample-LivenessRnExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LivenessRnExample-LivenessRnExampleTests.release.xcconfig"; path = "Target Support Files/Pods-LivenessRnExample-LivenessRnExampleTests/Pods-LivenessRnExample-LivenessRnExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EEE0C54B636DFC040E761E96 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = LivenessRnExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFFF3D7BEC3E056311B2A228 /* Pods_LivenessRnExample_LivenessRnExampleTests.framework in Frameworks */,
+				BD717CD6858F1F8497952BED /* Pods_LivenessRnExample_LivenessRnExampleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5DBD3AF73FF829AE595D427 /* Pods_LivenessRnExample.framework in Frameworks */,
+				0B755259E566332DBA920757 /* Pods_LivenessRnExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,8 +130,8 @@
 				DBF48FDA2BE8B10C00CED3BC /* LivenessUtility.xcframework */,
 				DBF48FD42BE8B0E800CED3BC /* CoreModules.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				6AB7BB96E68E2599929F11DC /* Pods_LivenessRnExample.framework */,
-				C48592D12CE0A562B63B6DDF /* Pods_LivenessRnExample_LivenessRnExampleTests.framework */,
+				1D396C755D56C00BE76EDB13 /* Pods_LivenessRnExample.framework */,
+				7C52BFD286AC7F905F1E6E76 /* Pods_LivenessRnExample_LivenessRnExampleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,10 +171,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DCDC0FC03D3471C025601C67 /* Pods-LivenessRnExample.debug.xcconfig */,
-				49FFF50CADC7869541CFDBD4 /* Pods-LivenessRnExample.release.xcconfig */,
-				06D7687996DA5ECAD5DAA485 /* Pods-LivenessRnExample-LivenessRnExampleTests.debug.xcconfig */,
-				B51C37A2A2E1DFC375B75826 /* Pods-LivenessRnExample-LivenessRnExampleTests.release.xcconfig */,
+				8FDFBC19B7F6CEE5D08B584E /* Pods-LivenessRnExample.debug.xcconfig */,
+				D553264E1B982FECE75DCABC /* Pods-LivenessRnExample.release.xcconfig */,
+				7136B53B35CC377603DAEB3E /* Pods-LivenessRnExample-LivenessRnExampleTests.debug.xcconfig */,
+				E30AF298519B099CE6BB4FA0 /* Pods-LivenessRnExample-LivenessRnExampleTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -193,12 +193,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "LivenessRnExampleTests" */;
 			buildPhases = (
-				A916016C5EAE528E51FF80C4 /* [CP] Check Pods Manifest.lock */,
+				22F498C45E90F8D77CD68EE7 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				A4AC15445A11903891FE0E18 /* [CP] Embed Pods Frameworks */,
-				8C1BD0E7DCA6097CB3A2F4D1 /* [CP] Copy Pods Resources */,
+				5791C5AB2B6E3530DA70F472 /* [CP] Embed Pods Frameworks */,
+				008F9D5846792BF0C64DBDB0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,13 +214,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LivenessRnExample" */;
 			buildPhases = (
-				BD4FCE071E6881746F8218CF /* [CP] Check Pods Manifest.lock */,
+				1C09EC07A251BA7DBAFF1BCA /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				5C24E99375530F1D60D92C55 /* [CP] Embed Pods Frameworks */,
-				B414A18C6BD11B6AC6431F46 /* [CP] Copy Pods Resources */,
+				3B282F22FDBF364B64B6D0DE /* [CP] Embed Pods Frameworks */,
+				4AAB46D5C8F8E5ACF166E330 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -291,40 +291,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/.xcode.env.local",
-				"$(SRCROOT)/.xcode.env",
-			);
-			name = "Bundle React Native code and images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
-		};
-		5C24E99375530F1D60D92C55 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample/Pods-LivenessRnExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample/Pods-LivenessRnExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample/Pods-LivenessRnExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8C1BD0E7DCA6097CB3A2F4D1 /* [CP] Copy Pods Resources */ = {
+		008F9D5846792BF0C64DBDB0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -341,24 +308,45 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample-LivenessRnExampleTests/Pods-LivenessRnExample-LivenessRnExampleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A4AC15445A11903891FE0E18 /* [CP] Embed Pods Frameworks */ = {
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		1C09EC07A251BA7DBAFF1BCA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample-LivenessRnExampleTests/Pods-LivenessRnExample-LivenessRnExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample-LivenessRnExampleTests/Pods-LivenessRnExample-LivenessRnExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LivenessRnExample-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample-LivenessRnExampleTests/Pods-LivenessRnExample-LivenessRnExampleTests-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A916016C5EAE528E51FF80C4 /* [CP] Check Pods Manifest.lock */ = {
+		22F498C45E90F8D77CD68EE7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -380,7 +368,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B414A18C6BD11B6AC6431F46 /* [CP] Copy Pods Resources */ = {
+		3B282F22FDBF364B64B6D0DE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample/Pods-LivenessRnExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample/Pods-LivenessRnExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample/Pods-LivenessRnExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4AAB46D5C8F8E5ACF166E330 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -397,26 +402,21 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample/Pods-LivenessRnExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BD4FCE071E6881746F8218CF /* [CP] Check Pods Manifest.lock */ = {
+		5791C5AB2B6E3530DA70F472 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample-LivenessRnExampleTests/Pods-LivenessRnExample-LivenessRnExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LivenessRnExample-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample-LivenessRnExampleTests/Pods-LivenessRnExample-LivenessRnExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LivenessRnExample-LivenessRnExampleTests/Pods-LivenessRnExample-LivenessRnExampleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -452,7 +452,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06D7687996DA5ECAD5DAA485 /* Pods-LivenessRnExample-LivenessRnExampleTests.debug.xcconfig */;
+			baseConfigurationReference = 7136B53B35CC377603DAEB3E /* Pods-LivenessRnExample-LivenessRnExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -479,7 +479,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B51C37A2A2E1DFC375B75826 /* Pods-LivenessRnExample-LivenessRnExampleTests.release.xcconfig */;
+			baseConfigurationReference = E30AF298519B099CE6BB4FA0 /* Pods-LivenessRnExample-LivenessRnExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -503,7 +503,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DCDC0FC03D3471C025601C67 /* Pods-LivenessRnExample.debug.xcconfig */;
+			baseConfigurationReference = 8FDFBC19B7F6CEE5D08B584E /* Pods-LivenessRnExample.debug.xcconfig */;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -597,7 +597,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 49FFF50CADC7869541CFDBD4 /* Pods-LivenessRnExample.release.xcconfig */;
+			baseConfigurationReference = D553264E1B982FECE75DCABC /* Pods-LivenessRnExample.release.xcconfig */;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
