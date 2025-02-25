@@ -32,19 +32,20 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
   override init(frame: CGRect) {
     super.init(frame: frame)
 //   setupView()
-      setBackground()
+      configution()
       registerForNotifications()
   }
  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 //   setupView()
-      setBackground()
+      configution()
       registerForNotifications()
   }
     
-    func setBackground() {
+    func configution() {
         self.backgroundColor = .clear
+        self.originalBrightness = UIScreen.main.brightness
     }
     
     deinit {
@@ -118,12 +119,12 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
     
     func revertLightScreen() {
         // Khôi phục độ sáng ban đầu nếu đã được lưu
-//        if let brightness = self.originalBrightness {
-//            UIScreen.main.brightness = brightness
+        if let brightness = self.originalBrightness {
+            UIScreen.main.brightness = brightness
 //            self.originalBrightness = nil
-//        }
+        }
         
-        UIScreen.main.brightness = 0.35
+//        UIScreen.main.brightness = 0.35
         print("Brightness revert to")
     }
     
