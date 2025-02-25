@@ -41,7 +41,6 @@ class LivenessViewManager(
   private var propWidth: Int? = null
   private var propHeight: Int? = null
   private var id: Int = -1;
-  private var originalBrightness: Float? = null
 
   override fun getName() = REACT_CLASS
 
@@ -220,7 +219,7 @@ class LivenessViewManager(
   companion object {
     private const val REACT_CLASS = "LivenessViewManager"
     private const val COMMAND_CREATE = 1
-
+    var originalBrightness: Float? = null
   }
 
   private fun getLivenessRequest(): LivenessRequest {

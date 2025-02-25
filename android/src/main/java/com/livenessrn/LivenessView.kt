@@ -8,6 +8,8 @@ import android.util.AttributeSet
 import android.util.Base64
 import android.util.Log
 import android.widget.FrameLayout
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactContext
@@ -33,11 +35,24 @@ class LivenessView @JvmOverloads constructor(
     this.setBackgroundColor(Color.TRANSPARENT)
   }
 
+  fun setBrightness(value: Float, activity: FragmentActivity) {
+    val window = activity.window
+    val handler = Handler(Looper.getMainLooper())
+    handler.post {
+      if (window != null) {
+          window.attributes = window.attributes.apply {
+              screenBrightness = value
+          }
+      }
+    }
+  }
+
   private val callBack = object : CallbackLivenessListener {
     override fun onCallbackLiveness(data: LivenessModel?) {
       if (data?.status != null && data.status == 6666) {
         Log.d("CallBack back1", "CallBack back1")
         val activity = (context as ThemedReactContext).currentActivity as FragmentActivity
+        setBrightness((LivenessViewManager.originalBrightness ?: 0.3f), activity)
         activity.finish()
         return
       }
