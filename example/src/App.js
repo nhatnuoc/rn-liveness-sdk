@@ -269,35 +269,49 @@ export default function App() {
   const [loginError, setLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [appStateVisible, setAppStateVisible] = useState(AppState.currentState);
   const appState = useRef(AppState.currentState);
+  const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-      if (
-        appState.current === 'active' &&
-        nextAppState.match(/inactive|background/)
-      ) {
-        console.log('App has gone to background');
-        // Handle background state
-        setStatus(false);
-        clear();
+      if (Platform.OS === 'android') {
+        // Only consider true background state when app is actually in background
+        // if (nextAppState === 'background') {
+        //   console.log('App actually went to background on Android');
+        //   setStatus(false);
+        //   clear();
+        //   setIsActive(false);
+        // } else if (nextAppState === 'active') {
+        //   // Only handle foreground if we were actually in background
+        //   if (!isActive) {
+        //     console.log('App came to foreground on Android');
+        //     setIsActive(true);
+        //   }
+        // }
+      } else {
+        // iOS handling
+        if (appState.current === 'active' && 
+            nextAppState.match(/inactive|background/)) {
+          console.log('App has gone to background');
+          setStatus(false);
+          clear();
+        }
+
+        if (appState.current.match(/inactive|background/) && 
+            nextAppState === 'active') {
+          console.log('App has come to foreground');
+        }
       }
 
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
-        console.log('App has come to foreground');
-        // Handle foreground state
-      }
-
+      setAppStateVisible(nextAppState);
       appState.current = nextAppState;
     });
 
     return () => {
       subscription.remove();
     };
-  }, []);
+  }, [isActive]);
 
   useEffect(() => {
     if (Platform.OS !== 'ios' && status) {
