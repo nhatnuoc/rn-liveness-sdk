@@ -275,21 +275,7 @@ export default function App() {
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-      if (Platform.OS === 'android') {
-        // Only consider true background state when app is actually in background
-        // if (nextAppState === 'background') {
-        //   console.log('App actually went to background on Android');
-        //   setStatus(false);
-        //   clear();
-        //   setIsActive(false);
-        // } else if (nextAppState === 'active') {
-        //   // Only handle foreground if we were actually in background
-        //   if (!isActive) {
-        //     console.log('App came to foreground on Android');
-        //     setIsActive(true);
-        //   }
-        // }
-      } else {
+      if (Platform.OS === 'ios') {
         // iOS handling
         if (appState.current === 'active' && 
             nextAppState.match(/inactive|background/)) {
