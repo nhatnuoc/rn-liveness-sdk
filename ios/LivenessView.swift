@@ -45,7 +45,11 @@ class LivenessView: UIView, FlashLiveness.LivenessUtilityDetectorDelegate, QTSLi
     
     func configution() {
         self.backgroundColor = .clear
-        self.originalBrightness = UIScreen.main.brightness
+        if UIScreen.main.brightness == 1 {
+            self.originalBrightness = 0.35
+        } else {
+            self.originalBrightness = UIScreen.main.brightness
+        }
     }
     
     deinit {
