@@ -39,6 +39,7 @@ import {
   UIManager,
   findNodeHandle,
   TextInput,
+  AppState,
 } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
@@ -267,6 +268,36 @@ export default function App() {
 
   const [loginError, setLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const appState = useRef(AppState.currentState);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current === 'active' &&
+        nextAppState.match(/inactive|background/)
+      ) {
+        console.log('App has gone to background');
+        // Handle background state
+        setStatus(false);
+        clear();
+      }
+
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        console.log('App has come to foreground');
+        // Handle foreground state
+      }
+
+      appState.current = nextAppState;
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   useEffect(() => {
     if (Platform.OS !== 'ios' && status) {
