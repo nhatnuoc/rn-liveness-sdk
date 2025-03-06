@@ -138,6 +138,36 @@ add library
 path example/src/App.js
 ```
 
+# Implement
+Nhúng component LivenessView để hiển thị giao diện Liveness
+```markdown
+import {
+    LivenessView
+} from 'liveness-rn';
+
+<LivenessView
+            style={
+              Platform.OS === 'ios' ? styles.view_liveness :
+                {
+                  height: PixelRatio.getPixelSizeForLayoutSize(layout.height),
+                  width: PixelRatio.getPixelSizeForLayoutSize(layout.width),
+                }
+            }
+            onSuccess={(event) => {
+              let response = event.nativeEvent.response
+              Alert.alert("Thông báo", JSON.stringify(response))
+              console.log(JSON.stringify(response))
+            }}
+            idCardRequestId={text}
+            debugging={false}
+            // useFlash={true}
+            appId={'com.pvcb'}
+            baseURL={'https://ekyc-sandbox.eidas.vn/face-matching'}
+            publicKey={publicKey}
+            privateKey={privateKey}
+          />
+```
+
 # Callback when liveness success
 ```js
 onSuccess={(event) => {
