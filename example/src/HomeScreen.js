@@ -21,7 +21,7 @@ const HomeScreen = ({ navigation }) => {
             console.error("navigation.navigate không phải là một function");
             return;
           }
-          navigation.navigate('Liveness', { userId: text });
+          // navigation.navigate('Liveness', { userId: text });
         }}
       />
     </View>

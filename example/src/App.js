@@ -40,6 +40,7 @@ import {
   findNodeHandle,
   TextInput,
   AppState,
+  Alert,
 } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
@@ -47,13 +48,12 @@ const { width: windowWidth } = Dimensions.get("window");
 
 import SimpleModal from './SimpleModal';
 
-import RNFS from "react-native-fs";
-import { Buffer } from 'buffer';
-
-
 import {
   LivenessView,
+  setupLiveness,
+  registerFace
 } from 'liveness-rn';
+import { launchCamera } from 'react-native-image-picker';
 
 const createFragment = viewId =>
   UIManager.dispatchViewManagerCommand(
@@ -123,101 +123,6 @@ Y/EdqKp20cAT9vgNap7Bfgv5XN9PrE+Yt0C1BkxXnfJHA7L9hcoYrknsae/Fa2IP
 99RyIXaHLJyzSTKLRUhEVqrycM0UXg==
 -----END CERTIFICATE-----
 `
-
-
-// Function to calculate the size of a Base64 string in MB
-function getBase64SizeInMB(base64String) {
-  // Ensure the input is not empty or invalid
-  if (!base64String || typeof base64String !== 'string') {
-    console.error("Invalid Base64 string");
-    return 0;
-  }
-
-  try {
-    // Convert the Base64 string to a buffer (binary data)
-    const buffer = Buffer.from(base64String, 'base64');
-
-    // Get the size in bytes
-    const sizeInBytes = buffer.length;
-
-    // Convert bytes to MB (1 MB = 1024 * 1024 bytes)
-    const sizeInMB = sizeInBytes / (1024 * 1024);
-
-    // Return the size in MB with 2 decimal places
-    return sizeInMB.toFixed(2);  // Rounds the result to 2 decimal places
-  } catch (error) {
-    console.error("Error decoding Base64 string:", error);
-    return 0;
-  }
-}
-
-const saveBase64ToFile = async (base64Data, fileName) => {
-  try {
-    const path = `${RNFS.ExternalDirectoryPath}/${fileName}`;
-    await RNFS.writeFile(path, base64Data, 'utf8');
-    console.log(`File saved at: ${path}`);
-    return path;
-  } catch (error) {
-    console.error('Error saving file:', error);
-    return null;
-  }
-};
-
-
-const loginFaceId = ({ filePath, livenessPath, livenessThermalPath, color, userId }) => {
-  // console.log(filePath)
-  const data = new FormData();
-  data.append("image", filePath);
-  // data.append("image", {
-  //   uri: `file://${filePath}`,
-  //   type: "image/png",
-  //   name: "image.png",
-  // });
-  // data.append("sdk_thermal_image", livenessThermalPath ? {
-  //   uri: `file://${livenessThermalPath}`,
-  //   type: "image/png",
-  //   name: "image.png",
-  // } : "");
-  if (livenessThermalPath) {
-    data.append("sdk_thermal_image", livenessThermalPath ?? "");
-  }
-  // data.append("sdk_liveness_image", livenessPath ? {
-  //   uri: `file://${livenessPath}`,
-  //   type: "image/png",
-  //   name: "image.png",
-  // } : "");
-  if (livenessPath) {
-    data.append("sdk_liveness_image", livenessPath);
-  }
-  // data.append("user_id", "thuthuy");
-  data.append("user_id", userId);
-  if (color) {
-    data.append("sdk_color", color);
-  }
-  // data.append("user_id", '68');
-  data.append("threshold", 0.8);
-  data.append("check_liveness", "True");
-  data.append("source", "test_search");
-  const url = "https://ekyc-pvcombank-dev.tunnel.techainer.com/api/v1/verify/verify_user_face_liveness_match/";
-  return new Promise(async function (resolve, reject) {
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: "Token 92fdcde95745b7efeee9345dcff9a02ee5a549fc",
-        Accept: "application/json",
-      },
-      body: data,
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        resolve(res);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
 
 const isIphoneXOrLater = (model) => {
   const iPhoneXModels = [
@@ -309,6 +214,12 @@ export default function App() {
   }, [ref.current, status]);
 
   useEffect(() => {
+    // setupLiveness({
+    //   appId: 'com.pvcb',
+    //   baseURL: 'https://ekyc-sandbox.eidas.vn/face-matching',
+    //   publicKey,
+    //   privateKey
+    // })
     checkDevice();
   }, []);
 
@@ -323,20 +234,20 @@ export default function App() {
 
     setStatus(prev => !prev);
 
-    if (isIphoneX) {
-      setIsFlashCamera(false);
-      timeoutRef.current = setTimeout(() => {
-        if (!isFlashCamera) {
-          setIsFlashCamera(true);
-          // setStatus(false);
-          // innerTimeoutRef.current = setTimeout(() => {
-          //   setStatus(true);
-          // }, 2);
-        }
-      }, 5000);
-    } else {
-      setIsFlashCamera(true);
-    }
+    // if (isIphoneX) {
+    //   setIsFlashCamera(false);
+    //   timeoutRef.current = setTimeout(() => {
+    //     if (!isFlashCamera) {
+    //       setIsFlashCamera(true);
+    //       // setStatus(false);
+    //       // innerTimeoutRef.current = setTimeout(() => {
+    //       //   setStatus(true);
+    //       // }, 2);
+    //     }
+    //   }, 5000);
+    // } else {
+    //   setIsFlashCamera(true);
+    // }
   };
 
   // Cleanup timeouts when component unmounts
@@ -365,23 +276,6 @@ export default function App() {
     setLayout({ width, height });
   };
 
-  const onCheckFaceId = async ({filePath, fileLiveness, livenessThermalPath, color}) => {
-    try {
-      const res = await loginFaceId({
-        filePath: filePath,
-        livenessPath: fileLiveness,
-        livenessThermalPath: livenessThermalPath,
-        color: color,
-        userId: text,
-      });
-      console.log(res);
-      setErrorMessage(JSON.stringify(res));
-      setLoginError(true);
-    } catch (error) {
-      console.log("🚀 ~ handleLoginFaceId ~ error:", error);
-    }
-  };
-
   return (
     <View style={styles.container}>
       {status && (
@@ -396,47 +290,55 @@ export default function App() {
                   width: PixelRatio.getPixelSizeForLayoutSize(layout.width),
                 }
             }
-            onEvent={(data) => {
-              console.log('===sendEvent===', data.nativeEvent?.data);
-              if (data.nativeEvent?.data?.isFlash == null) {
-                console.log("Original: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessOriginalImage))
-                // onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage, data.nativeEvent?.data?.color);
-                clear();
-                if (isFlashCamera) {
-                  console.log("liveness: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessColorImage))
-                  onCheckFaceId({filePath: data.nativeEvent?.data?.livenessOriginalImage, fileLiveness: data.nativeEvent?.data?.livenessColorImage, color: data.nativeEvent?.data?.color});
-                } else {
-                  console.log("liveness: ", getBase64SizeInMB(data.nativeEvent?.data?.livenessThermalImage))
-                  onCheckFaceId({filePath: data.nativeEvent?.data?.livenessOriginalImage, livenessThermalPath: data.nativeEvent?.data?.livenessThermalImage});
-                }
-              } else {
-                if (data.nativeEvent?.data?.isFlash) {
-                  // Clear hết timeout
-                  clear();
-                }
-              }
+            onSuccess={(event) => {
+              let response = event.nativeEvent.response
+              Alert.alert("Thông báo", JSON.stringify(response))
+              console.log(JSON.stringify(response))
             }}
-            requestid={'sdfsdfsdfsdf'}
-            appId={'com.pvcb'}
-            baseUrl={'https://ekyc-sandbox.eidas.vn/face-matching'}
-            privateKey={privateKey}
-            publicKey={publicKey}
+            idCardRequestId={text}
             debugging={false}
-            isFlashCamera={isFlashCamera}
+            // useFlash={true}
+            appId={'com.pvcb'}
+            baseURL={'https://ekyc-sandbox.eidas.vn/face-matching'}
+            publicKey={publicKey}
+            privateKey={privateKey}
           />
         </View>
       )}
       {!status && <TextInput
         style={styles.input}
-        placeholder="User Id"
+        placeholder="ID Card Reader Request ID"
         value={text}
         onChangeText={(newText) => setText(newText)}
       />}
-      <View style={{ position: 'absolute', width: '40%', zIndex: 1000, bottom: 20, left: (windowWidth / 3) }}>
+      <View style={{ position: 'absolute', width: '80%', zIndex: 1000, bottom: 20, alignSelf: 'center' }}>
         <TouchableOpacity onPress={onStartLiveNess} style={styles.btn_liveness}>
-          <Text>Start LiveNess</Text>
+          <Text>Start Liveness</Text>
         </TouchableOpacity>
       </View>
+      {
+        !status && <View style={{ position: 'absolute', width: '80%', zIndex: 1000, bottom: 70, alignSelf: 'center' }}>
+        <TouchableOpacity onPress={() => {
+          launchCamera({
+            mediaType: 'photo',
+            cameraType: 'front'
+          })
+          .then(response => {
+            if (!response.didCancel && !response.error) {
+              console.log(response.assets[0])
+              return Promise.all([
+                registerFace({ image: response.assets[0].uri }),
+              ])
+            }
+          })
+          .catch(error => {
+
+          })
+        }} style={styles.btn_liveness}>
+          <Text>Register face</Text>
+        </TouchableOpacity>
+      </View>
+      }
       <SimpleModal
         isOpen={loginError}
         setIsOpen={setLoginError}

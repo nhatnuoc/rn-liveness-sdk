@@ -17,52 +17,24 @@ const LivenessRn = NativeModules.LivenessRn
       }
     );
 
-type ActionCallback = (status: any) => void;
-
 export { default as LivenessView } from './LivenessView';
 
-export function configure(
-  appId: String,
-  publicKey: String,
-  privateKey: String,
-  secret: String = '',
-  baseURL: String = '',
-  clientTransactionId: String = ''
-) {
-  LivenessRn.configure(
-    appId,
-    publicKey,
-    privateKey,
-    secret,
-    baseURL,
-    clientTransactionId
-  );
+interface LivenessConfig {
+  appId: String;
+  baseURL: String;
+  publicKey: String;
+  privateKey: String;
 }
 
-export function getDeviceId(
-  callback: ActionCallback | undefined | null = null
-) {
-  LivenessRn.getDeviceId(callback);
+export function setupLiveness({
+  appId,
+  baseURL,
+  publicKey,
+  privateKey,
+}: LivenessConfig) {
+  LivenessRn.setupLiveness(appId, baseURL, publicKey, privateKey);
 }
 
-export function registerFace(
-  image: String = '',
-  callback: ActionCallback | undefined | null = null
-) {
-  LivenessRn.registerFace(image, callback);
+export async function registerFace({ image }: { image: String }) {
+  return LivenessRn.registerFace(image);
 }
-
-export function startLiveNess(
-  callback: ActionCallback | undefined | null = null
-) {
-  LivenessRn.startLiveNess(callback);
-}
-
-const LivenessSdk = {
-  configure,
-  getDeviceId,
-  registerFace,
-  startLiveNess,
-};
-
-export default LivenessSdk;

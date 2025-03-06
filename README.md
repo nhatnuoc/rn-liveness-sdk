@@ -1,6 +1,6 @@
-# liveness-rn
+# rn-liveness-sdk
 
-Liveness - React Native
+LivenessSDK - React Native
 
 ## Request
   * Minimum iOS Deployment Target: 13.0
@@ -17,13 +17,7 @@ package.json
 
 ```json
 "dependencies": {
-    "liveness-rn": "https://github.com/Techainer/rn-sdk.git#{tag_version}",
-}
-```
-or
-```json
-"dependencies": {
-    "liveness-rn": "file://{path_to_folder_clone}/rn-sdk",
+    "liveness-rn": "https://github.com/nhatnuoc/rn-liveness-sdk.git#{tag_version}",
 }
 ```
 
@@ -38,7 +32,7 @@ repositories {
     google()
     mavenCentral()
     maven { url 'https://jitpack.io' }
-    
+
 }
 ```
 
@@ -144,45 +138,17 @@ add library
 path example/src/App.js
 ```
 
-# Out when liveness success
-
-## Call back check isFlash
-Khởi tạo đang là loại camera nào: data.nativeEvent?.data?.isFlash
-
-## Sdk flash
-Trả về 2 ảnh:
- + Ảnh ám màu liveness (base64): data.nativeEvent?.data?.livenessColorImage
- + Ảnh thường (base64): data.nativeEvent?.data?.livenessOriginalImage
- + color kiểu string ngẫu nhiểu trong các ký tự (r, g, b): data.nativeEvent?.data?.color
+# Callback when liveness success
+```js
+onSuccess={(event) => {
+              let response = event.nativeEvent.response
+              Alert.alert("Thông báo", JSON.stringify(response))
+              console.log(JSON.stringify(response))
+            }}
+```
 
 => + Lưu ý màn livenesss style nên để widht: 100%, height: Platform.OS == 'android' ? windowWidth * 1.7 : '100%'
-  + Để khung hình camera vào giữa màn hình 
-
-## Sdk 3D
-Trả về 2 ảnh:
-  + Ảnh thường (base64): data.nativeEvent?.data?.livenessOriginalImage
-  + Ảnh ảnh nhiệt (base64): data.nativeEvent?.data?.livenessThermalImage
-  + Vertor là mảng float (2 giá trị vector): data.nativeEvent?.data?.livenessImage?.vector
-
-Chỉ sử dụng cho Iphone x trở nên. Trường hợp nếu 10s sử dụng 3D không nhận được response trả về sẽ tự động chuyển sang Sdk flash
-### Trường chuyển đổi giữa Flash và 3D là isFlashCamera
-isFlashCamera = true --> Sử dụng sdk flash
-isFlashCamera = false --> Sử dụng sdk 3D
-debugging = false --> bắt buộc, chuyển thành true nếu cần để test
-
-```
-onEvent={(data) => {
-  console.log('===sendEvent===', data.nativeEvent?.data);
-  if (data.nativeEvent?.data?.livenessImage != null || data.nativeEvent?.data?.livenessOriginalImage != null) {
-    if (isIphoneX && isFlashCamera) {
-      onCheckFaceId(data.nativeEvent?.data?.livenessOriginalImage, data.nativeEvent?.data?.livenessImage);
-      setIsFlashCamera(false)
-    } else {
-      onCheckFaceId(data.nativeEvent?.data?.livenessImage);
-    }
-  }
-}}
-```
+  + Để khung hình camera vào giữa màn hình
 
 ## Contributing
 

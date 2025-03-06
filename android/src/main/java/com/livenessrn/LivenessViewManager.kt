@@ -1,6 +1,5 @@
 package com.livenessrn
 
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.FrameLayout.LayoutParams
-import android.app.Activity
 import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
@@ -28,15 +26,14 @@ class LivenessViewManager(
   private val reactContext: ReactApplicationContext
 ) : ViewGroupManager<LivenessView>() {
 
-  private var requestId: String = ""
+  private var idCardRequestId: String = ""
   private var appId: String = "com.qts.test"
   private var deviceId = ""
-  private var secret = "ABCDEFGHIJKLMNOP"
   private var baseURL = ""
   private var privateKey = ""
   private var publicKey = ""
   private var debugging: Boolean = false
-  private var isFlashCamera: Boolean = false
+  private var useFlash: Boolean = true
 
   private var propWidth: Int? = null
   private var propHeight: Int? = null
@@ -118,7 +115,7 @@ class LivenessViewManager(
     if (index == 1) propHeight = value
   }
 
-  @ReactProp(name = "requestid")
+  @ReactProp(name = "idCardRequestId")
   fun setRequestid(view: FrameLayout, requestid: String) {
     this.requestId = requestid
   }
@@ -128,7 +125,7 @@ class LivenessViewManager(
     this.appId = appId
   }
 
-  @ReactProp(name = "baseUrl")
+  @ReactProp(name = "baseURL")
   fun setBaseUrl(view: FrameLayout, baseUrl: String) {
     this.baseURL = baseUrl
   }
@@ -148,9 +145,9 @@ class LivenessViewManager(
     this.debugging = debugging
   }
 
-  @ReactProp(name = "isFlashCamera")
-  fun setIsFlashCamera(view: FrameLayout, isFlashCamera: Boolean) {
-    this.isFlashCamera = isFlashCamera
+  @ReactProp(name = "useFlash")
+  fun setDebugging(view: FrameLayout, useFlash: Boolean) {
+    this.useFlash = useFlash
   }
 
   /**
@@ -236,12 +233,12 @@ class LivenessViewManager(
       privateKey = privateKey,
       appId = this.appId,
       deviceId = deviceId,
-//      clientTransactionId = this.requestId,
+      clientTransactionId = this.idCardRequestId,
 //      secret = secret,
       baseURL = baseURL,
       publicKey = publicKey,
       isDebug = debugging,
-      offlineMode = true,
+      offlineMode = false,
       isSaveImage = false,
       verifyLevel = VerifyLevel.LOW,
     )

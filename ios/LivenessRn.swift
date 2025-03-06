@@ -1,76 +1,32 @@
 import React
 import UIKit
-import FlashLiveness
-//import LivenessUtility
-
 
 @available(iOS 13.0, *)
 @objc(LivenessRn)
 class LivenessRn: NSObject {
-     var appId = ""
-  var secret = "ABCDEFGHIJKLMNOP"
-  var baseURL = "https://face-matching.vietplus.eu"
-  var clientTransactionId = "TEST"
-  
-    @objc(configure:publicKey:privateKey:secret:baseURL:clientTransactionId:)
-    func configure(appId: String, publicKey: String, privateKey: String, secret: String? = nil, baseURL: String? = nil, clientTransactionId: String? = "") {
-    self.appId = appId
-    if (secret != nil && secret != "") {
-      self.secret = secret!
-    }
-    if (baseURL != nil && baseURL != "") {
-      self.baseURL = baseURL!
-    }
-    if (clientTransactionId != nil && clientTransactionId != "") {
-      self.clientTransactionId = clientTransactionId!
-    }
-    print(privateKey)
-    Networking.shared.setup(appId: appId, logLevel: .debug, url: self.baseURL, publicKey: publicKey, privateKey: privateKey)
-    print("setup SS")
+  @objc(setupLiveness:baseURL:publicKey:privateKey:)
+  func setupLiveness(appId: String, baseURL: String, publicKey: String, privateKey: String) {
+    LivenessManagerFactory.setup(appId: appId, url: baseURL, publicKey: publicKey, privateKey: privateKey)
   }
   
-  @objc(getDeviceId:)
-  func getDeviceId(callback: RCTResponseSenderBlock? = nil) -> Void {
-    Task{
-      do {
-        let resposne = try await Networking.shared.generateDeviceInfor()
-        callback?([resposne.data])
-      } catch{
-        callback?([NSNull(), error])
+  @objc(registerFace:resolve:reject:)
+  func registerFace(imageUri: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+    do {
+      guard let imageUri = URL(string: imageUri) else {
+        reject("FACE_IMAGE_URI_ERROR", "face image uri error", NSError(domain: "FACE_IMAGE_URI_ERROR", code: 0, userInfo: [NSLocalizedDescriptionKey: "face image uri error"]))
+        return
       }
-    }
-  }
-  
-  @objc(initTransaction:)
-  func initTransaction(callback: RCTResponseSenderBlock? = nil) -> Void {
-    Task{
-      do{
-        let response = try await Networking.shared.initTransaction()
-        callback?([response.data])
-      }catch {
-        callback?([NSNull(), error])
+      let dataAvatar = try Data(contentsOf: imageUri, options: .alwaysMapped)
+      guard let uiimage = UIImage(data: dataAvatar) else {
+        reject("FACE_IMAGE_DATA_ERROR", "face image data error", NSError(domain: "FACE_IMAGE_DATA_ERROR", code: 0, userInfo: [NSLocalizedDescriptionKey: "face image data error"]))
+        return
       }
-    }
-  }
-  
-    @objc(registerFace:withCallback:)
-    func registerFace(image: String, callback: RCTResponseSenderBlock? = nil) -> Void {
-      Task{
-        let dataAvatar = Data(base64Encoded: image)
-        if ((dataAvatar) != nil) {
-          let uiimage = UIImage(data: dataAvatar!)
-          do{
-            let response = try await Networking.shared.registerFace(faceImage: uiimage!)
-              callback?([["status" : response.status, "data": response.data, "signature": response.signature]])
-          }catch {
-            callback?([NSNull(), error])
-          }
-        }
+      Task {
+        let response = try await LivenessManagerFactory.registerFace(image: uiimage)
+        resolve(response)
       }
+    } catch {
+      reject("REGISTER_FACE_ERROR", "register face error", error)
     }
-  
-  @objc(startLiveNess:withCallback:)
-  func startLiveNess(previewView: UIView, callback: RCTResponseSenderBlock? = nil) {
-    
   }
 }
