@@ -15,9 +15,9 @@ class Liveness3DManager: LivenessManager {
     
     var livenessDetector: QTSLivenessDetector?
     var readIdCardRequestId: String?
-    var last_action: QTSLivenessAction?
-    var action_array: [QTSLivenessAction] = []
-    var player: AVAudioPlayer?
+//    var last_action: QTSLivenessAction?
+//    var action_array: [QTSLivenessAction] = []
+//    var player: AVAudioPlayer?
 //    var maskView: LivenessMaskView?
     var livenessView: UIView
     
@@ -90,7 +90,9 @@ class Liveness3DManager: LivenessManager {
 @available(iOS 15.0, *)
 extension Liveness3DManager: QTSLiveness.QTSLivenessUtilityDetectorDelegate {
     func liveness(liveness: QTSLivenessDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: QTSLivenessResult?) {
-      self.success?(response?.toJSON() ?? [:])
+      var dic = response?.toJSON() ?? [:]
+      dic["livenessImage"] = verificationImage.toBase64String(compressionQuality: 0.2)
+      self.success?(dic)
     }
     
     func liveness(liveness: QTSLivenessDetector, didFail withError: QTSLivenessError) {

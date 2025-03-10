@@ -197,10 +197,10 @@ class LivenessView @JvmOverloads constructor(
   fun callNativeEvent(map: WritableMap) {
     val reactContext = context as ReactContext
     val event = Arguments.createMap()
-    event.putMap("data", map)
+    event.putMap("response", map)
     reactContext.getJSModule(RCTEventEmitter::class.java).receiveEvent(
       id,
-      "nativeClick",  //name has to be same as getExportedCustomDirectEventTypeConstants in MyCustomReactViewManager
+      "onSuccess",  //name has to be same as getExportedCustomDirectEventTypeConstants in MyCustomReactViewManager
       event
     )
   }

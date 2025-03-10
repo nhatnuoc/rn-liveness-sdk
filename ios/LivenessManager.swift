@@ -79,3 +79,15 @@ class LivenessManagerFactory {
     return flash
   }
 }
+
+extension UIImage {
+  func toBase64String(compressionQuality: CGFloat = 1.0) -> String? {
+      // Chuyển đổi UIImage thành dữ liệu JPEG (hoặc PNG nếu cần)
+      guard let imageData = self.jpegData(compressionQuality: compressionQuality) else {
+          print("Không thể chuyển đổi ảnh thành dữ liệu")
+          return nil
+      }
+      // Mã hóa dữ liệu thành chuỗi Base64
+      return imageData.base64EncodedString()
+  }
+}

@@ -86,10 +86,7 @@ class LivenessViewManager(
 
   override fun getExportedCustomDirectEventTypeConstants(): Map<String, Any> {
     return MapBuilder.builder<String, Any>()
-      .put(
-        "nativeClick",  //Same as name registered with receiveEvent
-        MapBuilder.of("registrationName", "onEvent")
-      )
+      .put("onSuccess", MapBuilder.of("registrationName", "onSuccess"))
       .build()
   }
 
