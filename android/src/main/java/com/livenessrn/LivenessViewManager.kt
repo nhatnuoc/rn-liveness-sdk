@@ -113,8 +113,8 @@ class LivenessViewManager(
   }
 
   @ReactProp(name = "idCardRequestId")
-  fun setRequestid(view: FrameLayout, requestid: String) {
-    this.requestId = requestid
+  fun setIdCardRequestId(view: FrameLayout, idCardRequestId: String) {
+    this.idCardRequestId = idCardRequestId
   }
 
   @ReactProp(name = "appId")
@@ -143,7 +143,7 @@ class LivenessViewManager(
   }
 
   @ReactProp(name = "useFlash")
-  fun setDebugging(view: FrameLayout, useFlash: Boolean) {
+  fun setUseFlash(view: FrameLayout, useFlash: Boolean) {
     this.useFlash = useFlash
   }
 
@@ -225,6 +225,7 @@ class LivenessViewManager(
     val optionRequest: HashMap<String, String> = HashMap()
 //    optionRequest["requestId"] = this.requestId
 //    optionRequest["clientTransactionId"] = this.requestId
+
     val request = LivenessRequest(
       duration = 600,
       privateKey = privateKey,

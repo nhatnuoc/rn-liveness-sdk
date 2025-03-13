@@ -2,6 +2,7 @@ package com.livenessrn
 
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
+import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -67,7 +68,7 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun registerFace(image: String? = null, callback: Callback? = null) {
+  fun registerFace(image: String? = null, callback: Promise) {
     currentActivity!!.runOnUiThread {
       LiveNessSDK.registerFace(
         reactApplicationContext.currentActivity as FragmentActivity,
@@ -82,7 +83,7 @@ class LivenessRnModule(reactContext: ReactApplicationContext) :
             resultData.putString("pathVideo", data?.pathVideo ?: "")
             resultData.putString("faceImage", data?.faceImage ?: "")
             resultData.putString("livenessImage", data?.livenessImage ?: "")
-            callback?.invoke(resultData)
+            callback.resolve(resultData)
           }
         })
     }
