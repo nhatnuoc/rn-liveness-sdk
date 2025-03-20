@@ -317,6 +317,11 @@ export default function App() {
       </View>
       {
         !status && <View style={{ position: 'absolute', width: '80%', zIndex: 1000, bottom: 70, alignSelf: 'center' }}>
+          <TouchableOpacity onPress={() => {
+          
+        }} style={styles.btn_liveness}>
+          <Text>Scan NFC</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => {
           launchCamera({
             mediaType: 'photo',

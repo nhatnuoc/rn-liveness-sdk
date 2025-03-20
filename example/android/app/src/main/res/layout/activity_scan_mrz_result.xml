@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.ScanMrzResultActivity">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
+            <ImageView
+                    android:id="@+id/btn_close_result_mrz"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/icon_x_black" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="15dp"
+                    android:lineHeight="24dp"
+                    android:textFontWeight="700"
+                    android:textColor="@color/black"
+                    android:text="@string/result" />
+        </FrameLayout>
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin">
+<!--                <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textSize="13dp"-->
+<!--                        android:lineHeight="24dp"-->
+<!--                        android:textColor="@color/neutral_color_900"-->
+<!--                        android:textFontWeight="700"-->
+<!--                        android:text="@string/mrz_code" />-->
+<!--                <TextView-->
+<!--                        android:id="@+id/tv_mrz_code"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="84dp"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:textSize="13dp"-->
+<!--                        android:lineHeight="20dp"-->
+<!--                        android:padding="12dp"-->
+<!--                        android:background="@drawable/tv_border"-->
+<!--                        android:textColor="@color/neutral_color_800"-->
+<!--                        android:textFontWeight="400"-->
+<!--                        android:text="@string/mrz_code" />-->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textSize="13dp"
+                        android:lineHeight="24dp"
+                        android:textColor="@color/neutral_color_900"
+                        android:textFontWeight="700"
+                        android:text="@string/mrz_last9_number" />
+                <TextView
+                        android:id="@+id/tv_last_9_digit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="13dp"
+                        android:lineHeight="20dp"
+                        android:background="@drawable/tv_border"
+                        android:padding="12dp"
+                        android:textColor="@color/neutral_color_800"
+                        android:textFontWeight="400"
+                        android:text="123456789" />
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textSize="13dp"
+                        android:lineHeight="24dp"
+                        android:textColor="@color/neutral_color_900"
+                        android:textFontWeight="700"
+                        android:text="@string/mrz_dob" />
+                <TextView
+                        android:id="@+id/tv_dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="13dp"
+                        android:lineHeight="20dp"
+                        android:padding="12dp"
+                        android:background="@drawable/tv_border"
+                        android:textColor="@color/neutral_color_800"
+                        android:textFontWeight="400"
+                        android:text="dob" />
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textSize="13dp"
+                        android:lineHeight="24dp"
+                        android:textColor="@color/neutral_color_900"
+                        android:textFontWeight="700"
+                        android:text="@string/mrz_doe" />
+                <TextView
+                        android:id="@+id/tv_doe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="13dp"
+                        android:lineHeight="20dp"
+                        android:padding="12dp"
+                        android:background="@drawable/tv_border"
+                        android:textColor="@color/neutral_color_800"
+                        android:textFontWeight="400"
+                        android:text="doe" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <Button
+            android:id="@+id/btn_next_step"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/border_button_bg"
+            android:textSize="15dp"
+            android:lineHeight="24dp"
+            android:textFontWeight="500"
+            android:textColor="@color/white"
+            android:text="@string/mrz_scan_chip_with_nfc" />
+</FrameLayout>

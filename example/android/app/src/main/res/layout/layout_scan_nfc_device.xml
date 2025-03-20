@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="80dp">
+
+  <ImageView
+      android:id="@+id/btn_close_scan_nfc"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_marginLeft="16dp"
+      android:layout_marginTop="32dp"
+      android:src="@drawable/icon_x_black" />
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/scanner_device" />
+
+    <ImageView
+        android:id="@+id/img_scan_nfc_done"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/step_done"
+        android:visibility="gone" />
+  </FrameLayout>
+
+  <com.google.android.material.progressindicator.LinearProgressIndicator
+      android:id="@+id/lpi_scan_nfc"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="40dp"
+      android:layout_marginRight="40dp"
+      android:layout_marginBottom="10dp"
+      android:indeterminate="false"
+      android:visibility="gone"
+      app:indicatorColor="@color/color_link_500"
+      app:trackThickness="4dp" />
+
+  <TextView
+      android:id="@+id/lpi_progress_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="28dp"
+      android:gravity="center"
+      android:text="0%"
+      android:textColor="@color/neutral_color_800"
+      android:visibility="gone" />
+
+  <TextView
+      android:id="@+id/tv_scan_nfc_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:lineHeight="24dp"
+      android:text="@string/scan_nfc_prepare_title"
+      android:textColor="@color/neutral_color_800"
+      android:textFontWeight="700"
+      android:textSize="18dp" />
+
+  <TextView
+      android:id="@+id/tv_scan_nfc_description"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginLeft="40dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginRight="40dp"
+      android:lineHeight="20dp"
+      android:text="@string/scan_nfc_device_prepare_description"
+      android:textAlignment="center"
+      android:textColor="@color/neutral_color_900"
+      android:textFontWeight="400"
+      android:textSize="15dp" />
+
+  <Button
+      android:id="@+id/btStartScan"
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:layout_marginTop="24dp"
+      android:layout_marginRight="@dimen/activity_horizontal_margin"
+      android:background="@drawable/border_button_bg"
+      android:lineHeight="24dp"
+      android:text="@string/main_text_start"
+      android:textColor="@color/white"
+      android:textFontWeight="500"
+      android:textSize="15dp" />
+</LinearLayout>

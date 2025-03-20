@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+  <LinearLayout
+      android:id="@+id/linearLayout2"
+      android:layout_width="match_parent"
+      android:layout_height="400dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_marginTop="5dp"
+      android:orientation="vertical"
+      tools:ignore="MissingConstraints">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="391dp"
+        android:layout_height="400dp"
+        android:layout_above="@+id/ReadNfcBtn"
+        android:layout_below="@+id/PassportNbr"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:weightSum="1">
+
+      <LinearLayout
+          android:layout_width="133dp"
+          android:layout_height="match_parent"
+          android:layout_gravity="center_vertical"
+          android:layout_weight="0.50"
+          android:orientation="vertical"
+          android:paddingLeft="2dp"
+          android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical">
+
+          <TextView
+              android:id="@+id/textView6"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_below="@+id/PassportNbr"
+              android:layout_alignBottom="@+id/DateOfBirth"
+              android:layout_alignParentStart="true"
+              android:layout_alignParentLeft="true"
+              android:autoSizeTextType="uniform"
+              android:gravity="center_vertical"
+              android:text="@string/passport_number_text"
+              android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+          <TextView
+              android:id="@+id/textView4"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_below="@+id/PassportNbr"
+              android:layout_alignBottom="@+id/DateOfBirth"
+              android:layout_alignParentStart="true"
+              android:layout_alignParentLeft="true"
+              android:autoSizeTextType="uniform"
+              android:gravity="center_vertical"
+              android:text="@string/date_of_birth_text"
+              android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+          <TextView
+              android:id="@+id/textView3"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_alignTop="@+id/DateOfExpiration"
+              android:layout_alignBottom="@+id/DateOfExpiration"
+              android:layout_alignParentStart="true"
+              android:layout_alignParentLeft="true"
+              android:autoSizeTextType="uniform"
+              android:gravity="center_vertical"
+              android:text="@string/date_of_expiry_text"
+              android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/disconnectCardButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+
+            android:layout_alignEnd="@+id/linearLayout2"
+            android:layout_alignRight="@+id/linearLayout2"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:autoSizeTextType="uniform"
+            android:text="Disconnect Card" />
+
+        <Button
+            android:id="@+id/transmitDG1"
+            android:layout_width="150dp"
+            android:layout_height="34dp"
+            android:layout_alignEnd="@+id/linearLayout2"
+            android:layout_alignRight="@+id/linearLayout2"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:autoSizeTextType="uniform"
+
+            android:background="#0099FF"
+            android:text="Read DG1" />
+
+        <Button
+            android:id="@+id/transmitDG2"
+            android:layout_width="150dp"
+            android:layout_height="34dp"
+            android:layout_alignEnd="@+id/linearLayout2"
+            android:layout_alignRight="@+id/linearLayout2"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:autoSizeTextType="uniform"
+            android:background="#0099FF"
+            android:text="Read DG2" />
+
+        <Button
+            android:id="@+id/transmitDG13"
+            android:layout_width="150dp"
+            android:layout_height="34dp"
+            android:layout_alignEnd="@+id/linearLayout2"
+            android:layout_alignRight="@+id/linearLayout2"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:autoSizeTextType="uniform"
+            android:background="#0099FF"
+            android:text="Read DG13" />
+
+        <Button
+            android:id="@+id/transmitSOD"
+            android:layout_width="150dp"
+            android:layout_height="34dp"
+            android:layout_alignEnd="@+id/linearLayout2"
+            android:layout_alignRight="@+id/linearLayout2"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:autoSizeTextType="uniform"
+            android:background="#0099FF"
+            android:text="Read SOD" />
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="152dp"
+          android:layout_height="match_parent"
+          android:layout_weight="0.61"
+          android:orientation="vertical"
+          android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+          <EditText
+              android:id="@+id/PassportNbr"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_alignParentStart="true"
+              android:layout_alignParentLeft="true"
+              android:layout_alignParentTop="true"
+              android:layout_alignParentEnd="true"
+              android:layout_alignParentRight="true"
+              android:autoSizeTextType="uniform"
+              android:ems="10"
+              android:hint="XXXXXXXXXX"
+              android:inputType="number"
+              android:text="001094026535"
+
+              android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+          <EditText
+              android:id="@+id/DateOfBirth"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_below="@+id/PassportNbr"
+              android:layout_alignParentEnd="true"
+              android:layout_alignParentRight="true"
+              android:ems="10"
+              android:hint="YYMMDD"
+              android:inputType="number"
+              android:text="940302"
+              android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+          <EditText
+              android:id="@+id/DateOfExpiration"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_below="@+id/DateOfBirth"
+              android:layout_alignParentEnd="true"
+              android:layout_alignParentRight="true"
+              android:ems="10"
+              android:hint="YYMMDD"
+              android:inputType="number"
+              android:text="340302"
+              android:textSize="20dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/connectCardButton"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/linearLayout2"
+            android:layout_alignRight="@+id/linearLayout2"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:autoSizeTextType="uniform"
+            android:text="Connect Card" />
+
+        <Button
+            android:id="@+id/transmitDG14"
+            android:layout_width="163dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:autoSizeTextType="uniform"
+            android:background="#00FFFF"
+            android:text="Read DG14" />
+
+        <Button
+            android:id="@+id/transmitDG15"
+            android:layout_width="161dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:autoSizeTextType="uniform"
+            android:background="#00F2FF"
+            android:text="Read DG15" />
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <EditText
+      android:id="@+id/rapduTextBox"
+      android:layout_width="0dp"
+      android:layout_height="200dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginBottom="3dp"
+      android:ems="10"
+      android:enabled="true"
+      android:fontFamily="monospace"
+      android:gravity="top"
+      android:hint="R-APDUS"
+      android:inputType="textMultiLine"
+      android:singleLine="false"
+      android:textSize="14sp"
+      android:typeface="monospace"
+      android:visibility="visible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.333"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+      app:layout_constraintVertical_bias="0.024" />
+
+  <TextView
+      android:id="@+id/textState"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="11dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginBottom="8dp"
+      android:width="400dp"
+      android:height="30dp"
+      android:text="status"
+      android:visibility="visible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="1.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
