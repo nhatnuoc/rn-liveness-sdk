@@ -92,6 +92,7 @@ extension Liveness3DManager: QTSLiveness.QTSLivenessUtilityDetectorDelegate {
     func liveness(liveness: QTSLivenessDetector, didFinish verificationImage: UIImage, livenesScore: Float, faceMatchingScore: Float, result: Bool, message: String, videoURL: URL?, response: QTSLivenessResult?) {
       var dic = response?.toJSON() ?? [:]
       dic["livenessImage"] = verificationImage.toBase64String(compressionQuality: 0.2)
+      dic["request_id"] = response?.request_id
       self.success?(dic)
     }
     
