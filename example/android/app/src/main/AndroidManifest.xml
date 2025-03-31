@@ -20,6 +20,29 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+        <intent-filter>
+          <action android:name="com.tananaev.passportreader.REQUEST" />
+
+          <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        <intent-filter>
+          <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+          <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED" />
+        </intent-filter>
       </activity>
+      <activity
+
+        android:name=".ui.CaptureActivity" />
+      <!--        <activity android:name=".ui.FaceDetectionActivity"/>-->
+      <activity
+        android:name=".ui.ScanNfcResultActivity"
+        android:exported="true" />
+      <activity android:name=".ui.ScanMrzResultActivity" />
+      <activity android:name=".ui.LiveCheckResultActivity" />
+      <activity android:name=".ui.FaceRegisterResultActivity" />
+
+      <meta-data
+        android:name="com.google.mlkit.vision.DEPENDENCIES"
+        android:value="face,ocr" />
     </application>
 </manifest>

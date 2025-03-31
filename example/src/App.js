@@ -1,67 +1,25 @@
-// import { createStackNavigator } from '@react-navigation/stack';
-// import { NavigationContainer } from '@react-navigation/native';
-// import HomeScreen from './HomeScreen';
-// import Liveness from './Liveness';
-
-// const Stack = createStackNavigator();
-
-// export default function App() {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator initialRouteName="Home">
-//         <Stack.Screen name="Home" component={HomeScreen} />
-//         <Stack.Screen name="Liveness" component={Liveness} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
-
-// "@react-navigation/native": "^7.0.0",
-// "@react-navigation/stack": "^7.0.0",
-// "react-native-gesture-handler": "^2.20.2",
-// "react-native-safe-area-context": "^4.14.0",
-// "react-native-screens": "^4.0.0",
-// "react-native-skia": "^0.0.1"
-
-
-
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 import {
-  Dimensions,
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
   Platform,
   PixelRatio,
-  UIManager,
-  findNodeHandle,
   TextInput,
-  AppState,
   Alert,
+  NativeModules,
 } from 'react-native';
-
-import DeviceInfo from 'react-native-device-info';
-const { width: windowWidth } = Dimensions.get("window");
 
 import SimpleModal from './SimpleModal';
 
 import {
   LivenessView,
-  setupLiveness,
   registerFace
 } from 'liveness-rn';
 import { launchCamera } from 'react-native-image-picker';
 
-const createFragment = viewId =>
-  UIManager.dispatchViewManagerCommand(
-    viewId,
-    // we are calling the 'create' command
-    UIManager?.LivenessViewManager?.Commands?.create.toString(),
-    [viewId],
-  );
 const privateKey = `-----BEGIN PRIVATE KEY-----
 MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCiOMdedNfAhAdI
 M1YmUd2hheu2vDMmFHjCfWHon8wv0doubYPY6/uhMcUERpPiFddWqe+Dfr/XwCsa
@@ -122,47 +80,8 @@ Y/EdqKp20cAT9vgNap7Bfgv5XN9PrE+Yt0C1BkxXnfJHA7L9hcoYrknsae/Fa2IP
 99RyIXaHLJyzSTKLRUhEVqrycM0UXg==
 -----END CERTIFICATE-----
 `
-
-const isIphoneXOrLater = (model) => {
-  const iPhoneXModels = [
-    'iPhone X',
-    'iPhone XS',
-    'iPhone XS Max',
-    'iPhone XR',
-    'iPhone 11',
-    'iPhone 11 Pro',
-    'iPhone 11 Pro Max',
-    'iPhone 12',
-    'iPhone 12 Mini',
-    'iPhone 12 Pro',
-    'iPhone 12 Pro Max',
-    'iPhone 13',
-    'iPhone 13 Mini',
-    'iPhone 13 Pro',
-    'iPhone 13 Pro Max',
-    'iPhone 14',
-    'iPhone 14 Plus',
-    'iPhone 14 Pro',
-    'iPhone 14 Pro Max',
-    'iPhone 15',
-    'iPhone 15 Plus',
-    'iPhone 15 Pro',
-    'iPhone 15 Pro Max',
-    'iPhone 16',
-    'iPhone 16 Plus',
-    'iPhone 16 Pro',
-    'iPhone 16 Pro Max'
-  ];
-
-  return iPhoneXModels.includes(model);
-};
-
-var isIphoneX = false
-
-const checkDevice = async () => {
-  const model = DeviceInfo.getModel();
-  isIphoneX = isIphoneXOrLater(model);
-};
+const appId = 'com.pvcb'
+const baseURL = 'https://ekyc-sandbox.eidas.vn/face-matching'
 
 export default function App() {
   const [status, setStatus] = useState(false);
@@ -172,100 +91,11 @@ export default function App() {
 
   const [loginError, setLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  const [appStateVisible, setAppStateVisible] = useState(AppState.currentState);
-  const appState = useRef(AppState.currentState);
-  const [isActive, setIsActive] = useState(true);
-
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (Platform.OS === 'ios') {
-        // iOS handling
-        if (appState.current === 'active' && 
-            nextAppState.match(/inactive|background/)) {
-          console.log('App has gone to background');
-          setStatus(false);
-          clear();
-        }
-
-        if (appState.current.match(/inactive|background/) && 
-            nextAppState === 'active') {
-          console.log('App has come to foreground');
-        }
-      }
-
-      setAppStateVisible(nextAppState);
-      appState.current = nextAppState;
-    });
-
-    return () => {
-      subscription.remove();
-    };
-  }, [isActive]);
-
-  useEffect(() => {
-    if (Platform.OS !== 'ios' && status) {
-      const viewId = findNodeHandle(ref?.current);
-      if (viewId) {
-        createFragment(viewId);
-      }
-    }
-  }, [ref.current, status]);
-
-  useEffect(() => {
-    // setupLiveness({
-    //   appId: 'com.pvcb',
-    //   baseURL: 'https://ekyc-sandbox.eidas.vn/face-matching',
-    //   publicKey,
-    //   privateKey
-    // })
-    checkDevice();
-  }, []);
-
   const [text, setText] = useState('');
-  const timeoutRef = useRef(null);
-  const innerTimeoutRef = useRef(null);
 
   const onStartLiveNess = () => {
-    // Clear any existing timeouts
-    setIsFlashCamera(null);
-    clear();
-
     setStatus(prev => !prev);
-
-    // if (isIphoneX) {
-    //   setIsFlashCamera(false);
-    //   timeoutRef.current = setTimeout(() => {
-    //     if (!isFlashCamera) {
-    //       setIsFlashCamera(true);
-    //       // setStatus(false);
-    //       // innerTimeoutRef.current = setTimeout(() => {
-    //       //   setStatus(true);
-    //       // }, 2);
-    //     }
-    //   }, 5000);
-    // } else {
-    //   setIsFlashCamera(true);
-    // }
   };
-
-  // Cleanup timeouts when component unmounts
-  useEffect(() => {
-    return () => {
-      clear();
-    };
-  }, []);
-
-  function clear() {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
-    if (innerTimeoutRef.current) {
-      clearTimeout(innerTimeoutRef.current);
-      innerTimeoutRef.current = null;
-    }
-  }
 
   const handleLayout = e => {
     const { height, width } = e.nativeEvent.layout;
@@ -281,7 +111,7 @@ export default function App() {
         <View style={[styles.view_camera, { width: isFlashCamera ? '100%' : '100%' }]} onLayout={handleLayout}>
           <LivenessView
             ref={ref}
-            key={isFlashCamera == null ? 'null' : isFlashCamera == false ? 'flash' : 'normal'}
+            // key={isFlashCamera == null ? 'null' : isFlashCamera == false ? 'flash' : 'normal'}
             style={
               Platform.OS === 'ios' ? styles.view_liveness :
                 {
@@ -297,8 +127,8 @@ export default function App() {
             idCardRequestId={text}
             debugging={false}
             // useFlash={true}
-            appId={'com.pvcb'}
-            baseURL={'https://ekyc-sandbox.eidas.vn/face-matching'}
+            appId={appId}
+            baseURL={baseURL}
             publicKey={publicKey}
             privateKey={privateKey}
           />
@@ -318,7 +148,10 @@ export default function App() {
       {
         !status && <View style={{ position: 'absolute', width: '80%', zIndex: 1000, bottom: 70, alignSelf: 'center' }}>
           <TouchableOpacity onPress={() => {
-          
+            NativeModules.CardReaderRn.readCard(appId, 'https://ekyc-sandbox.eidas.vn/ekyc', publicKey, privateKey)
+            .then(idCardRequestId => {
+              setText(idCardRequestId)
+            })
         }} style={styles.btn_liveness}>
           <Text>Scan NFC</Text>
         </TouchableOpacity>

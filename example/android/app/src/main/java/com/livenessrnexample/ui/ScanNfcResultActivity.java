@@ -1,4 +1,4 @@
-package com.livenessrnexample;
+package com.livenessrnexample.ui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,9 +12,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-//import io.kyc.demo.R;
-//import io.kyc.demo.liveness.java.FaceVideoJavaFragment;
-//import io.kyc.demo.util.DataUtil;
+import com.livenessrnexample.MainActivity;
+import com.livenessrnexample.R;
 
 public class ScanNfcResultActivity extends AppCompatActivity {
     public static final String KEY_CARD_ID = "cardId";

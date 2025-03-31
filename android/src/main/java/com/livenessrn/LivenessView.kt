@@ -25,7 +25,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 
-
 class LivenessView @JvmOverloads constructor(
   context: Context,
   attrs: AttributeSet? = null

@@ -34,6 +34,7 @@ class LivenessViewManager(
   private var publicKey = ""
   private var debugging: Boolean = false
   private var useFlash: Boolean = true
+  private var offline: Boolean = false
 
   private var propWidth: Int? = null
   private var propHeight: Int? = null
@@ -42,7 +43,9 @@ class LivenessViewManager(
   override fun getName() = REACT_CLASS
 
   override fun createViewInstance(reactContext: ThemedReactContext): LivenessView {
-    return LivenessView(reactContext)
+    return LivenessView(reactContext).apply {
+      id = View.generateViewId()
+    }
   }
 
   override fun getCommandsMap() = mapOf("create" to COMMAND_CREATE)
@@ -115,36 +118,82 @@ class LivenessViewManager(
   @ReactProp(name = "idCardRequestId")
   fun setIdCardRequestId(view: FrameLayout, idCardRequestId: String) {
     this.idCardRequestId = idCardRequestId
+    this.setupLiveness(view)
   }
 
   @ReactProp(name = "appId")
   fun setAppId(view: FrameLayout, appId: String) {
     this.appId = appId
+    this.setupLiveness(view)
   }
 
   @ReactProp(name = "baseURL")
   fun setBaseUrl(view: FrameLayout, baseUrl: String) {
     this.baseURL = baseUrl
+    this.setupLiveness(view)
   }
 
   @ReactProp(name = "privateKey")
   fun setPrivateKey(view: FrameLayout, privateKey: String) {
     this.privateKey = privateKey
+    this.setupLiveness(view)
   }
 
   @ReactProp(name = "publicKey")
   fun setPublicKey(view: FrameLayout, publicKey: String) {
     this.publicKey = publicKey
+    this.setupLiveness(view)
   }
 
   @ReactProp(name = "debugging")
   fun setDebugging(view: FrameLayout, debugging: Boolean) {
     this.debugging = debugging
+    this.setupLiveness(view)
   }
 
   @ReactProp(name = "useFlash")
   fun setUseFlash(view: FrameLayout, useFlash: Boolean) {
     this.useFlash = useFlash
+    this.setupLiveness(view)
+  }
+
+  @ReactProp(name = "offline", defaultBoolean = false)
+  fun setOffline(view: FrameLayout, offline: Boolean) {
+    this.offline = offline
+    this.setupLiveness(view)
+  }
+
+  private val handler = Handler(Looper.getMainLooper())
+  private var isPendingCheck = false
+
+  private fun setupLiveness(view: FrameLayout) {
+    if (isPendingCheck) return
+    isPendingCheck = true
+
+    handler.postDelayed({
+      isPendingCheck = false
+      if (offline || (!appId.isNullOrEmpty() && !baseURL.isNullOrEmpty() &&
+          !publicKey.isNullOrEmpty() && !privateKey.isNullOrEmpty())) {
+        startLiveness(view)
+      }
+    }, 100)
+  }
+
+  private fun startLiveness(view: FrameLayout) {
+    val activity = reactContext.currentActivity as? FragmentActivity ?: return
+    val fragmentManager = activity.supportFragmentManager
+    val containerId = view.id // Lấy ID của FrameLayout
+
+    if (offline) {
+      LiveNessSDK.startLiveNess(activity, getLivenessRequest(), fragmentManager, containerId, null, false)
+      return
+    }
+
+    if (appId.isNullOrEmpty() || baseURL.isNullOrEmpty() || publicKey.isNullOrEmpty() || privateKey.isNullOrEmpty()) {
+      return
+    }
+    createFragment(view, containerId)
+    LiveNessSDK.startLiveNess(activity, getLivenessRequest(), fragmentManager, containerId, null, false)
   }
 
   /**
@@ -153,32 +202,7 @@ class LivenessViewManager(
   private fun createFragment(root: FrameLayout, reactNativeViewId: Int) {
     val parentView = root.findViewById<ViewGroup>(reactNativeViewId)
     setupLayout(parentView)
-
-    val activity = reactContext.currentActivity as FragmentActivity
-    val fragmentManager = activity.supportFragmentManager
-//    try {
-//      Log.d("createFragment", "Success")
-//      if (fragmentManager.fragments.isNotEmpty()) {
-//        fragmentManager.fragments.forEach { fragment ->
-//          fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
-//        }
-//      }
-//    } catch (e: Exception) {
-//      Log.d("createFragment", "Error: $e")
-//    }
-
-    Log.d("createFragment", "Start liveness")
     Log.d("createFragment", "Start liveness: $reactNativeViewId")
-    getBrightness()
-    setBrightness(1f)
-    LiveNessSDK.startLiveNess(
-      activity,
-      getLivenessRequest(),
-      fragmentManager,
-      reactNativeViewId,
-      null,
-      false
-    )
   }
 
   private fun setupLayout(view: View) {
@@ -236,7 +260,7 @@ class LivenessViewManager(
       baseURL = baseURL,
       publicKey = publicKey,
       isDebug = debugging,
-      offlineMode = false,
+      offlineMode = this.offline,
       isSaveImage = false,
       verifyLevel = VerifyLevel.LOW,
     )

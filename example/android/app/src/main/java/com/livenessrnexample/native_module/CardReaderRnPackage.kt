@@ -1,4 +1,4 @@
-package com.livenessrn
+package com.livenessrnexample.native_module
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
@@ -7,13 +7,14 @@ import com.facebook.react.bridge.WritableMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.facebook.react.uimanager.ViewManager
 
-class LivenessRnPackage : ReactPackage {
+class CardReaderRnPackage : ReactPackage {
   override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-    return listOf(LivenessRnModule(reactContext))
+    return listOf(CardReaderRnModule(reactContext))
   }
 
   override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
-    return listOf(LivenessViewManager(reactContext))
+//    return listOf(LivenessViewManager(reactContext))
+    return emptyList()
   }
 
   companion object {
@@ -22,8 +23,11 @@ class LivenessRnPackage : ReactPackage {
       eventName: String?,
       params: WritableMap?
     ) {
+//      context
+//        ?.getJSModule(RCTDeviceEventEmitter::class.java)
+//        ?.emit(eventName!!, params)
       context
-          .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
         ?.emit(eventName!!, params)
     }
   }

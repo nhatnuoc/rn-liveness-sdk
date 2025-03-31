@@ -9,6 +9,7 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
 import com.livenessrn.LivenessRnPackage
+import com.livenessrnexample.native_module.CardReaderRnPackage
 
 
 class MainApplication : Application(), ReactApplication {
@@ -20,8 +21,9 @@ class MainApplication : Application(), ReactApplication {
     override fun getPackages(): List<ReactPackage> {
       return PackageList(this).packages.apply {
               // Packages that cannot be autolinked yet can be added manually here, for example:
-              add(LivenessRnPackage())
-            }
+        add(LivenessRnPackage())
+        add(CardReaderRnPackage())
+      }
     }
 
     override fun getJSMainModuleName(): String {

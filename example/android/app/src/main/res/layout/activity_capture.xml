@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.CaptureActivity">
 
-    <io.kyc.demo.mlkit.camera.CameraSourcePreview
+    <com.livenessrnexample.mlkit.camera.CameraSourcePreview
         android:id="@+id/camera_source_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,12 +16,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <io.kyc.demo.mlkit.camera.GraphicOverlay
+        <com.livenessrnexample.mlkit.camera.GraphicOverlay
             android:id="@+id/graphics_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </io.kyc.demo.mlkit.camera.CameraSourcePreview>
+    </com.livenessrnexample.mlkit.camera.CameraSourcePreview>
 
 
     <LinearLayout

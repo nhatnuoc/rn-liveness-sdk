@@ -1,4 +1,4 @@
-package com.livenessrnexample;
+package com.livenessrnexample.ui;
 
 import static com.google.gson.internal.$Gson$Types.arrayOf;
 
@@ -32,6 +32,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.livenessrnexample.R;
 import com.springcard.pcscaiot.SCardAiot;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,8 +43,6 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-//import io.kyc.demo.R;
 
 public class ScanNfcWithDeviceDialog extends BottomSheetDialogFragment {
 
@@ -417,7 +416,7 @@ public class ScanNfcWithDeviceDialog extends BottomSheetDialogFragment {
     return bottomSheetDialog;
   }
 
-  interface OnScanCardListener {
+  public interface OnScanCardListener {
     void onSuccess(RawScanData data);
   }
 

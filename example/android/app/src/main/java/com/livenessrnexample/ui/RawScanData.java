@@ -1,4 +1,4 @@
-package com.livenessrnexample;
+package com.livenessrnexample.ui;
 
 public class RawScanData {
     private String dg1;
