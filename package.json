@@ -1,6 +1,6 @@
 {
   "name": "liveness-rn",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "My Liveness Library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -39,13 +39,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/Techainer/rn-sdk",
-  "author": "sonuos1501 <son.uospt@gmail.com> (https://github.com/sonuos1501)",
+  "repository": "https://github.com/nhatnuoc/rn-liveness-sdk.git",
+  "author": "nhatnuoc <binhvuong.2010@gmail.com> (https://github.com/nhatnuoc)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Techainer/rn-sdk/issues"
+    "url": "https://github.com/nhatnuoc/rn-liveness-sdk/issues"
   },
-  "homepage": "https://github.com/Techainer/rn-sdk#readme",
+  "homepage": "https://github.com/nhatnuoc/rn-liveness-sdk#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

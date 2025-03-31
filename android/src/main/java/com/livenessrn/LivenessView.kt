@@ -57,24 +57,7 @@ class LivenessView @JvmOverloads constructor(
       }
 
       if (data?.status != null && data.status == 200) {
-        val map = Arguments.createMap()
-        map.putInt("status", data.status ?: -1)
-        map.putString("message", data.message ?: "")
-        map.putString("request_id", data.requestId ?: "")
-        map.putInt("code", 200)
-        map.putBoolean("success", data.success ?: false)
-        map.putString("pathVideo", data.pathVideo ?: "")
-        map.putString("faceImage", data.faceImage ?: "")
-        map.putString("livenessImage", data.livenessImage ?: "")
-        map.putString("transactionID", data.transactionID ?: "")
-        map.putString("livenesScore", "${data.data?.livenesScore}")
-        map.putString("faceMatchingScore", "${data.data?.faceMatchingScore}")
-
-        val mapData = Arguments.createMap()
-        map.putString("faceMatchingScore", data.data?.faceMatchingScore ?: "")
-        map.putString("livenessType", data.data?.livenessType ?: "")
-        map.putDouble("livenesScore", (data.data?.livenesScore ?: 0).toDouble())
-        map.putMap("data", mapData)
+        val map = data.toWritableMap()
         callNativeEvent(map)
       } else {
         if (data?.imageResult.isNullOrEmpty() ) {
