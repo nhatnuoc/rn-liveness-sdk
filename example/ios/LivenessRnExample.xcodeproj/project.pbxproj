@@ -10,6 +10,22 @@
 		00E356F31AD99517003FC87E /* LivenessRnExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* LivenessRnExampleTests.m */; };
 		04255F642CE5DF6D007B1DEC /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 04255F632CE5DF6D007B1DEC /* main.jsbundle */; };
 		0B755259E566332DBA920757 /* Pods_LivenessRnExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D396C755D56C00BE76EDB13 /* Pods_LivenessRnExample.framework */; };
+		0F3A80902DCCAF0100162314 /* Registration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F3A808B2DCCAF0100162314 /* Registration.storyboard */; };
+		0F3A80912DCCAF0100162314 /* QKMRZScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A80852DCCAF0100162314 /* QKMRZScanResult.swift */; };
+		0F3A80922DCCAF0100162314 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A80892DCCAF0100162314 /* Identifier.swift */; };
+		0F3A80932DCCAF0100162314 /* QKMRZScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A80842DCCAF0100162314 /* QKMRZScannerView.swift */; };
+		0F3A80942DCCAF0100162314 /* CIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A807E2DCCAF0100162314 /* CIImage.swift */; };
+		0F3A80952DCCAF0100162314 /* LuminanceThresholdFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A80822DCCAF0100162314 /* LuminanceThresholdFilter.swift */; };
+		0F3A80962DCCAF0100162314 /* UINavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A808E2DCCAF0100162314 /* UINavigationBarAppearance.swift */; };
+		0F3A80972DCCAF0100162314 /* AVCaptureVideoOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A807C2DCCAF0100162314 /* AVCaptureVideoOrientation.swift */; };
+		0F3A80982DCCAF0100162314 /* CIContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A807D2DCCAF0100162314 /* CIContext.swift */; };
+		0F3A80992DCCAF0100162314 /* ShowRegistrationScanMRZViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A808C2DCCAF0100162314 /* ShowRegistrationScanMRZViewController.swift */; };
+		0F3A809A2DCCAF0100162314 /* QKCutoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A80832DCCAF0100162314 /* QKCutoutView.swift */; };
+		0F3A809B2DCCAF0100162314 /* CVImageBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A807F2DCCAF0100162314 /* CVImageBuffer.swift */; };
+		0F3A809C2DCCAF0100162314 /* CardReaderRn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A80882DCCAF0100162314 /* CardReaderRn.swift */; };
+		0F3A809D2DCCAF0100162314 /* Storyboard+Initialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A808D2DCCAF0100162314 /* Storyboard+Initialization.swift */; };
+		0F3A809E2DCCAF0100162314 /* CardReaderRn.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A80872DCCAF0100162314 /* CardReaderRn.m */; };
+		0F3A80B02DCD9D1900162314 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 0F3A80AF2DCD9D0B00162314 /* tessdata */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -37,6 +53,24 @@
 		0404E7CF2CBFA3C2002B4B0F /* LivenessUtility.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LivenessUtility.xcframework; path = ../../ios_frameworks/LivenessUtility.xcframework; sourceTree = "<group>"; };
 		0404E7D22CBFA5EA002B4B0F /* FlashLiveness.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FlashLiveness.xcframework; path = Pods/FlashLiveness/FlashLiveness/FlashLiveness.xcframework; sourceTree = "<group>"; };
 		04255F632CE5DF6D007B1DEC /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		0F3A807C2DCCAF0100162314 /* AVCaptureVideoOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCaptureVideoOrientation.swift; sourceTree = "<group>"; };
+		0F3A807D2DCCAF0100162314 /* CIContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIContext.swift; sourceTree = "<group>"; };
+		0F3A807E2DCCAF0100162314 /* CIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIImage.swift; sourceTree = "<group>"; };
+		0F3A807F2DCCAF0100162314 /* CVImageBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVImageBuffer.swift; sourceTree = "<group>"; };
+		0F3A80822DCCAF0100162314 /* LuminanceThresholdFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuminanceThresholdFilter.swift; sourceTree = "<group>"; };
+		0F3A80832DCCAF0100162314 /* QKCutoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QKCutoutView.swift; sourceTree = "<group>"; };
+		0F3A80842DCCAF0100162314 /* QKMRZScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QKMRZScannerView.swift; sourceTree = "<group>"; };
+		0F3A80852DCCAF0100162314 /* QKMRZScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QKMRZScanResult.swift; sourceTree = "<group>"; };
+		0F3A80872DCCAF0100162314 /* CardReaderRn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardReaderRn.m; sourceTree = "<group>"; };
+		0F3A80882DCCAF0100162314 /* CardReaderRn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardReaderRn.swift; sourceTree = "<group>"; };
+		0F3A80892DCCAF0100162314 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
+		0F3A808A2DCCAF0100162314 /* LivenessRnExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LivenessRnExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		0F3A808B2DCCAF0100162314 /* Registration.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Registration.storyboard; sourceTree = "<group>"; };
+		0F3A808C2DCCAF0100162314 /* ShowRegistrationScanMRZViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRegistrationScanMRZViewController.swift; sourceTree = "<group>"; };
+		0F3A808D2DCCAF0100162314 /* Storyboard+Initialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Storyboard+Initialization.swift"; sourceTree = "<group>"; };
+		0F3A808E2DCCAF0100162314 /* UINavigationBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarAppearance.swift; sourceTree = "<group>"; };
+		0F3A80AF2DCD9D0B00162314 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		0F3A80B12DCD9E7100162314 /* LivenessRnExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LivenessRnExample.entitlements; path = LivenessRnExample/LivenessRnExample.entitlements; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* LivenessRnExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LivenessRnExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LivenessRnExample/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = LivenessRnExample/AppDelegate.mm; sourceTree = "<group>"; };
@@ -100,9 +134,59 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0F3A80802DCCAF0100162314 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0F3A807C2DCCAF0100162314 /* AVCaptureVideoOrientation.swift */,
+				0F3A807D2DCCAF0100162314 /* CIContext.swift */,
+				0F3A807E2DCCAF0100162314 /* CIImage.swift */,
+				0F3A807F2DCCAF0100162314 /* CVImageBuffer.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0F3A80812DCCAF0100162314 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0F3A80AF2DCD9D0B00162314 /* tessdata */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0F3A80862DCCAF0100162314 /* QKMRZScanner */ = {
+			isa = PBXGroup;
+			children = (
+				0F3A80802DCCAF0100162314 /* Extensions */,
+				0F3A80812DCCAF0100162314 /* Supporting Files */,
+				0F3A80822DCCAF0100162314 /* LuminanceThresholdFilter.swift */,
+				0F3A80832DCCAF0100162314 /* QKCutoutView.swift */,
+				0F3A80842DCCAF0100162314 /* QKMRZScannerView.swift */,
+				0F3A80852DCCAF0100162314 /* QKMRZScanResult.swift */,
+			);
+			path = QKMRZScanner;
+			sourceTree = "<group>";
+		};
+		0F3A808F2DCCAF0100162314 /* CardReader */ = {
+			isa = PBXGroup;
+			children = (
+				0F3A80862DCCAF0100162314 /* QKMRZScanner */,
+				0F3A80872DCCAF0100162314 /* CardReaderRn.m */,
+				0F3A80882DCCAF0100162314 /* CardReaderRn.swift */,
+				0F3A80892DCCAF0100162314 /* Identifier.swift */,
+				0F3A808A2DCCAF0100162314 /* LivenessRnExample-Bridging-Header.h */,
+				0F3A808B2DCCAF0100162314 /* Registration.storyboard */,
+				0F3A808C2DCCAF0100162314 /* ShowRegistrationScanMRZViewController.swift */,
+				0F3A808D2DCCAF0100162314 /* Storyboard+Initialization.swift */,
+				0F3A808E2DCCAF0100162314 /* UINavigationBarAppearance.swift */,
+			);
+			path = CardReader;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* LivenessRnExample */ = {
 			isa = PBXGroup;
 			children = (
+				0F3A80B12DCD9E7100162314 /* LivenessRnExample.entitlements */,
+				0F3A808F2DCCAF0100162314 /* CardReader */,
 				04255F632CE5DF6D007B1DEC /* main.jsbundle */,
 				DBE707242BF5073A00C27D20 /* com.qts.test.txt */,
 				DBE707252BF5073A00C27D20 /* eid.txt */,
@@ -244,7 +328,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1630;
 					};
 				};
 			};
@@ -279,9 +363,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F3A80B02DCD9D1900162314 /* tessdata in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				DBE707262BF5073A00C27D20 /* com.qts.test.txt in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				0F3A80902DCCAF0100162314 /* Registration.storyboard in Resources */,
 				04255F642CE5DF6D007B1DEC /* main.jsbundle in Resources */,
 				DBE707272BF5073A00C27D20 /* eid.txt in Resources */,
 				3B7CEF21B6B3B2B880147F12 /* PrivacyInfo.xcprivacy in Resources */,
@@ -436,6 +522,20 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				0F3A80912DCCAF0100162314 /* QKMRZScanResult.swift in Sources */,
+				0F3A80922DCCAF0100162314 /* Identifier.swift in Sources */,
+				0F3A80932DCCAF0100162314 /* QKMRZScannerView.swift in Sources */,
+				0F3A80942DCCAF0100162314 /* CIImage.swift in Sources */,
+				0F3A80952DCCAF0100162314 /* LuminanceThresholdFilter.swift in Sources */,
+				0F3A80962DCCAF0100162314 /* UINavigationBarAppearance.swift in Sources */,
+				0F3A80972DCCAF0100162314 /* AVCaptureVideoOrientation.swift in Sources */,
+				0F3A80982DCCAF0100162314 /* CIContext.swift in Sources */,
+				0F3A80992DCCAF0100162314 /* ShowRegistrationScanMRZViewController.swift in Sources */,
+				0F3A809A2DCCAF0100162314 /* QKCutoutView.swift in Sources */,
+				0F3A809B2DCCAF0100162314 /* CVImageBuffer.swift in Sources */,
+				0F3A809C2DCCAF0100162314 /* CardReaderRn.swift in Sources */,
+				0F3A809D2DCCAF0100162314 /* Storyboard+Initialization.swift in Sources */,
+				0F3A809E2DCCAF0100162314 /* CardReaderRn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +609,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = LivenessRnExample/LivenessRnExample.entitlements;
 				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 2V3Y2Q9V3G;
 				DYLIB_INSTALL_NAME_BASE = "";
@@ -572,7 +673,7 @@
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				INFOPLIST_FILE = LivenessRnExample/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Face Authentications";
-				IPHONEOS_DEPLOYMENT_TARGET = 13;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_DYLIB_INSTALL_NAME = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -585,10 +686,11 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.ai.liveness;
+				PRODUCT_BUNDLE_IDENTIFIER = nhatnuoc.ekyc.sample;
 				PRODUCT_NAME = LivenessRnExample;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SUPPORTS_MACCATALYST = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "CardReader/LivenessRnExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -603,6 +705,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = LivenessRnExample/LivenessRnExample.entitlements;
 				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 2V3Y2Q9V3G;
 				DYLIB_INSTALL_NAME_BASE = "";
@@ -665,7 +768,7 @@
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				INFOPLIST_FILE = LivenessRnExample/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Face Authentications";
-				IPHONEOS_DEPLOYMENT_TARGET = 13;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_DYLIB_INSTALL_NAME = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -678,10 +781,11 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.ai.liveness;
+				PRODUCT_BUNDLE_IDENTIFIER = nhatnuoc.ekyc.sample;
 				PRODUCT_NAME = LivenessRnExample;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SUPPORTS_MACCATALYST = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "CardReader/LivenessRnExample-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

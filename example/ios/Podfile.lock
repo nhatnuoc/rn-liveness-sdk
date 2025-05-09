@@ -10,7 +10,7 @@ PODS:
     - React-Core (= 0.72.10)
     - React-jsi (= 0.72.10)
     - ReactCommon/turbomodule/core (= 0.72.10)
-  - FlashLiveness (1.4.3):
+  - FlashLiveness (1.4.4):
     - KeychainSwift (~> 19.0)
     - ObjectMapper (~> 4.2)
     - SignManager (~> 1.0.6)
@@ -21,13 +21,21 @@ PODS:
   - hermes-engine/Pre-built (0.72.10)
   - KeychainSwift (19.0.0)
   - libevent (2.1.12)
-  - liveness-rn (2.0.1):
+  - liveness-rn (2.0.6):
     - FlashLiveness
     - KeychainSwift (~> 19.0)
     - QTSLiveness
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - ObjectMapper (4.2.0)
+  - OpenSSL-Universal (1.1.2301)
+  - QKMRZParser (2.0.0)
+  - QTSCardReader (1.2.0):
+    - CryptoSwift (~> 1.8.2)
+    - KeychainSwift (~> 19.0)
+    - ObjectMapper (~> 4.2)
+    - OpenSSL-Universal (~> 1.1.1100)
+    - SignManager (~> 1.0.6)
   - QTSLiveness (1.2.9):
     - CryptoSwift (~> 1.8.2)
     - KeychainSwift (~> 19.0)
@@ -451,6 +459,7 @@ PODS:
     - React-Core
   - SignManager (1.0.6)
   - SocketRocket (0.6.1)
+  - SwiftyTesseract (3.1.3)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -464,6 +473,8 @@ DEPENDENCIES:
   - libevent (~> 2.1.12)
   - liveness-rn (from `../..`)
   - ObjectMapper (= 4.2)
+  - QKMRZParser (~> 2.0.0)
+  - QTSCardReader
   - QTSLiveness
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -502,6 +513,7 @@ DEPENDENCIES:
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFS (from `../node_modules/react-native-fs`)
   - SignManager (= 1.0.6)
+  - SwiftyTesseract (~> 3.1.3)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -511,9 +523,13 @@ SPEC REPOS:
     - KeychainSwift
     - libevent
     - ObjectMapper
+    - OpenSSL-Universal
+    - QKMRZParser
+    - QTSCardReader
     - QTSLiveness
     - SignManager
     - SocketRocket
+    - SwiftyTesseract
 
 EXTERNAL SOURCES:
   boost:
@@ -607,7 +623,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   FlashLiveness:
-    :commit: b3f5bba820c1d321679df534d6fb85c48a83f05e
+    :commit: cdd5e4712d30e5d3d0cc63f6fc937c0a4cdded75
     :git: https://github.com/stevienguyen1988/FlashLivenessPod.git
 
 SPEC CHECKSUMS:
@@ -616,14 +632,17 @@ SPEC CHECKSUMS:
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f91d538f197fa71a7d5b77ec2069d49550c0eb96
   FBReactNativeSpec: b13d1c23d6ed82d6b66aad7a253edf8ba76c4a4c
-  FlashLiveness: e1c68dc21f71de3c863a9df74e169249d52179b9
+  FlashLiveness: b40a442b6a0b6924b3c63000a3e6cdb679a8ddd5
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  liveness-rn: 7d9b3d17a5b5faeededfc9848edd98df26d7da7f
+  liveness-rn: 959dfc932d255582076a8c0be30c577bf77a4160
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
+  OpenSSL-Universal: ca89c20240633a77c776082ba76b7d90f992bf77
+  QKMRZParser: 6b419b6f07d6bff6b50429b97de10846dc902c29
+  QTSCardReader: 3e3816cab5d2ea21aadc7951e18fd0147ac4effa
   QTSLiveness: 67ce723c281d0f57b578c6f3c6b423ef933a9641
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: b4d3068afa6f52ec5260a8417053b1f1b421483d
@@ -662,8 +681,9 @@ SPEC CHECKSUMS:
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   SignManager: 67d0f04ff3695c1dde7c056bc9ba09de0db2f806
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
+  SwiftyTesseract: 1f3d96668ae92dc2208d9842c8a59bea9fad2cbb
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3
 
-PODFILE CHECKSUM: d03ea13954c1e4a24b591f2b00269456e55c53c3
+PODFILE CHECKSUM: 18cd3351f6478ca353c736ba038dcbb4861726c7
 
 COCOAPODS: 1.16.2

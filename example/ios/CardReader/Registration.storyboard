@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Show Registration ScanMRZ View Controller-->
+        <scene sceneID="t3N-19-VkV">
+            <objects>
+                <viewController storyboardIdentifier="ShowRegistrationScanMRZViewController" id="SO5-b6-l9k" customClass="ShowRegistrationScanMRZViewController" customModule="LivenessRnExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s5H-f5-Iah">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YSx-aC-c8m" customClass="QKMRZScannerView" customModule="LivenessRnExample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="118" width="393" height="734"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siT-cJ-sNN">
+                                <rect key="frame" x="46.666666666666657" y="732" width="300" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="mR3-ab-HLa"/>
+                                    <constraint firstAttribute="height" constant="44" id="tj1-cy-S1c"/>
+                                </constraints>
+                                <color key="tintColor" red="0.0" green="0.44705882349999998" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="ic_card_info" title="Không quét được mã MRZ">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
+                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="14"/>
+                                </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đưa mã MRZ vào khuôn hình" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9P-Eb-ptT">
+                                <rect key="frame" x="16" y="685" width="361" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.54901960780000003" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_scanMRZ_correct" translatesAutoresizingMaskIntoConstraints="NO" id="dou-Bq-4ar">
+                                <rect key="frame" x="81.666666666666686" y="528.33333333333337" width="230" height="148.66666666666663"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="230" id="eRd-wE-tkd"/>
+                                    <constraint firstAttribute="width" secondItem="dou-Bq-4ar" secondAttribute="height" multiplier="669:432" id="mhL-cc-FIv"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đưa mã MRZ ở mặt sau CCCD  gắn Chip vào khung hình" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2Y-ib-xtF">
+                                <rect key="frame" x="16" y="173" width="361" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ejc-ss-iFY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="h2Y-ib-xtF" firstAttribute="leading" secondItem="Ejc-ss-iFY" secondAttribute="leading" constant="16" id="2A8-Ng-FNx"/>
+                            <constraint firstItem="Ejc-ss-iFY" firstAttribute="trailing" secondItem="YSx-aC-c8m" secondAttribute="trailing" id="4Pj-w2-Wjy"/>
+                            <constraint firstAttribute="bottom" secondItem="YSx-aC-c8m" secondAttribute="bottom" id="Dtf-UA-apj"/>
+                            <constraint firstItem="siT-cJ-sNN" firstAttribute="top" secondItem="b9P-Eb-ptT" secondAttribute="bottom" constant="30" id="EMq-kc-pJb"/>
+                            <constraint firstItem="Ejc-ss-iFY" firstAttribute="trailing" secondItem="h2Y-ib-xtF" secondAttribute="trailing" constant="16" id="Hyp-YU-RpT"/>
+                            <constraint firstItem="YSx-aC-c8m" firstAttribute="top" secondItem="Ejc-ss-iFY" secondAttribute="top" id="LZb-Dz-41m"/>
+                            <constraint firstItem="b9P-Eb-ptT" firstAttribute="leading" secondItem="Ejc-ss-iFY" secondAttribute="leading" constant="16" id="NRk-Co-47z"/>
+                            <constraint firstItem="dou-Bq-4ar" firstAttribute="centerX" secondItem="s5H-f5-Iah" secondAttribute="centerX" id="Rrz-IM-GaS"/>
+                            <constraint firstItem="Ejc-ss-iFY" firstAttribute="trailing" secondItem="b9P-Eb-ptT" secondAttribute="trailing" constant="16" id="UqF-9m-fuD"/>
+                            <constraint firstItem="YSx-aC-c8m" firstAttribute="leading" secondItem="Ejc-ss-iFY" secondAttribute="leading" id="a60-u1-sGK"/>
+                            <constraint firstItem="Ejc-ss-iFY" firstAttribute="bottom" secondItem="siT-cJ-sNN" secondAttribute="bottom" constant="8" id="dHW-MZ-N3X"/>
+                            <constraint firstItem="h2Y-ib-xtF" firstAttribute="top" secondItem="Ejc-ss-iFY" secondAttribute="top" constant="55" id="ifU-sH-XCS"/>
+                            <constraint firstItem="siT-cJ-sNN" firstAttribute="centerX" secondItem="s5H-f5-Iah" secondAttribute="centerX" id="uao-Zb-qD9"/>
+                            <constraint firstItem="b9P-Eb-ptT" firstAttribute="top" secondItem="dou-Bq-4ar" secondAttribute="bottom" constant="8" id="ypc-6h-bPn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mrzScannerView" destination="YSx-aC-c8m" id="1eb-gh-FOM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yAm-Vr-eac" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="881.67938931297704" y="23.943661971830988"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_card_info" width="24.333333969116211" height="24"/>
+        <image name="ic_scanMRZ_correct" width="223" height="144"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -19,15 +19,13 @@ target 'LivenessRnExample' do
   # use_frameworks!
   config = use_native_modules!
 
-  #  pod 'LivenessCloud' ,:git => 'https://github.com/trungnguyen1791/LivenessCloudPOD.git'
-  # pod 'QTSCardReader' ,:git => 'https://github.com/trungnguyen1791/QTSCardReader.git'
-  # pod 'SVProgressHUD'
-  # pod 'Alamofire', '5.8.1'
   pod 'ObjectMapper', '4.2'
   pod 'QTSLiveness'
   pod 'SignManager', '1.0.6'
-  # pod 'QTSLiveness', '1.0.2'
   pod 'FlashLiveness', :git => 'https://github.com/stevienguyen1988/FlashLivenessPod.git'
+  pod 'QTSCardReader'
+  pod 'QKMRZParser', '~> 2.0.0'
+  pod 'SwiftyTesseract', '~> 3.1.3'
 
   # Pods for LivenessCloudSample
 

@@ -18,7 +18,7 @@ class FlashLivenessManager: LivenessManager {
     
     init(previewView: UIView, readIdCardRequestId: String? = nil) {
         let additionHeader: [String: String] = [:]
-      self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: previewView, mode: .online, threshold: .low, delegate: self, brightnessEnable: false, additionHeader: additionHeader)
+      self.livenessDetector = LivenessUtil.createLivenessDetector(previewView: previewView, mode: .online, threshold: .low, delegate: self, additionHeader: additionHeader)
         self.readIdCardRequestId = readIdCardRequestId
     }
     
