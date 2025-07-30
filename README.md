@@ -50,21 +50,6 @@ add to dependencies
     implementation('commons-codec:commons-codec:1.16.0')
 ```
 
-compileOptions
-
-```compileOptions
-compileOptions {
-      sourceCompatibility JavaVersion.VERSION_1_8
-      targetCompatibility JavaVersion.VERSION_1_8
-    }
-```
-gradle version
-
-```gradle version
-    classpath com.android.tools.build:gradle:7.2.1
-    classpath org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version
-```
-
 #### IOS
 ```
 After pod installation is complete
