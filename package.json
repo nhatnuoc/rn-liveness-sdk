@@ -1,7 +1,7 @@
 {
   "name": "liveness-rn",
-  "version": "2.0.8",
-  "description": "My Liveness Library",
+  "version": "3.0.0",
+  "description": "Liveness SDK for React Native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
