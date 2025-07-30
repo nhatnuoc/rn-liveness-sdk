@@ -15,10 +15,8 @@ import {
 import SimpleModal from './SimpleModal';
 
 import {
-  LivenessView,
-  registerFace
+  LivenessView
 } from 'liveness-rn';
-import { launchCamera } from 'react-native-image-picker';
 
 const privateKey = `-----BEGIN PRIVATE KEY-----
 MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCiOMdedNfAhAdI
@@ -154,25 +152,6 @@ export default function App() {
             })
         }} style={styles.btn_liveness}>
           <Text>Scan NFC</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => {
-          launchCamera({
-            mediaType: 'photo',
-            cameraType: 'front'
-          })
-          .then(response => {
-            if (!response.didCancel && !response.error) {
-              console.log(response.assets[0])
-              return Promise.all([
-                registerFace({ image: response.assets[0].uri }),
-              ])
-            }
-          })
-          .catch(error => {
-
-          })
-        }} style={styles.btn_liveness}>
-          <Text>Register face</Text>
         </TouchableOpacity>
       </View>
       }

@@ -36,9 +36,8 @@ class MainApplication : Application(), ReactApplication {
       protected get() = BuildConfig.IS_HERMES_ENABLED
   }
 
-  override fun getReactNativeHost(): ReactNativeHost {
-    return mReactNativeHost
-  }
+  override val reactNativeHost: ReactNativeHost
+    get() = mReactNativeHost
 
   override fun onCreate() {
     super.onCreate()

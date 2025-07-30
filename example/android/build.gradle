@@ -2,19 +2,19 @@ buildscript {
     ext {
         buildToolsVersion = "33.0.0"
         minSdkVersion = 24
-        compileSdkVersion = 33
-        targetSdkVersion = 33
+        compileSdkVersion = 36
+        targetSdkVersion = 36
         ndkVersion = "26.1.10909125"
-        kotlinVersion = "1.8.0"
+        kotlinVersion = "1.9.10"
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        classpath('com.android.tools.build:gradle:8.11.1')
         classpath("com.facebook.react:react-native-gradle-plugin")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
     }
 }
 
@@ -22,8 +22,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
-        maven { url "https://maven.google.com" }
         maven { url "https://jitpack.io" }
         maven { url "$rootDir/repository"}
     }
@@ -41,4 +39,10 @@ tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
 
-//apply plugin: "com.facebook.react.rootproject"
+afterEvaluate {
+  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+      jvmTarget = "17"
+    }
+  }
+}

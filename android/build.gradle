@@ -1,17 +1,17 @@
 buildscript {
   // Buildscript is evaluated before everything else so we can't use getExtOrDefault
   def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["LivenessRn_kotlinVersion"]
+  def adp_version = rootProject.ext.has("adpVersion") ? rootProject.ext.get("adpVersion") : project.properties["LivenessRn_adpVersion"]
 
   repositories {
     google()
     mavenCentral()
-    jcenter()
     gradlePluginPortal()
     maven { url 'https://jitpack.io' }
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:7.2.1"
+    classpath "com.android.tools.build:gradle:$adp_version"
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
@@ -72,15 +72,12 @@ android {
   lintOptions {
     disable "GradleCompatible"
   }
+}
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+kotlin {
+  jvmToolchain {
+    languageVersion.set(JavaLanguageVersion.of(getExtOrDefault('javaVersion')))
   }
-
-//  kotlinOptions {
-//    jvmTarget = '1.8'
-//  }
 }
 
 repositories {
@@ -108,16 +105,7 @@ dependencies {
 
   implementation('com.google.mlkit:face-detection:16.1.5')
   implementation('com.otaliastudios:cameraview:2.7.2')
-//  implementation('org.bouncycastle:bcpkix-jdk18on:1.65')
   implementation('com.nimbusds:nimbus-jose-jwt:9.31')
   implementation('commons-codec:commons-codec:1.16.0')
   implementation 'com.github.hieudt32:liveness-sdk:4.3.4'
-//  implementation 'com.github.hieudt32:liveness-sdk:4.2.1'
-
-  // implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  // implementation 'com.github.ThuyTruongVan:liveness_sdk_android:1.1.8'
-  // implementation ("io.liveness.flash:sdk-android:v1.1.9@aar") {
-  //   transitive = true
-  // }
 }
-
