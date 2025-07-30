@@ -7,9 +7,9 @@ LivenessSDK - React Native
   * Xcode 14 or newer
   * Swift 5
   * Android minSdkVersion: 24
-  * Android compileSdkVersion: 33
-  * Android targetSdkVersion: 33
-  * React Native version < 0.73
+  * Android compileSdkVersion: 36
+  * Android targetSdkVersion: 36
+  * React Native version >= 0.73
 
 ## Installation
 
