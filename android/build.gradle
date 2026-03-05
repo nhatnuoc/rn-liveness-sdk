@@ -107,5 +107,5 @@ dependencies {
   implementation('com.otaliastudios:cameraview:2.7.2')
   implementation('com.nimbusds:nimbus-jose-jwt:9.31')
   implementation('commons-codec:commons-codec:1.16.0')
-  implementation 'com.github.hieudt32:liveness-sdk:4.3.4'
+  implementation 'com.github.hieudt32:liveness-sdk:4.4.1'
 }
